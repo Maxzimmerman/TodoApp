@@ -51,5 +51,18 @@ namespace Todo.Controllers
             var entries = _context.priorities.ToList();
             return Ok(entries);
         }
+
+        public IActionResult SearchResults(string input)
+        {
+            List<TodoEntry> todoList = new List<TodoEntry>();
+            if(string.IsNullOrEmpty(input))
+                todoList = _context.todos.ToList();
+            else
+                todoList = _context.todos.
+                    Where(x => x.Title.ToLower().Contains(input.ToLower()))
+                    .ToList();
+
+            return PartialView("_SearchResults", todoList);
+        }
     }
 }

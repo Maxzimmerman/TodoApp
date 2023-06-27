@@ -1,0 +1,14 @@
+﻿@model List<TodoEntry>
+
+<div class="">
+    @{
+        foreach(TodoEntry todo in Model)
+        {
+            <a href="#" class="">
+                <div>
+                    <p>@todo.Title</p>
+                </div>
+            </a>
+        }
+    }
+</div>

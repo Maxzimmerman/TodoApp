@@ -18,5 +18,38 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background: linear-gradient(30deg, rgb(0, 0, 0), #1f2833);
+    background-attachment: fixed;
+}
+
+.navbar {
+    background-color: #1da19b;
+    padding: 20px;
+}
+
+.hamburger-menu-drop-down {
+    height: 100vh;
+    width: 80%;
+    background-color: black;
+}
+
+.search-bar-header {
+    border: none;
+    padding: 0px;
+}
+.search-bar-header > input:focus,
+.search-bar-header > input:active {
+    border: none;
+}
+
+.search-bar-header {
+    position: fixed;
+    top: 100px;
+    left: 27%;
+}
+
+.search-bar-header > i {
+    position: relative;
+    right: 20px;
 }
