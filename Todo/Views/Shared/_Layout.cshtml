@@ -4,13 +4,25 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Todo</title>
+
+    <!--Third party fonts-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fasthand&family=Noto+Sans+Mono:wght@900&family=Noto+Serif:wght@400;700&family=Open+Sans:ital,wght@0,300;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <!--Third party icons-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
         crossorigin="anonymous" 
         referrerpolicy="no-referrer" />
+
+    <!--Own css-->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Todo.styles.css" asp-append-version="true" />
+
+    <!-- Third party ajax-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 </head>
 <body>
@@ -23,10 +35,9 @@
         <i class="fa-solid fa-bell"></i>
     </div>
     <div class="hamburger-menu-drop-down">
-        <a>Test1</a>
-        <a>Test2</a>
-        <a>Test3</a>
-        <a>Test4</a>
+        <a asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
+        <a asp-controller="New" asp-action="Index"><i class="fa-solid fa-calendar-days"> @DateTime.Now.Day</i> Heute</a>
+        <a asp-controller="New" asp-action="Index">Demnächst</a>
     </div>
     <div class="search-bar-header">
         <input id="inputQuery" type="text"/>
@@ -34,11 +45,16 @@
 
         <div id="SearchResults"></div>
     </div>
+    <div id="add-modal">
+
+    </div>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="">
             @RenderBody()
         </main>
     </div>
+
+    <!-- Own Js -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

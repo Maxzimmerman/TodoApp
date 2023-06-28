@@ -4,18 +4,12 @@ $(function () {
     $('.fa-bars').on('click', function () {
         $('.hamburger-menu-drop-down').slideToggle(100);
     })
+
+    //searchbar
+    $('.search-bar-header').slideUp(0);
     $('.fa-magnifying-glass').on('click', function () {
         $('.search-bar-header').slideToggle(100);
     });
-
-
-    //searchbar
-
-
-    $('.search-bar-header').slideUp(0);
-    $('.fa-xmark').on('click', function () {
-        $('.search-bar-header').slideUp(100);
-    })
 
     $('#SearchResults').load("/home/SearchResults/")
 
@@ -23,6 +17,14 @@ $(function () {
         var input = $('#inputQuery').val();
         console.log(input);
         $('#SearchResults').load("/home/SearchResults?input=" + input);
+    })
+
+    // Add Modal
+    $('#add-modal').slideUp(0);
+
+    $('#add-modal').load("/home/AddModal");
+    $('.fa-plus').on('click', function () {
+        $('#add-modal').slideToggle(100);
     })
 });
 

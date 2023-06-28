@@ -4,8 +4,9 @@ using System.Diagnostics;
 using Todo.data;
 using Todo.Models;
 
-namespace Todo.Controllers
+namespace Todo.Areas.Customer.Controllers
 {
+    [Area("Customer")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -55,7 +56,8 @@ namespace Todo.Controllers
         public IActionResult SearchResults(string input)
         {
             List<TodoEntry> todoList = new List<TodoEntry>();
-            if(string.IsNullOrEmpty(input))
+
+            if (string.IsNullOrEmpty(input))
                 todoList = _context.todos.ToList();
             else
                 todoList = _context.todos.
@@ -63,6 +65,11 @@ namespace Todo.Controllers
                     .ToList();
 
             return PartialView("_SearchResults", todoList);
+        }
+
+        public IActionResult AddModal()
+        {
+            return PartialView("_AddModal");
         }
     }
 }
