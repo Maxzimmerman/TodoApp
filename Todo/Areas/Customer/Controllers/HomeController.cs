@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using Todo.data;
+using Todo.DataAccess.data;
 using Todo.Models;
 
 namespace Todo.Areas.Customer.Controllers

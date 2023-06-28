@@ -35,9 +35,9 @@
         <i class="fa-solid fa-bell"></i>
     </div>
     <div class="hamburger-menu-drop-down">
-        <a asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
-        <a asp-controller="New" asp-action="Index"><i class="fa-solid fa-calendar-days"> @DateTime.Now.Day</i> Heute</a>
-        <a asp-controller="New" asp-action="Index">Demnächst</a>
+        <a asp-area="Customer" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
+        <a asp-area="Customer" asp-controller="New" asp-action="Index"><i class="fa-solid fa-calendar-days"> @DateTime.Now.Day</i> Heute</a>
+        <a asp-area="Customer" asp-controller="New" asp-action="Index">Demnächst</a>
     </div>
     <div class="search-bar-header">
         <input id="inputQuery" type="text"/>

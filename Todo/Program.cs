@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using Todo.data;
+using Microsoft.SqlServer.Server;
+using Todo.DataAccess.data;
 
 var builder = WebApplication.CreateBuilder(args);
 

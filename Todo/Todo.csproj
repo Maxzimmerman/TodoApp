@@ -23,7 +23,13 @@
     <Folder Include="Areas\Admin\Views\" />
     <Folder Include="Areas\Customer\Data\" />
     <Folder Include="Areas\Customer\Models\" />
+    <Folder Include="Areas\Customer\Views\Future\" />
+    <Folder Include="Areas\Customer\Views\New\" />
     <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess\Todo.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

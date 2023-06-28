@@ -11,18 +11,18 @@ $(function () {
         $('.search-bar-header').slideToggle(100);
     });
 
-    $('#SearchResults').load("/home/SearchResults/")
+    $('#SearchResults').load("/Customer/home/SearchResults/")
 
     $('.search-bar-header').on('keyup', function () {
         var input = $('#inputQuery').val();
         console.log(input);
-        $('#SearchResults').load("/home/SearchResults?input=" + input);
+        $('#SearchResults').load("/Customer/home/SearchResults?input=" + input);
     })
 
     // Add Modal
     $('#add-modal').slideUp(0);
 
-    $('#add-modal').load("/home/AddModal");
+    $('#add-modal').load("/Customer/home/AddModal");
     $('.fa-plus').on('click', function () {
         $('#add-modal').slideToggle(100);
     })
