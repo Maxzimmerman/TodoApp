@@ -19,6 +19,8 @@
 
     <!--Own css-->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/SearchPartial.css" />
+    <link rel="stylesheet" href="~/css/AddPartial.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Todo.styles.css" asp-append-version="true" />
 
@@ -36,8 +38,8 @@
     </div>
     <div class="hamburger-menu-drop-down">
         <a asp-area="Customer" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
-        <a asp-area="Customer" asp-controller="New" asp-action="Index"><i class="fa-solid fa-calendar-days"> @DateTime.Now.Day</i> Heute</a>
-        <a asp-area="Customer" asp-controller="New" asp-action="Index">Demnächst</a>
+        <a asp-area="Customer" asp-controller="Today" asp-action="Index"><i class="fa-solid fa-calendar-days"> @DateTime.Now.Day</i> Heute</a>
+        <a asp-area="Customer" asp-controller="Future" asp-action="Index">Demnächst</a>
     </div>
     <div class="search-bar-header">
         <input id="inputQuery" type="text"/>

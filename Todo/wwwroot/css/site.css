@@ -71,6 +71,22 @@ body {
     border: none;
     padding: 0px;
 }
+
+.search-bar-header > input {
+    border-radius: 5px;
+    width: 200px;
+    height: 30px;
+}
+
+input[type="text" i] {
+    padding: 0px;
+}
+
+.search-bar-header > input:active {
+    padding: 0px;
+    margin: 0px;
+}
+
 .search-bar-header > input:focus,
 .search-bar-header > input:active {
     border: none;
@@ -78,11 +94,11 @@ body {
 
 .search-bar-header {
     position: fixed;
-    top: 100px;
+    top: 60px;
     left: 27%;
 }
 
 .search-bar-header > i {
     position: relative;
-    right: 20px;
+    right: 25px;
 }

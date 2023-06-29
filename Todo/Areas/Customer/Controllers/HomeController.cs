@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using Todo.DataAccess.data;
@@ -69,7 +70,35 @@ namespace Todo.Areas.Customer.Controllers
 
         public IActionResult AddModal()
         {
+            IEnumerable<SelectListItem> categories = 
+                _context.categories.Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString(),
+            });
+            IEnumerable<SelectListItem> priorities = 
+                _context.priorities.Select(p => new SelectListItem
+            {
+                Text = p.Name,
+                Value = p.Id.ToString(),
+            });
+
+            ViewBag.Categories = categories;
+            ViewBag.Priorities = priorities;
+            
             return PartialView("_AddModal");
+        }
+
+        //TODO: make this work
+        [HttpPost]
+        public IActionResult AddModal(TodoEntry todoEntry)
+        {
+            if (todoEntry == null)
+                return BadRequest();
+            else
+                _context.todos.Add(todoEntry);
+                _context.SaveChanges();
+                return Ok();
         }
     }
 }

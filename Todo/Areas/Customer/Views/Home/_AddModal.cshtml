@@ -1,11 +1,28 @@
 ﻿@model TodoEntry
 
+<!--TODO: this should work-->
+<form method="post">
+    <input class="title" asp-for="Title" placeholder="Titel"/>
+    <input class="description" asp-for="Description" placeholder="Beschreibung" />
+    <input class="first-date" asp-for="StartDate" placeholder="Vom" />
+    <input class="last-date" asp-for="EndDate" placeholder="Bis" />
 
-<div>
-    <h1>Add Todo</h1>
-    <input asp-for="Title" placeholder="Titel"/>
-    <input asp-for="Description" placeholder="Beschreibung" />
-    <input asp-for="StartDate" placeholder="Vom" />
-    <input asp-for="EndDate" placeholder="Bis" />
-    <input asp-for="Title" placeholder="Title" />
-</div>
+    <div class="checkboxes">
+        <input asp-for="IChecked" type="checkbox" placeholder="Erledigt" />
+        <input asp-for="IDeleted" type="checkbox" placeholder="Gelöscht" />
+    </div>
+    
+    <div class="select-section">
+        <select select asp-for="CategoryId" asp-items="ViewBag.Categories">
+        </select>
+
+        <select asp-for="CategoryId" asp-items="ViewBag.Priorities">
+        </select>
+    </div>
+     
+    <div class="button-section">
+        <button>Abbrechen</button>
+        <button class="add" type="submit">Aufgabe hinzufügen</button>
+    </div>
+    
+</form>

@@ -11,11 +11,16 @@ $(function () {
         $('.search-bar-header').slideToggle(100);
     });
 
+
+    // TODO: make this work
+    $('.fa-xmark').on('click', function () {
+        $('#inputQuery').empty();
+    })
+
     $('#SearchResults').load("/Customer/home/SearchResults/")
 
     $('.search-bar-header').on('keyup', function () {
         var input = $('#inputQuery').val();
-        console.log(input);
         $('#SearchResults').load("/Customer/home/SearchResults?input=" + input);
     })
 

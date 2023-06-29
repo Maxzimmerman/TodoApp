@@ -1,0 +1,14 @@
+﻿.Results {
+    background-color: white;
+    border-radius: 5px; 
+    width: 200px;
+    position: fixed;
+    margin-top: 5px;
+}
+
+.Results > a {
+    display: flex;
+    margin: 10px;
+    text-decoration: none;
+    color: black;
+}
