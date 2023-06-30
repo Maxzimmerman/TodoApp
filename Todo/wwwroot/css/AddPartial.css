@@ -40,3 +40,8 @@ form input:active {
     border-radius: 5px;
     padding: 5px;
 }
+
+.add {
+    background-color: #1da19b;
+    color: white;
+}

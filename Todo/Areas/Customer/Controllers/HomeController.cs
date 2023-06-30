@@ -68,6 +68,15 @@ namespace Todo.Areas.Customer.Controllers
             return PartialView("_SearchResults", todoList);
         }
 
+        // Checked Partial
+
+        public IActionResult Checked()
+        {
+            var entries = _context.todos.Where(e => e.IChecked == true).ToList();
+
+            return PartialView("_Checked", entries);
+        }
+
         public IActionResult AddModal()
         {
             IEnumerable<SelectListItem> categories = 
@@ -91,14 +100,11 @@ namespace Todo.Areas.Customer.Controllers
 
         //TODO: make this work
         [HttpPost]
-        public IActionResult AddModal(TodoEntry todoEntry)
+        public IActionResult _AddModal(TodoEntry todoEntry)
         {
-            if (todoEntry == null)
-                return BadRequest();
-            else
-                _context.todos.Add(todoEntry);
-                _context.SaveChanges();
-                return Ok();
+            _context.todos.Add(todoEntry);
+            _context.SaveChanges();
+            return Ok();
         }
     }
 }

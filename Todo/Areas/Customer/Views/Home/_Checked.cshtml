@@ -1,0 +1,17 @@
+﻿@model List<TodoEntry>
+
+<div class="checked">
+    <div>Deine Produktivität</div>
+    <div>@Model.Count() erldigte Aufgaben</div>
+    <div>Erledigten Aufgaben:</div>
+    @{
+        foreach (TodoEntry todo in Model)
+        {
+            <a href="#" class="">
+                <div>
+                    <p>@todo.Title</p>
+                </div>
+            </a>
+        }
+    }
+</div>

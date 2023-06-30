@@ -1,0 +1,13 @@
+﻿.checked {
+    background-color: white;
+    position: fixed;
+    border-radius: 5px;
+    padding: 20px;
+    right: 16%;
+    top: 7%;
+}
+
+.checked > div, .checked > a {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
