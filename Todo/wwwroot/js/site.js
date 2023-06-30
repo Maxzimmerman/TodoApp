@@ -11,10 +11,8 @@ $(function () {
         $('.search-bar-header').slideToggle(100);
     });
 
-
-    // TODO: make this work
     $('.fa-xmark').on('click', function () {
-        $('#inputQuery').empty();
+        $('#inputQuery').val('');
     })
 
     $('#SearchResults').load("/Customer/home/SearchResults/")
