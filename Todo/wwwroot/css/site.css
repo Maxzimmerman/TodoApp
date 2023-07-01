@@ -28,8 +28,12 @@ html {
 }
 
 body {
-    background: linear-gradient(30deg, rgb(0, 0, 0), #1f2833);
+    background: linear-gradient(30deg, rgb(230, 230, 230), white);
     background-attachment: fixed;
+}
+
+.home-button {
+    margin-right: 0px;;
 }
 
 /*Navbar*/
@@ -65,6 +69,44 @@ body {
     background-color: black;
 }
 
+@media screen and (width: 540px) {
+    .hamburger-menu-drop-down {
+        width: 30rem;
+        height: 666px
+    }
+}
+
+@media screen and (width: 768px) {
+    .hamburger-menu-drop-down {
+        width: 20rem;
+        height: 968px;
+    }
+}
+
+@media screen and (width: 820px) {
+    .hamburger-menu-drop-down {
+        height: 1124px;
+    }
+}
+
+@media screen and (width: 912px) {
+    .hamburger-menu-drop-down {
+        height: 1312px;
+    }
+}
+
+@media screen and (width: 1024px) {
+    .hamburger-menu-drop-down {
+        height: 544px;
+    }
+}
+
+@media screen and (width: 1280px) {
+    .hamburger-menu-drop-down {
+        height: 744px;
+    }
+}
+
 /*Search bar*/
 
 .search-bar-header {
@@ -94,11 +136,89 @@ input[type="text" i] {
 
 .search-bar-header {
     position: fixed;
-    top: 60px;
-    left: 27%;
+    top: 14px;
+    left: 31%;
 }
 
 .search-bar-header > i {
     position: relative;
     right: 25px;
+}
+
+@media screen and (width: 375px) {
+    .search-bar-header {
+        left: 33%;
+    }
+}
+
+@media screen and (width: 390px) {
+    .search-bar-header {
+        left: 34%;
+    }
+}
+
+@media screen and (width: 393px) {
+    .search-bar-header {
+        left: 34%;
+    }
+}
+
+@media screen and (width: 412px) {
+    .search-bar-header {
+        left: 36%;
+    }
+}
+
+@media screen and (width: 540px) {
+    .search-bar-header {
+        left: 25%;
+    }
+
+    .search-bar-header > input {
+        width: 200px;
+    }
+
+    .home-button {
+        margin-right: 180px;
+    }
+
+    .search-bar-button {
+        display: none;
+    }
+}
+
+@media screen and (width: 768px) {
+    .search-bar-header {
+        left: 25%;
+    }
+
+    .search-bar-header > input {
+        width: 300px;
+    }
+
+    .home-button {
+        margin-right: 330px;
+    }
+
+    .search-bar-button {
+        display: none;
+    }
+}
+
+@media screen and (width: 820px) {
+    .search-bar-header {
+        left: 25%;
+    }
+
+    .search-bar-header > input {
+         width: 300px;
+    }
+
+    .home-button {
+        margin-right: 330px;
+    }
+
+    .search-bar-button {
+        display: none;
+    }
 }

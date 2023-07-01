@@ -5,9 +5,93 @@
     padding: 20px;
     right: 16%;
     top: 7%;
+    box-shadow: 0 0px 400px black;
+    width: auto;
 }
 
 .checked > div, .checked > a {
     margin-top: 10px;
     margin-bottom: 10px;
+}
+
+@media screen and (width: 375px) {
+    .checked {
+        right: 5px;
+    }
+}
+
+@media screen and (width: 390px) {
+    .checked {
+        right: 5px;
+    }
+}
+
+@media screen and (width: 412px) {
+    .checked {
+        right: 5px;
+    }
+}
+
+@media screen and (width: 540px) {
+    .checked {
+        right: 10px;
+    }
+}
+
+@media screen and (width: 768px) {
+    .checked {
+        right: 20px;
+    }
+}
+
+@media screen and (width: 820px) {
+    .checked {
+        right: 75px;
+    }
+}
+
+@media screen and (width: 912px) {
+    .checked {
+        right: 100px;
+    }
+}
+
+@media screen and (width: 1024px) {
+    .checked {
+        right: 120px;
+    }
+}
+
+@media screen and (width: 1280px) {
+    .checked {
+        right: 170px;
+    }
+}
+
+@media screen and (width: 1400px) {
+    .checked {
+        right: 150px;
+        width: 300px;
+    }
+}
+
+@media screen and (width: 1400px) {
+    .checked {
+        right: 150px;
+        width: 300px;
+    }
+}
+
+@media screen and (width: 1600px) {
+    .checked {
+        right: 176px;
+        width: 300px;
+    }
+}
+
+@media screen and (min-width: 1660px) {
+    .checked {
+        right: 230px;
+        width: 320px;
+    }
 }

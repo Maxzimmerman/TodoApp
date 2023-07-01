@@ -1,9 +1,10 @@
 ﻿.Results {
     background-color: white;
-    border-radius: 5px; 
+    border-radius: 5px;
     width: 200px;
     position: fixed;
     margin-top: 5px;
+    box-shadow: 0 0px 400px black;
 }
 
 .Results > a {
