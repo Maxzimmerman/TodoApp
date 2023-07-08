@@ -98,9 +98,8 @@ namespace Todo.Areas.Customer.Controllers
             return PartialView("_AddModal");
         }
 
-        //TODO: make this work
         [HttpPost]
-        public IActionResult _AddModal(TodoEntry todoEntry)
+        public IActionResult AddModal(TodoEntry todoEntry)
         {
             _context.todos.Add(todoEntry);
             _context.SaveChanges();
