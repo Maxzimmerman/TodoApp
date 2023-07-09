@@ -21,7 +21,8 @@ namespace Todo.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var entries = _context.todos.ToList();
+            return View("Today", entries);
         }
 
         public IActionResult Privacy()
@@ -103,7 +104,7 @@ namespace Todo.Areas.Customer.Controllers
         {
             _context.todos.Add(todoEntry);
             _context.SaveChanges();
-            return Ok();
+            return RedirectToAction("Index");
         }
     }
 }

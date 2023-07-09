@@ -50,7 +50,14 @@ $(function () {
         
         $('#checked-bar').slideUp(0);
         $('.hamburger-menu-drop-down').slideUp(0);
+
+        $('#cancel').on('click', function () {
+            console.log('ehll')
+            $('#add-modal').slideUp(0);
+        });
     })
+
+    
 
     // Checked bar
     $('#checked-bar').slideUp(0);
@@ -63,6 +70,12 @@ $(function () {
         $('#add-modal').slideUp(0);
         $('.hamburger-menu-drop-down').slideUp(0);
     })
+
+    // Todo make this work
+    //$(window).on('click', function () {
+    //    console.log('hello')
+    //    $('#checked-bar').slideUp(0);
+    //});
 });
 
 // home button

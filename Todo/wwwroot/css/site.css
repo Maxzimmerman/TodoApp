@@ -118,6 +118,7 @@ body {
     border-radius: 5px;
     width: 200px;
     height: 30px;
+    padding: 5px!important;
 }
 
 input[type="text" i] {
@@ -221,4 +222,42 @@ input[type="text" i] {
     .search-bar-button {
         display: none;
     }
+}
+
+@media screen and (width: 1024px) {
+    .search-bar-header > input {
+        width: 300px;
+    }
+}
+
+@media screen and (width: 1280px) {
+    .search-bar-header > input {
+        width: 300px;
+    }
+}
+
+@media screen and (min-width: 1480px) {
+    .search-bar-header > input {
+        width: 400px;
+    }
+}
+
+input {
+    border: none!important;
+}
+
+input:active,
+input:hover
+input:focus {
+    border: none !important;
+    outline: none!important;
+}
+
+textarea:focus {
+    outline: 0!important;
+    border: none!important;
+}
+
+*:focus {
+    outline: 0 !important;
 }
