@@ -5,7 +5,7 @@ using Todo.Models;
 namespace Todo.Areas.Admin.Api
 {
     [ApiController]
-    [Route("api/categorycontroller")]
+    [Route("apicategorycontroller")]
     public class CategoryController : ControllerBase
     {
         private readonly ILogger<CategoryController> _logger;
