@@ -1,4 +1,55 @@
-﻿.body {
-    margin-top: 6rem;
-    border: 1px solid black;
+﻿hr {
+    z-index: -1;
+}
+
+.body {
+    margin-top: 2rem;
+    padding: 3rem;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    margin-right: 1rem;
+}
+
+.body h1 {
+    display: inline;
+}
+
+body p {
+    display: inline;
+}
+
+.today-secition {
+    margin-bottom: 2rem;
+}
+
+.today-header {
+    font-size: 1.9rem;
+    margin-bottom: 2rem;
+}
+
+.item-title {
+    font-size: 1rem!important;
+}
+
+.overtime-seciton {
+    margin-bottom: 2rem;
+}
+
+.overtime-header {
+    font-size: 1.4rem;
+}
+
+.overtime-item-header {
+    font-size: 1rem;
+}
+
+.overtime-item-header i {
+    margin-right: 1rem;
+}
+
+.add-modal-button {
+    margin-right: 1rem;
 }

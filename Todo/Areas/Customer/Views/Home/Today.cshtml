@@ -2,26 +2,28 @@
 
 <div class="body">
     <div class="today-secition">
-        <h1>Heute </h1><p>@DateTime.Now</p>
-        <!--Todo make this work-->
+        <h1 class="today-header">Heute </h1><p>@DateTime.Now</p>
+       
         @{
-            foreach(var item in Model.Where(todo => todo.StartDate == DateTime.Now))
+            foreach(var item in Model.Where(todo => todo.EndDate < DateTime.Today))
             {
                 <div>
-                    <h5>@item.Title</h5>
+                    <hr>
+                    <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
                 </div>
             }
         }
     </div>
     <!--Soll einen auf und zu klappen button haben der sich dreht-->
     <div class="overtime-seciton">
-        <h3>Überfällig</h3>
+        <h3 class="overtime-header">Überfällig</h3>
 
         @{
-            foreach(var item in Model.Where(todo => todo.EndDate < DateTime.Today))
+            foreach(var item in Model.Where(todo => todo.EndDate < DateTime.Today && todo.IChecked == false))
             {
                 <div>
-                    <h5>@item.Title</h5>
+                    <hr>
+                    <h5 class="overtime-item-header"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
                 </div>
             }
         }

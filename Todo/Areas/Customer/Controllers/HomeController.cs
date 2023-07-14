@@ -22,6 +22,7 @@ namespace Todo.Areas.Customer.Controllers
         public IActionResult Index()
         {
             var entries = _context.todos.ToList();
+            _logger.LogInformation("All");
             return View("Today", entries);
         }
 
@@ -104,6 +105,33 @@ namespace Todo.Areas.Customer.Controllers
         {
             _context.todos.Add(todoEntry);
             _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public IActionResult CheckTodo(int id)
+        {
+            if(id == 0)
+            {
+                _logger.LogInformation("id can't be 0");
+                return NotFound("Entschuldige bitte es ist etwas schief gelaufen");
+            }
+
+            var entry = _context.todos.FirstOrDefault(t => t.Id == id);
+
+            if(entry == null)
+            {
+                _logger.LogInformation($"{entry.Title} not is correct shape");
+                return NotFound("Entschuldige bitte es ist etwas schief gelaufen");
+            }
+
+            entry.IChecked = true;
+            _context.SaveChanges();
+
+            _logger.LogInformation($"{entry.Title} is checked");
+
             return RedirectToAction("Index");
         }
     }
