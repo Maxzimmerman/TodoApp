@@ -41,6 +41,8 @@ body p {
 
 .overtime-header {
     font-size: 1.4rem;
+    display: inline;
+    margin-right: 5px;
 }
 
 .overtime-item-header {
@@ -53,6 +55,10 @@ body p {
 
 .add-modal-button {
     margin-right: 1rem;
+}
+
+.check-button:hover {
+    color: #1da19b;
 }
 
 .added-alert {
@@ -79,4 +85,12 @@ body p {
     position: fixed;
     bottom: 10px;
     right: 1rem;
+}
+
+.ovetime-toggle {
+    display: inline;
+}
+
+.today-toggle {
+    margin-left: 10px;
 }

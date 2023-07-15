@@ -6,12 +6,18 @@
     margin-top: 5px;
     box-shadow: 0 0px 400px black;
     z-index: 900;
+    padding: 10px;
 }
 
 .Results > a {
     display: flex;
-    margin: 10px;
     text-decoration: none;
     color: black;
     z-index: 900;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.Results > a:hover {
+    background-color: #eaeaea;
 }

@@ -76,6 +76,41 @@ $(function () {
     //    console.log('hello')
     //    $('#checked-bar').slideUp(0);
     //});
+
+    // checked alert
+
+    //Todo make this work
+    $(".checked-alert").hide(0);
+
+    if ($(".checked-alert").val() !== " ") {
+        $(".checked-alert").show(0);
+    }
+
+
+    $(".added-alert").hide(0);
+
+    if ($(".checked-alert").val() === " ") {
+        $(".checked-alert").show(0);
+    }
+
+
+    // today toggle
+
+    // Todo make this two work
+    $(".today-toggle").on('click', function () {
+        $(".today-toggle").animate({
+            transform: 'rotate(90deg)',
+        });
+        $(".today-entries").slideToggle(300);
+    })
+
+
+    // overtime toggle
+
+    $(".ovetime-toggle").on('click', function () {
+        $(".today-toggle").addClass("down");
+        $(".overtime-entries").slideToggle(300);
+    })
 });
 
 // home button

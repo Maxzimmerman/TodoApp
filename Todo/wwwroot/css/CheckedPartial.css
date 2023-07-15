@@ -10,6 +10,23 @@
     z-index: 9;
 }
 
+.checked > div {
+    font-weight: bold;
+}
+
+.checked > a:hover {
+    color: black;
+}
+
+.checked-todo > div {
+    padding: 3px;
+}
+
+.checked-todo > div:hover {
+    background-color: #eaeaea;
+    border-radius: 3px;
+}
+
 .checked > div, .checked > a {
     margin-top: 10px;
     margin-bottom: 10px;
