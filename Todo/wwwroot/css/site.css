@@ -33,7 +33,7 @@ body {
 }
 
 .home-button {
-    margin-right: 0px;;
+    margin-right: 0px;
 }
 
 /*Navbar*/
@@ -41,16 +41,22 @@ body {
 .navbar {
     background-color: #1da19b;
     padding: 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
 }
 
 /*Hamburgermenu*/
 
 .hamburger-menu-drop-down {
-    height: 94vh;
+    height: 100rem;
     width: 20rem;
     background: linear-gradient(0deg, rgb(0, 0, 0), #1f2833);
     background-attachment: fixed;
     padding: 20px;
+    position: fixed;
+    top: 53px;
 }
 
 .hamburger-menu-drop-down > a {
@@ -112,6 +118,7 @@ body {
 .search-bar-header {
     border: none;
     padding: 0px;
+    z-index: 2;
 }
 
 .search-bar-header > input {

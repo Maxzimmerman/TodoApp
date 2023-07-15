@@ -5,6 +5,7 @@
     position: fixed;
     margin-top: 5px;
     box-shadow: 0 0px 400px black;
+    z-index: 900;
 }
 
 .Results > a {
@@ -12,4 +13,5 @@
     margin: 10px;
     text-decoration: none;
     color: black;
+    z-index: 900;
 }

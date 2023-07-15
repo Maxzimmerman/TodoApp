@@ -151,6 +151,7 @@ namespace Todo.Areas.Customer.Controllers
             {
                 _logger.LogInformation($"{todoEntry.Title} added");
                 _context.todos.Add(todoEntry);
+                TempData["addedtodo"] = $"{todoEntry.Title} Hinzugefügt";
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -177,7 +178,7 @@ namespace Todo.Areas.Customer.Controllers
 
             entry.IChecked = true;
             _context.SaveChanges();
-
+            TempData["checkedtodo"] = $"{entry.Title} Angepasst";
             _logger.LogInformation($"{entry.Title} is checked");
 
             return RedirectToAction("Index");

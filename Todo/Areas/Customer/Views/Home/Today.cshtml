@@ -2,7 +2,7 @@
 
 <div class="body">
     <div class="today-secition">
-        <h1 class="today-header">Heute </h1><p>@DateTime.Now</p>
+        <h1 class="today-header">Heute </h1><p>@DateTime.Now.ToShortDateString()</p>
        
         @{
             foreach(var item in Model.Where(todo => todo.EndDate < DateTime.Today))
@@ -31,4 +31,7 @@
     <div class="add-new-section">
         <i class="fa-solid fa-plus add-modal-button"></i><p>Aufgabe hinzufügen</p>
     </div>
+
+    <div class="added-alert">@TempData["addedtodo"]</div>
+    <div class="checked-alert">@TempData["checkedtodo"]</div>
 </div>

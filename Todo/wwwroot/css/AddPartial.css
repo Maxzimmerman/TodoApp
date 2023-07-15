@@ -9,6 +9,7 @@
     left: 8%;
     border-radius: 10px;
     box-shadow: 0 0px 400px black;
+    z-index: 9;
 }
 
 form > input {
