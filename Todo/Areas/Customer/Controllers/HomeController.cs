@@ -26,11 +26,6 @@ namespace Todo.Areas.Customer.Controllers
             return View("Today", entries);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -38,22 +33,58 @@ namespace Todo.Areas.Customer.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TodoEntry>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         public IActionResult Todo()
         {
             var entries = _context.todos.Include(entry => entry.Category).Include(entry => entry.Priority).ToList();
-            return Ok(entries);
+
+            if(entries.Count == 0)
+            {
+                _logger.LogInformation($"{entries.Count} not entries found");
+                return NotFound($"{entries.Count} Einträge gefunden");
+            }
+            else
+            {
+                _logger.LogInformation($"{entries.Count} entries");
+                return Ok(entries);
+            }
         }
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Category>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         public IActionResult Category()
         {
             var entries = _context.categories.ToList();
-            return Ok(entries);
+
+            if(entries.Count == 0)
+            {
+                _logger.LogInformation($"{entries.Count} not entries found");
+                return NotFound($"{entries.Count} Einträge gefunden");
+            }
+            else
+            {
+                _logger.LogInformation($"{entries.Count} entries");
+                return Ok(entries);
+            }
         }
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Priority>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         public IActionResult Prio()
         {
             var entries = _context.priorities.ToList();
-            return Ok(entries);
+
+            if(entries.Count == 0)
+            {
+                _logger.LogInformation($"{entries.Count} not entries found");
+                return NotFound($"{entries.Count} Einträge gefunden");
+            }
+            else
+            {
+                _logger.LogInformation($"{entries.Count} entries");
+                return Ok(entries);
+            }
         }
 
         public IActionResult SearchResults(string input)
@@ -61,12 +92,18 @@ namespace Todo.Areas.Customer.Controllers
             List<TodoEntry> todoList = new List<TodoEntry>();
 
             if (string.IsNullOrEmpty(input))
+            {
+                _logger.LogInformation($"not entreis found");
                 todoList = _context.todos.ToList();
+            } 
             else
+            {
+                _logger.LogInformation($"{todoList.Count}");
+
                 todoList = _context.todos.
                     Where(x => x.Title.ToLower().Contains(input.ToLower()))
                     .ToList();
-
+            }
             return PartialView("_SearchResults", todoList);
         }
 
@@ -101,11 +138,22 @@ namespace Todo.Areas.Customer.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         public IActionResult AddModal(TodoEntry todoEntry)
         {
-            _context.todos.Add(todoEntry);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
+            if(todoEntry == null)
+            {
+                _logger.LogInformation($"{todoEntry.Title} not in correct shape");
+                return BadRequest($"{todoEntry.Title} Ist nicht valide");
+            }
+            else
+            {
+                _logger.LogInformation($"{todoEntry.Title} added");
+                _context.todos.Add(todoEntry);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
         }
 
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
