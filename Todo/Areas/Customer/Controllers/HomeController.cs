@@ -183,5 +183,73 @@ namespace Todo.Areas.Customer.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        public IActionResult Detail(int id)
+        {
+            if(id == 0)
+            {
+                _logger.LogInformation($"{id} is 0");
+                return BadRequest($"{id} ist 0");
+            }
+
+            var entry = _context.todos.FirstOrDefault(e => e.Id == id);
+
+            if(entry == null)
+            {
+                _logger.LogInformation($"{entry.Title} not Found");
+                return NotFound($"{entry.Title} not Found");
+            }
+
+            IEnumerable<SelectListItem> priorities = _context.priorities
+                .Select(e => new SelectListItem
+                {
+                    Text = e.Name,
+                    Value = e.Id.ToString(),
+                });
+
+            IEnumerable<SelectListItem> categories = _context.categories
+                .Select(e => new SelectListItem
+                {
+                    Text = e.Name,
+                    Value = e.Id.ToString(),
+                });
+
+            if(priorities == null || categories == null)
+            {
+                _logger.LogInformation($"{priorities} - {categories} not found");
+                return NotFound($"{priorities} - {categories} not found");
+            } 
+            else
+            {
+                ViewBag.Categories = categories;
+                ViewBag.Priorities = priorities;
+                _logger.LogInformation($"return detail {entry.Title}");
+
+                return PartialView("_DetailPartial", entry);
+            }
+        }
+
+        // Todo however the addTodo id is always 0
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        public IActionResult AddDetail(TodoEntry addTodo)
+        {
+            if(addTodo == null)
+            {
+                _logger.LogInformation($"{addTodo.Title} not in correct in shape");
+                return BadRequest($"{addTodo.Title} in invalidem Zustand");
+            }
+            var entry = _context.todos.FirstOrDefault(e => e.Id == addTodo.Id);
+            
+             
+            _context.Update(entry);
+            _context.SaveChanges();
+
+            _logger.LogInformation($"{addTodo.Title} adjusted");
+            return RedirectToAction("index");
+        }
     }
 }

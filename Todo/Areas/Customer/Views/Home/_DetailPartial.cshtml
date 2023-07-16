@@ -1,0 +1,26 @@
+﻿@model TodoEntry
+
+<form method="post" action="https://localhost:7208/Customer/Home/AddDetail" class="detail-form">
+    <i class="fa-solid fa-xmark detail-close-button"></i>
+    <input class="detial-title" asp-for="Title" placeholder="Titel" />
+    <input class="detail-description" asp-for="Description" placeholder="Beschreibung" />
+    <input class="detail-startdate" asp-for="StartDate" placeholder="Vom" />
+    <input class="detail-enddate" asp-for="EndDate" placeholder="Bis" />
+
+    <div class="detail-checkboxes">
+        <input asp-for="IChecked" type="checkbox" placeholder="Erledigt" />
+        <input asp-for="IDeleted" type="checkbox" placeholder="Gelöscht" />
+    </div>
+
+    <div class="detail-category-prio">
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories">
+        </select>
+
+        <select asp-for="PriorityId" asp-items="ViewBag.Priorities">
+        </select>
+    </div>
+
+    <div class="">
+        <button class="store-entry" type="submit">Speichern</button>
+    </div>
+</form>

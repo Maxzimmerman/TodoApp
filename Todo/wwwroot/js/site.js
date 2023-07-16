@@ -111,6 +111,30 @@ $(function () {
         $(".ovetime-toggle").toggleClass("down-overtime");
         $(".overtime-entries").slideToggle(300);
     })
+
+
+    // entry detail pages
+
+    // Todo should make close button work
+    $('.today-entry').on('click', function () {
+        var id = $('.today-item-id').html();
+        $('#detail-page').load("/Customer/home/Detail?id=" + id);
+
+        $('.detail-close-button').on('click', function () {
+            console.log("$")
+            $('#detail-page').slideDown(300);
+        });
+    })
+
+    $('.overtime-entry').on('click', function () {
+        var id = $('.overtime-item-id').html();
+        $('#detail-page').load("/Customer/home/Detail?id=" + id);
+
+        $('.detail-close-button').on('click', function () {
+            console.log("$")
+            $('#detail-page').slideDown(300);
+        });
+    })
 });
 
 // home button

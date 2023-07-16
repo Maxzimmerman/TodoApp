@@ -1,0 +1,49 @@
+﻿.detail-form {
+    position: fixed;
+    top: 50%;
+    bottom: 0px;
+    width: 100%;
+    left: 0px;
+    border: none;
+    height: 50%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding: 20px;
+}
+
+.detail-close-button {
+    position: absolute;
+    right: 3.5%;
+    font-size: 1.4rem;
+}
+
+.detial-title {
+    margin-top: 4rem;
+    font-size: 1.5rem;
+}
+
+.detail-checkboxes {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.detail-category-prio > select {
+    border: none !important;
+}
+
+.detail-category-prio {
+    margin-bottom: 1rem;
+}
+
+.store-entry {
+    border: none;
+    color: white;
+    border-radius: 3px;
+    width: 100%;
+    margin-top: 1rem;
+    background-color: #1da19b;
+    padding: 5px;
+}
+

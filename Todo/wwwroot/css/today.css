@@ -108,3 +108,19 @@ body p {
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
 }
+
+.today-entry > p {
+    color: #287233;
+}
+
+.overtime-entry > p {
+    color: #cb2821;
+}
+
+.overtime-item-id {
+    display: none;
+}
+
+.today-item-id {
+    display: none;
+}
