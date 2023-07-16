@@ -145,3 +145,7 @@ form input:active {
         width: 850px;
     }
 }
+
+.checkboxes {
+    display: none;
+}

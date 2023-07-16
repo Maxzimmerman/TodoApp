@@ -3,11 +3,11 @@
 <div class="body">
     <div class="today-secition">
         <h1 class="today-header">Heute </h1><p>@DateTime.Now.ToShortDateString()</p>
-        <i class="fa-solid fa-angle-right today-toggle"></i>
+        <i class="fa-solid fa-angle-right today-toggle rotate-toggle"></i>
        
         <div class="today-entries">
             @{
-                foreach (var item in Model.Where(todo => todo.EndDate < DateTime.Today))
+                foreach (var item in Model.Where(todo => todo.EndDate > DateTime.Today && todo.IChecked == false))
                 {
                     <div class="today-entry">
                         <hr>
@@ -21,7 +21,7 @@
     <!--Soll einen auf und zu klappen button haben der sich dreht-->
     <div class="overtime-seciton">
         <h3 class="overtime-header">Überfällig</h3>
-        <i class="fa-solid fa-angle-right ovetime-toggle"></i>
+        <i id="overtime-toggle" class="fa-solid fa-angle-right ovetime-toggle"></i>
 
         <div class="overtime-entries">
             @{

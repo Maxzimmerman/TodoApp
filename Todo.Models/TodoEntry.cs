@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Todo.Models
@@ -9,11 +10,15 @@ namespace Todo.Models
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(20)]
         public string Title { get; set; }
+        [MaxLength(100)]
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        [DefaultValue(false)]
         public bool IChecked { get; set; }
+        [DefaultValue(false)]
         public bool IDeleted { get; set; }
 
         [ForeignKey("Category")]

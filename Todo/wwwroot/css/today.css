@@ -87,10 +87,24 @@ body p {
     right: 1rem;
 }
 
-.ovetime-toggle {
-    display: inline;
+#overtime-toggle {
+    transition: all 0.2s linear;
+}
+
+#overtime-toggle.down-overtime {
+    transform: rotate(90deg);
 }
 
 .today-toggle {
     margin-left: 10px;
+    -moz-transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+.today-toggle.down {
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
 }

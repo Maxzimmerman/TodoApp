@@ -82,25 +82,25 @@ $(function () {
     //Todo make this work
     $(".checked-alert").hide(0);
 
-    if ($(".checked-alert").val() !== " ") {
+    if ($('.checked-alert').is(':empty')) {
+        $(".checked-alert").hide(0);
+    } else {
         $(".checked-alert").show(0);
     }
 
-
     $(".added-alert").hide(0);
 
-    if ($(".checked-alert").val() === " ") {
-        $(".checked-alert").show(0);
+    if ($('.added-alert').is(':empty')) {
+        $(".added-alert").hide(0);
+    } else {
+        $(".added-alert").show(0);
     }
 
 
     // today toggle
 
-    // Todo make this two work
     $(".today-toggle").on('click', function () {
-        $(".today-toggle").animate({
-            transform: 'rotate(90deg)',
-        });
+        $(".today-toggle").toggleClass("down");
         $(".today-entries").slideToggle(300);
     })
 
@@ -108,7 +108,7 @@ $(function () {
     // overtime toggle
 
     $(".ovetime-toggle").on('click', function () {
-        $(".today-toggle").addClass("down");
+        $(".ovetime-toggle").toggleClass("down-overtime");
         $(".overtime-entries").slideToggle(300);
     })
 });
