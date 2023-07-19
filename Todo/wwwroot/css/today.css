@@ -117,6 +117,10 @@ body p {
     color: #cb2821;
 }
 
+.overtime-entry.dragging {
+    opacity: .5;
+}
+
 .overtime-item-id {
     display: none;
 }

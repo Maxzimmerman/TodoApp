@@ -237,15 +237,13 @@ namespace Todo.Areas.Customer.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         public IActionResult AddDetail(TodoEntry addTodo)
         {
-            if(addTodo == null)
+            if(addTodo == null || addTodo.Id == 0)
             {
                 _logger.LogInformation($"{addTodo.Title} not in correct in shape");
                 return BadRequest($"{addTodo.Title} in invalidem Zustand");
             }
-            var entry = _context.todos.FirstOrDefault(e => e.Id == addTodo.Id);
             
-             
-            _context.Update(entry);
+            _context.Update(addTodo);
             _context.SaveChanges();
 
             _logger.LogInformation($"{addTodo.Title} adjusted");

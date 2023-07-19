@@ -114,32 +114,91 @@ $(function () {
 
 
     // entry detail pages
+    $("#detail-page").hide(0);
 
-    // Todo should make close button work
+    var id = $('.today-item-id').html();
+    $('#detail-page').load("/Customer/home/Detail?id=" + id);
     $('.today-entry').on('click', function () {
-        var id = $('.today-item-id').html();
-        $('#detail-page').load("/Customer/home/Detail?id=" + id);
-
-        $('.detail-close-button').on('click', function () {
+        
+        $("#detail-page").show(0);
+        
+        $('#detail-close-button').on('click', function () {
             console.log("$")
-            $('#detail-page').slideDown(300);
+            $('#detail-page').hide(0);
         });
     })
 
+    var id = $('.overtime-item-id').html();
+    $('#detail-page').load("/Customer/home/Detail?id=" + id);
+
     $('.overtime-entry').on('click', function () {
-        var id = $('.overtime-item-id').html();
-        $('#detail-page').load("/Customer/home/Detail?id=" + id);
+        $("#detail-page").show(0);
 
         $('.detail-close-button').on('click', function () {
             console.log("$")
-            $('#detail-page').slideDown(300);
+            $('#detail-page').hide(0);
         });
     })
 });
 
 // home button
 const homeButton = document.querySelector('.fa-house');
+const OvertimeEntriesDragAndDropContainer = document.querySelector('.overtime-entries');
+const OvertimeEntriesDragAndDropItems = document.querySelectorAll('.overtime-entry');
 
 homeButton.addEventListener('click', () => {
     window.location.href = 'https://localhost:7208/';
 })
+
+// Todo should work
+// drag and dpop function
+
+
+OvertimeEntriesDragAndDropItems.forEach(item => {
+    item.setAttribute('draggable', 'true')
+
+    item.addEventListener('dragstart', () => {
+        item.classList.add('dragging');
+    })
+
+    item.addEventListener('dragend', () => {
+        item.classList.remove('dragging');
+    })
+})
+
+OvertimeEntriesDragAndDropContainer.addEventListener('dragover', e => {
+    e.preventDefault()
+
+    const currentDragging = document.querySelector('.dragging')
+    const afterElement = getAfterElement(OvertimeEntriesDragAndDropContainer, e.clientY, currentDragging)
+    
+
+    if (afterElement == null) {
+        OvertimeEntriesDragAndDropContainer.appendChild(currentDragging);
+    } else {
+        OvertimeEntriesDragAndDropContainer.insertBefore(currentDragging, afterElement)
+    }
+})
+
+function getAfterElement(container, y, draggingElement) {
+    const draggableElements = [...container.querySelectorAll('.overtime-entry:not(.dragging)')];
+
+    let afterElement = null;
+    let minDistance = Infinity;
+
+    draggableElements.forEach(element => {
+        const box = element.getBoundingClientRect();
+        const offset = y - box.top - box.height / 2;
+
+        if (offset > 0 && offset < minDistance) {
+            minDistance = offset;
+            afterElement = element;
+        }
+    });
+
+    if (afterElement === draggingElement) {
+        return afterElement.nextElementSibling;
+    }
+
+    return afterElement;
+}
