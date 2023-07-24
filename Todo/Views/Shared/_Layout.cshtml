@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -38,6 +42,10 @@
         <i class="fa-solid fa-plus add-modal-button"></i>
         <i class="fa-solid fa-check check-bar-button"></i>
         <!--<i class="fa-solid fa-bell"></i>-->
+        @if(SignInManager.IsSignedIn(User))
+        {
+            <div>Hello @UserManager.GetUserName(User)</div>
+        }
     </div>
     <div class="hamburger-menu-drop-down">
         <a asp-area="Customer" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
