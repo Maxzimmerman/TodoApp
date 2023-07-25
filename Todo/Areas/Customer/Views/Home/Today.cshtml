@@ -1,53 +1,66 @@
 ﻿@model List<TodoEntry>
 
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
 <div class="body">
-    <div class="today-secition">
-        <h1 class="today-header">Heute </h1><p>@DateTime.Now.ToShortDateString()</p>
-        <i class="fa-solid fa-angle-right today-toggle rotate-toggle"></i>
-       
-        <div class="today-entries">
-            @{
-                foreach (var item in Model.Where(todo => todo.EndDate > DateTime.Today && todo.IChecked == false))
-                {
-                    <div class="today-entry">
-                        <hr>
-                        <p class="today-item-id">@item.Id</p>
-                        <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
-                        <p>@item.EndDate.ToShortDateString()</p>
-                    </div>
-                }
-            }
-        </div>
-        
-    </div>
+    @{
+        if (SignInManager.IsSignedIn(User))
+        {
+            <div class="today-secition">
+                <h1 class="today-header">Heute </h1><p>@DateTime.Now.ToShortDateString()</p>
+                <i class="fa-solid fa-angle-right today-toggle rotate-toggle"></i>
+
+                <div class="today-entries">
+                    @{
+                        foreach (var item in Model.Where(todo => todo.EndDate > DateTime.Today && todo.IChecked == false))
+                        {
+                            <div class="today-entry">
+                                <hr>
+                                <p class="today-item-id">@item.Id</p>
+                                <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
+                                <p>@item.EndDate.ToShortDateString()</p>
+                            </div>
+                        }
+                    }
+                </div>
+
+            </div>
+
+            <div class="overtime-seciton">
+                <h3 class="overtime-header">Überfällig</h3>
+                <i id="overtime-toggle" class="fa-solid fa-angle-right ovetime-toggle"></i>
+
+                <div class="overtime-entries">
+                    @{
+                        foreach (var item in Model.Where(todo => todo.EndDate < DateTime.Today && todo.IChecked == false))
+                        {
+                            <div draggable="true" class="overtime-entry">
+                                <hr>
+                                <p class="overtime-item-id">@item.Id</p>
+                                <h5 class="overtime-item-header"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
+                                <p>@item.EndDate.ToShortDateString()</p>
+                            </div>
+                        }
+                    }
+                </div>
+
+            </div>
+            <div class="add-new-section">
+                <i class="fa-solid fa-plus add-modal-button"></i><p>Aufgabe hinzufügen</p>
+            </div>
+
+            <div id="detail-page">
+            </div>
+
+            <div class="added-alert">@TempData["addedtodo"]</div>
+            <div class="checked-alert">@TempData["checkedtodo"]</div>
+        }
+        else
+        {
+            <partial name="_LoginPartial" />
+        }
+    }
     
-    <div class="overtime-seciton">
-        <h3 class="overtime-header">Überfällig</h3>
-        <i id="overtime-toggle" class="fa-solid fa-angle-right ovetime-toggle"></i>
-
-        <div class="overtime-entries">
-            @{
-                foreach (var item in Model.Where(todo => todo.EndDate < DateTime.Today && todo.IChecked == false))
-                {
-                    <div draggable="true" class="overtime-entry">
-                        <hr>
-                        <p class="overtime-item-id">@item.Id</p>
-                        <h5 class="overtime-item-header"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
-                        <p>@item.EndDate.ToShortDateString()</p>
-                    </div>
-                }
-            }
-        </div>
-        
-    </div>
-    <div class="add-new-section">
-        <i class="fa-solid fa-plus add-modal-button"></i><p>Aufgabe hinzufügen</p>
-    </div>
-
-    <div id="detail-page">
-
-    </div>
-
-    <div class="added-alert">@TempData["addedtodo"]</div>
-    <div class="checked-alert">@TempData["checkedtodo"]</div>
 </div>
