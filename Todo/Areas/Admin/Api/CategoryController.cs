@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Todo.DataAccess.data;
 using Todo.Models;
 
@@ -10,11 +11,18 @@ namespace Todo.Areas.Admin.Api
     {
         private readonly ILogger<CategoryController> _logger;
         private readonly ApplicationDbContext _context;
+        private SignInManager<ApplicationUser> _signInManager;
+        private UserManager<ApplicationUser> _userManager;
 
-        public CategoryController(ApplicationDbContext context, ILogger<CategoryController> logger)
+        public CategoryController(ApplicationDbContext context, 
+            ILogger<CategoryController> logger, 
+            SignInManager<ApplicationUser> signInManager, 
+            UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _logger = logger;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         // https://localhost:7208/api/categorycontroller/all

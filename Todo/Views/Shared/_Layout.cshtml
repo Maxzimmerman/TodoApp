@@ -44,7 +44,7 @@
         <!--<i class="fa-solid fa-bell"></i>-->
         @if(SignInManager.IsSignedIn(User))
         {
-            <a asp-area="Identity" asp-page="/Account/Manage/Index">Hello @UserManager.GetUserName(User)</a>
+            <a asp-area="Identity" asp-page="/Account/Manage/_Layout.cshtml">Hello @UserManager.GetUserName(User)</a>
         }
     </div>
     <div class="hamburger-menu-drop-down">

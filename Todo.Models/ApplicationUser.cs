@@ -14,8 +14,5 @@ namespace Todo.Models
     {
         [Required]
         public string UserName { get; set; }
-        [ForeignKey("Todos")]
-        [ValidateNever]
-        public List<TodoEntry> TodoEntry { get; set; }
     }
 }

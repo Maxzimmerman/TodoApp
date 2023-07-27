@@ -114,27 +114,17 @@ $(function () {
 
 
     // entry detail pages
-    $("#detail-page").hide(0);
+    //$("#detail-page").hide(0);
+    
+    $('.entry').on('click', function () {
 
-    var id = $('.today-item-id').html();
-    $('#detail-page').load("/Customer/home/Detail?id=" + id);
-    $('.today-entry').on('click', function () {
-        
+        var id = $('.entry-id').html();
+        console.log(id)
+        $('#detail-page').load("/Customer/home/Detail?id=" + id);
+
         $("#detail-page").show(0);
         
         $('#detail-close-button').on('click', function () {
-            console.log("$")
-            $('#detail-page').hide(0);
-        });
-    })
-
-    var id = $('.overtime-item-id').html();
-    $('#detail-page').load("/Customer/home/Detail?id=" + id);
-
-    $('.overtime-entry').on('click', function () {
-        $("#detail-page").show(0);
-
-        $('.detail-close-button').on('click', function () {
             console.log("$")
             $('#detail-page').hide(0);
         });
@@ -145,6 +135,8 @@ $(function () {
 const homeButton = document.querySelector('.fa-house');
 const OvertimeEntriesDragAndDropContainer = document.querySelector('.overtime-entries');
 const OvertimeEntriesDragAndDropItems = document.querySelectorAll('.overtime-entry');
+
+const Entry = document.querySelectorAll('.entry');
 
 homeButton.addEventListener('click', () => {
     window.location.href = 'https://localhost:7208/';
