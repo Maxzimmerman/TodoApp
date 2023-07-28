@@ -29,7 +29,7 @@ namespace Todo.Models
         public int PriorityId { get; set; }
         public Priority Priority { get; set; }
 
-        public int ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; }
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
     }

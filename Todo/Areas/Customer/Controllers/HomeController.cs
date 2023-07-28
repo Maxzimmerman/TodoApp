@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Security.Claims;
 using Todo.DataAccess.data;
 using Todo.Models;
 
@@ -19,11 +21,29 @@ namespace Todo.Areas.Customer.Controllers
             _context = context;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
-            var entries = _context.todos.ToList();
-            _logger.LogInformation("All");
-            return View("Today", entries);
+            List<TodoEntry> entries;
+            try
+            {
+                var currentUser = (ClaimsIdentity)User.Identity;
+                var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                entries = _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToList();
+
+                if (entries.Count == 0)
+                {
+                    return View("Today", entries);
+                }
+                _logger.LogInformation("All");
+                return View("Today", entries);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogInformation($"{ex.Message}");
+                return View("Today");
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -142,6 +162,9 @@ namespace Todo.Areas.Customer.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         public IActionResult AddModal(TodoEntry todoEntry)
         {
+            var currentUser = (ClaimsIdentity)User.Identity;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
             if(todoEntry == null)
             {
                 _logger.LogInformation($"{todoEntry.Title} not in correct shape");
@@ -150,6 +173,7 @@ namespace Todo.Areas.Customer.Controllers
             else
             {
                 _logger.LogInformation($"{todoEntry.Title} added");
+                todoEntry.ApplicationUserId = currentUserId;
                 _context.todos.Add(todoEntry);
                 TempData["addedtodo"] = $"{todoEntry.Title} Hinzugefügt";
                 _context.SaveChanges();
