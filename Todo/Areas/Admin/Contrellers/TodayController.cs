@@ -35,12 +35,12 @@ namespace Todo.Areas.Admin.Contrellers
                     return View(entries);
                 }
                 _logger.LogInformation("All");
-                return View(entries);
+                return View("Today", entries);
             }
             catch (Exception ex)
             {
                 _logger.LogInformation($"{ex.Message}");
-                return View();
+                return View("Today");
             }
         }
 
@@ -118,7 +118,7 @@ namespace Todo.Areas.Admin.Contrellers
                 _context.todos.Add(todoEntry);
                 TempData["addedtodo"] = $"{todoEntry.Title} Hinzugefügt";
                 _context.SaveChanges();
-                return RedirectToAction("Admin/Today");
+                return RedirectToAction("Today");
             }
         }
 
@@ -146,7 +146,7 @@ namespace Todo.Areas.Admin.Contrellers
             TempData["checkedtodo"] = $"{entry.Title} Angepasst";
             _logger.LogInformation($"{entry.Title} is checked");
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Today");
         }
 
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
@@ -226,7 +226,8 @@ namespace Todo.Areas.Admin.Contrellers
             _context.SaveChanges();
 
             _logger.LogInformation($"{addTodo.Title} adjusted");
-            return RedirectToAction("index");
+
+            return RedirectToAction("Today");
         }
     }
 }
