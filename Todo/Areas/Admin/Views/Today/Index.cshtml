@@ -4,7 +4,37 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<div class="body">
+@{
+    if (SignInManager.IsSignedIn(User))
+    {
+        <div class="navbar">
+            <i class="fa-solid fa-bars hambuger-menu-button"></i>
+            <i class="fa-solid fa-house home-button"></i>
+            <i class="fa-solid fa-magnifying-glass search-bar-button"></i>
+            <i class="fa-solid fa-plus add-modal-button"></i>
+            <i class="fa-solid fa-check check-bar-button"></i>
+            <!--<i class="fa-solid fa-bell"></i>-->
+            <a asp-area="Identity" asp-page="/Account/Manage/_Layout.cshtml"><i class="fa-solid fa-user"></i></a>
+        </div>
+        <div class="hamburger-menu-drop-down">
+            <a asp-area="Customer" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
+            <a asp-area="Admin" asp-controller="Today" asp-action="Index"><i class="fa-solid fa-calendar-days"> @DateTime.Now.ToShortDateString()</i> Heute</a>
+            <a asp-area="Customer" asp-controller="Future" asp-action="Index">Demnächst</a>
+        </div>
+        <div class="search-bar-header">
+            <input id="inputQuery" type="text" />
+            <i class="fa-solid fa-xmark"></i>
+
+            <div id="SearchResults"></div>
+        </div>
+        <div id="add-modal">
+        </div>
+        <div id="checked-bar">
+        </div>
+    }
+}
+
+<div class="body container">
     @{
         if (SignInManager.IsSignedIn(User))
         {
@@ -14,7 +44,7 @@
 
                 <div class="today-entries">
                     @{
-                        if(Model.Count == 0)
+                        if (Model.Count == 0)
                         {
                             <p>Keine Enträge</p>
                         }
@@ -22,9 +52,8 @@
                         {
                             foreach (var item in Model.Where(todo => todo.EndDate > DateTime.Today && todo.IChecked == false))
                             {
-                                <div class="today-entry entry">
+                                <div class="today-entry entry" hx-get="Customer/home/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
                                     <hr>
-                                    <p class="entry-id today-item-id">@item.Id</p>
                                     <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
                                     <p>@item.EndDate.ToShortDateString()</p>
                                 </div>
@@ -49,7 +78,7 @@
                         {
                             foreach (var item in Model.Where(todo => todo.EndDate < DateTime.Today && todo.IChecked == false))
                             {
-                                <div draggable="true" class="overtime-entry entry">
+                                <div draggable="true" class="overtime-entry entry" hx-get="Customer/home/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
                                     <hr>
                                     <p class="entry-id overtime-item-id">@item.Id</p>
                                     <h5 class="overtime-item-header"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
@@ -66,7 +95,6 @@
             </div>
 
             <div id="detail-page">
-
             </div>
 
             <div class="added-alert">@TempData["addedtodo"]</div>
@@ -77,5 +105,5 @@
             <partial name="_LoginPartial" />
         }
     }
-    
+
 </div>

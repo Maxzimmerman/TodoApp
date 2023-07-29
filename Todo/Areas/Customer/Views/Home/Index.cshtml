@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<div class="main-body">
+    @{
+        if(SignInManager.IsSignedIn(User))
+        {
+            <a asp-area="Admin" asp-controller="Today" asp-action="Index">Site</a>
+        }
+        else
+        {
+            <a href="Identity/Account/Login" style="position: fixed; top: 50%; left: 60%">Login</a>
+            <a href="Identity/Account/Register" style="position: fixed; top: 50%; left: 50%">Register</a>
+        }
+    }
+    
+</div>

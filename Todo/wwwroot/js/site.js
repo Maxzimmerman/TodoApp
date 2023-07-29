@@ -5,27 +5,24 @@ const OvertimeEntriesDragAndDropItems = document.querySelectorAll('.overtime-ent
 
 const Entries = document.querySelectorAll('.entry');
 
-Entries.forEach(e => {
-    e.addEventListener('mouseover', () => {
-        e.classList.add('active');
-    })
-
-    e.addEventListener('mouseout', () => {
-        e.classList.remove('active');
-    })
-
-    let activeEntry = document.querySelector('.active');
-});
-
-// Homebutton
-
 homeButton.addEventListener('click', () => {
-    window.location.href = 'https://localhost:7208/';
+    window.location.href = 'https://localhost:7208/Admin/Today/Index';
 })
 
 // Todo should work
 // drag and dpop function
 
+
+// Close Edit Modal
+
+let DetailPage = document.querySelector('#detail-page');
+let Modal = document.querySelector('.detail-form');
+function closeModal() {
+    DetailPage.style.display = "none";
+}
+function ShowModal() {
+    DetailPage.style.display = "flex";
+}
 
 OvertimeEntriesDragAndDropItems.forEach(item => {
     item.setAttribute('draggable', 'true')
@@ -113,13 +110,13 @@ $(function () {
 
     $('.search-bar-header').on('keyup', function () {
         var input = $('#inputQuery').val();
-        $('#SearchResults').load("/Customer/home/SearchResults?input=" + input);
+        $('#SearchResults').load("/Admin/Today/SearchResults?input=" + input);
     })
 
     // Add Modal
     $('#add-modal').slideUp(0);
 
-    $('#add-modal').load("/Customer/home/AddModal");
+    $('#add-modal').load("/Admin/Today/AddModal");
     $('.fa-plus').on('click', function () {
         $('#add-modal').slideToggle(100);
         if (screen.width < 540) {
@@ -139,7 +136,7 @@ $(function () {
 
     // Checked bar
     $('#checked-bar').slideUp(0);
-    $('#checked-bar').load("/Customer/home/Checked");
+    $('#checked-bar').load("/Admin/Today/Checked");
     $('.fa-check').on('click', function () {
         $('#checked-bar').slideToggle(100);
         if (screen.width < 540) {
@@ -188,23 +185,5 @@ $(function () {
     $(".ovetime-toggle").on('click', function () {
         $(".ovetime-toggle").toggleClass("down-overtime");
         $(".overtime-entries").slideToggle(300);
-    })
-
-
-    // entry detail pages
-    //$("#detail-page").hide(0);
-
-    $('.active').on('click', function () {
-
-        var id = $('.active > .entry-id').html();
-        console.log(id)
-        $('#detail-page').load("/Customer/home/Detail?id=" + id);
-
-        $("#detail-page").show(0);
-        
-        $('#detail-close-button').on('click', function () {
-            console.log("$")
-            $('#detail-page').hide(0);
-        });
     })
 });

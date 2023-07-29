@@ -1,7 +1,7 @@
 ﻿@model TodoEntry
 
 <form method="post" action="https://localhost:7208/Customer/Home/AddDetail" class="detail-form">
-    <i class="fa-solid fa-xmark detail-close-button" id="detail-close-button"></i>
+    <i class="fa-solid fa-xmark detail-close-button" id="detail-close-button" onclick="closeModal()"></i>
     <input class="detial-title" asp-for="Title" placeholder="Titel" />
     <input class="detail-description" asp-for="Description" placeholder="Beschreibung" />
     <input class="detail-startdate" asp-for="StartDate" placeholder="Vom" />
