@@ -26,18 +26,25 @@ namespace Todo.Areas.Customer.Controllers
             List<TodoEntry> entries;
             try
             {
-                var currentUser = (ClaimsIdentity)User.Identity;
-                var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-                entries = _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToList();
-
-                if (User.Identity.IsAuthenticated)
+                if(User.Identity.IsAuthenticated)
                 {
-                    return View("Today", entries);
+                    var currentUser = (ClaimsIdentity)User.Identity;
+                    var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                    entries = _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToList();
+
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        return View("Today", entries);
+                    }
+                    else
+                    {
+                        return View("_LoginPartial");
+                    }
                 }
                 else
                 {
-                    return View("_LoginPartial");
+                    return View();
                 }
             }
             catch (Exception ex)

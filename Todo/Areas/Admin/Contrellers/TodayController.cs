@@ -25,17 +25,24 @@ namespace Todo.Areas.Admin.Contrellers
             List<TodoEntry> entries;
             try
             {
-                var currentUser = (ClaimsIdentity)User.Identity;
-                var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-                entries = _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToList();
-
-                if (entries.Count == 0)
+                if(User.Identity.IsAuthenticated)
                 {
-                    return View(entries);
+                    var currentUser = (ClaimsIdentity)User.Identity;
+                    var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                    entries = _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToList();
+
+                    if (entries.Count == 0)
+                    {
+                        return View(entries);
+                    }
+                    _logger.LogInformation("All");
+                    return View("Today", entries);
                 }
-                _logger.LogInformation("All");
-                return View("Today", entries);
+                else
+                {
+                    return BadRequest("Login first");
+                }
             }
             catch (Exception ex)
             {

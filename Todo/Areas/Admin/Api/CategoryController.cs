@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Todo.DataAccess.data;
 using Todo.Models;
 
@@ -11,39 +13,32 @@ namespace Todo.Areas.Admin.Api
     {
         private readonly ILogger<CategoryController> _logger;
         private readonly ApplicationDbContext _context;
-        private SignInManager<ApplicationUser> _signInManager;
-        private UserManager<ApplicationUser> _userManager;
 
         public CategoryController(ApplicationDbContext context, 
-            ILogger<CategoryController> logger, 
-            SignInManager<ApplicationUser> signInManager, 
-            UserManager<ApplicationUser> userManager)
+            ILogger<CategoryController> logger
+            )
         {
             _context = context;
             _logger = logger;
-            _signInManager = signInManager;
-            _userManager = userManager;
         }
 
-        // https://localhost:7208/api/categorycontroller/all
-
+        // https://localhost:7208/apicategorycontroller/all
         [HttpGet("All", Name = "All")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Category>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
-            List<Category> categories = _context.categories.ToList();
             _logger.LogInformation("Get all Categories");
-            return Ok(categories);
+            return Ok(await _context.categories.ToListAsync());
         }
 
-        // https://localhost:7208/api/categorycontroller/detail
-
+        // https://localhost:7208/apicategorycontroller/detail
+        
         [HttpGet("Detail", Name = "Detail")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             if (id == 0)
             {
@@ -51,7 +46,7 @@ namespace Todo.Areas.Admin.Api
                 return BadRequest("Id can't be 0");
             }
 
-            Category category = _context.categories.FirstOrDefault(c => c.Id == id);
+            Category category = await _context.categories.FirstOrDefaultAsync(c => c.Id == id);
 
             if (category == null)
             {
@@ -65,12 +60,12 @@ namespace Todo.Areas.Admin.Api
             }
         }
 
-        // https://localhost:7208/api/categorycontroller/create
-        // TODO Should work
+        // https://localhost:7208/apicategorycontroller/create
+        // geht nicht
         [HttpPost("Create", Name = "Create")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult Create([FromBody]Category category)
+        public async Task<IActionResult> Create([FromBody]Category category)
         {
             if(category == null)
             {
@@ -79,19 +74,19 @@ namespace Todo.Areas.Admin.Api
             }
             else
             {
-                _context.categories.Add(category);
-                _context.SaveChanges();
+                await _context.categories.AddAsync(category);
+                await _context.SaveChangesAsync();
                 _logger.LogInformation($"Added {category.Name}");
                 return Ok("Added" + category.Name);
             }
         }
 
-        // https://localhost:7208/api/categorycontroller/edit
+        // https://localhost:7208/apicategorycontroller/edit
 
         [HttpPut("Edit", Name ="Edit")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult Edit([FromBody]Category category)
+        public async Task<IActionResult> Edit([FromBody]Category category)
         { 
             if(category.Id == 0)
             {
@@ -101,20 +96,20 @@ namespace Todo.Areas.Admin.Api
             else
             {
                 _context.Update(category);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 _logger.LogInformation("Edited" +  category.Name);
                 return Ok("Updated" + category.Name);
             }
         }
 
-        // https://localhost:7208/api/categorycontroller/delete
-        // TODO Test
+        // https://localhost:7208/apicategorycontroller/delete
+
         [HttpDelete("Delete", Name = "Delete")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Category))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            List<Category> categories = _context.categories.ToList();
+            List<Category> categories = await _context.categories.ToListAsync();
 
             if(id  == 0 || id > categories.Count)
             {
@@ -123,9 +118,9 @@ namespace Todo.Areas.Admin.Api
             }
             else
             {
-                var entry = _context.categories.FirstOrDefault(c => c.Id == id);
+                var entry = await _context.categories.FirstOrDefaultAsync(c => c.Id == id);
                 _context.categories.Remove(entry);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 _logger.LogInformation($"{entry.Name} deleted");
                 return Ok(entry);
             }

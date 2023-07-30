@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using Todo.DataAccess.data;
 using Todo.Models;
 
 namespace Todo.Areas.Admin.Api
 {
+    [Authorize]
     [ApiController]
     [Route("apitodoentries")]
     public class TodoEntryController : ControllerBase
@@ -22,19 +26,29 @@ namespace Todo.Areas.Admin.Api
         [HttpGet("AllTodos", Name = "AllTodos")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TodoEntry>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult AllTodos()
+        public async Task<IActionResult> AllTodos()
         {
-            List<TodoEntry> entries = _context.todos.ToList();
-
-            if(entries.Count == 0)
+            if(User.Identity.IsAuthenticated)
             {
-                _logger.LogInformation("No entries");
-                return NotFound("No entries");
+                var currentUser = (ClaimsIdentity)User.Identity;
+                var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                List<TodoEntry> entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToListAsync();
+
+                if (entries.Count == 0)
+                {
+                    _logger.LogInformation("No entries");
+                    return NotFound("No entries");
+                }
+                else
+                {
+                    _logger.LogInformation($"{entries.Count}");
+                    return Ok(entries);
+                }
             }
             else
             {
-                _logger.LogInformation($"{entries.Count}");
-                return Ok(entries);
+                return BadRequest("Login First");
             }
         }
 
@@ -42,7 +56,7 @@ namespace Todo.Areas.Admin.Api
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult DetailTodo(int id)
+        public async Task<IActionResult> DetailTodo(int id)
         {
             if(id == 0)
             {
@@ -50,24 +64,34 @@ namespace Todo.Areas.Admin.Api
                 return BadRequest("id can't be 0");
             }
 
-            var todo = _context.todos.FirstOrDefault(x => x.Id == id);
-
-            if(todo == null)
+            if(User.Identity.IsAuthenticated)
             {
-                _logger.LogInformation($"no entry with id: {id} found");
-                return NotFound($"no entry with id: {id} found");
+                var currentUser = (ClaimsIdentity)User.Identity;
+                var currentUserId = currentUser?.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                var todo = await _context.todos.FirstOrDefaultAsync(x => x.Id == id && x.ApplicationUserId == currentUserId);
+
+                if (todo == null)
+                {
+                    _logger.LogInformation($"no entry with id: {id} found");
+                    return NotFound($"no entry with id: {id} found");
+                }
+                else
+                {
+                    _logger.LogInformation($"{todo.Title}");
+                    return Ok(todo);
+                }
             }
             else
             {
-                _logger.LogInformation($"{todo.Title}");
-                return Ok(todo);
+                return NotFound("Login First");
             }
         }
 
         [HttpPost("CreateTodo", Name = "CreateTodo")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult CreateTodo([FromBody]TodoEntry entry)
+        public async Task<IActionResult> CreateTodo([FromBody]TodoEntry entry)
         {
             if(entry == null)
             {
@@ -75,7 +99,7 @@ namespace Todo.Areas.Admin.Api
                 return BadRequest($"{entry.Title} not in correct shape");
             }
 
-            _context.todos.Add(entry);
+            await _context.todos.AddAsync(entry);
             _context.SaveChanges();
 
             return Ok(entry);
@@ -85,9 +109,9 @@ namespace Todo.Areas.Admin.Api
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult CreateTodo(int id, [FromBody]TodoEntry entry)
+        public async Task<IActionResult> CreateTodo(int id, [FromBody]TodoEntry entry)
         {
-            var todo = _context.todos.FirstOrDefault(x => x.Id == id);
+            var todo = await _context.todos.FirstOrDefaultAsync(x => x.Id == id);
             if(id == 0 || todo == null)
             {
                 _logger.LogInformation($"entry with id: {id} not found");
@@ -104,7 +128,7 @@ namespace Todo.Areas.Admin.Api
                 todo.CategoryId = entry.CategoryId;
                 todo.Category = entry.Category;
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return Ok(todo);
             }
@@ -113,7 +137,7 @@ namespace Todo.Areas.Admin.Api
         [HttpDelete("DeleteTodo", Name = "DeleteTodo")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult DeleteTodo(int id)
+        public async Task<IActionResult> DeleteTodo(int id)
         {
             if(id == 0)
             {
@@ -121,19 +145,28 @@ namespace Todo.Areas.Admin.Api
                 return NotFound($"entry with id: {id} not found");
             }
 
-            var entry = _context.todos.FirstOrDefault(x => x.Id == id);
-
-            if(entry == null)
+            if(User.Identity.IsAuthenticated)
             {
-                _logger.LogInformation($"{entry.Title} not in correct shape");
-                return BadRequest($"{entry.Title} not in correct shape");
+                var currentUser = (ClaimsIdentity)User.Identity;
+                var currentUserId = currentUser?.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var entry = await _context.todos.FirstOrDefaultAsync(x => x.Id == id && x.ApplicationUserId == currentUserId);
+
+                if (entry == null)
+                {
+                    _logger.LogInformation($"{entry.Title} not in correct shape");
+                    return BadRequest($"{entry.Title} not in correct shape");
+                }
+                else
+                {
+                    _logger.LogInformation($"{entry.Title} deleted");
+                    _context.Remove(entry);
+                    await _context.SaveChangesAsync();
+                    return Ok(entry);
+                }
             }
             else
             {
-                _logger.LogInformation($"{entry.Title} deleted");
-                _context.Remove(entry);
-                _context.SaveChanges();
-                return Ok(entry);
+                return BadRequest("Login First");
             }
         }
     }

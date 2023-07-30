@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Todo.DataAccess.data;
 using Todo.Models;
 
@@ -21,9 +22,9 @@ namespace Todo.Areas.Admin.Api
         [HttpGet("AllPriorities", Name = "AllPriorities")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Priority>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult All()
+        public async  Task<IActionResult> All()
         {
-            List<Priority> priorities = _context.priorities.ToList();
+            List<Priority> priorities = await _context.priorities.ToListAsync();
 
             if (priorities == null)
             {
@@ -48,7 +49,7 @@ namespace Todo.Areas.Admin.Api
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Priority))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             if (id == 0)
             {
@@ -56,7 +57,7 @@ namespace Todo.Areas.Admin.Api
                 return NotFound("id can't be 0");
             }
 
-            Priority priority = _context.priorities.FirstOrDefault(p => p.Id == id);
+            Priority priority = await _context.priorities.FirstOrDefaultAsync(p => p.Id == id);
 
             if (priority == null)
             {
@@ -74,7 +75,7 @@ namespace Todo.Areas.Admin.Api
         [HttpPost("CreatePriorities", Name = "CreatePriorities")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Priority))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult Create([FromBody] Priority priority)
+        public async Task<IActionResult> Create([FromBody] Priority priority)
         {
             if (priority == null)
             {
@@ -83,8 +84,8 @@ namespace Todo.Areas.Admin.Api
             }
             else
             {
-                _context.Add(priority);
-                _context.SaveChanges();
+                await _context.AddAsync(priority);
+                await _context.SaveChangesAsync();
                 _logger.LogInformation($"priority {priority.Name} created");
                 return Ok(priority);
             }
@@ -94,7 +95,7 @@ namespace Todo.Areas.Admin.Api
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Priority))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult Update(int id, [FromBody] Priority priority)
+        public async Task<IActionResult> Update(int id, [FromBody] Priority priority)
         {
             if (id == 0)
             {
@@ -108,12 +109,12 @@ namespace Todo.Areas.Admin.Api
             }
             else
             {
-                var entry = _context.priorities.FirstOrDefault(p => p.Id == id);
+                var entry = await _context.priorities.FirstOrDefaultAsync(p => p.Id == id);
                 entry.Id = priority.Id;
                 entry.Name = priority.Name;
                 entry.Color = priority.Color;
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 _logger.LogInformation($"{priority.Name} updated");
                 return Ok(priority);
             }
@@ -123,14 +124,14 @@ namespace Todo.Areas.Admin.Api
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Priority))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             if (id == 0)
             {
                 _logger.LogInformation($"{id} is 0");
                 return NotFound($"{id} is 0");
             }
-            var entry = _context.priorities.FirstOrDefault(e => e.Id == id);
+            var entry = await _context.priorities.FirstOrDefaultAsync(e => e.Id == id);
 
             if (entry == null)
             {
@@ -140,7 +141,7 @@ namespace Todo.Areas.Admin.Api
             else
             {
                 _context.Remove(entry);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 _logger.LogInformation($"{entry.Name} is removed");
                 return Ok(entry.Name.ToString());
             }
