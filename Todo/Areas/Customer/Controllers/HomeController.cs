@@ -23,13 +23,27 @@ namespace Todo.Areas.Customer.Controllers
 
         public IActionResult Index()
         {
-            if(User.Identity.IsAuthenticated)
+            List<TodoEntry> entries;
+            try
             {
-                return RedirectToAction("Index", "Today");
+                var currentUser = (ClaimsIdentity)User.Identity;
+                var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                entries = _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToList();
+
+                if (User.Identity.IsAuthenticated)
+                {
+                    return View("Today", entries);
+                }
+                else
+                {
+                    return View("_LoginPartial");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return View();
+                _logger.LogInformation($"{ex.Message}");
+                return View("Today");
             }
         }
 
