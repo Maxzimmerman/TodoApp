@@ -6,7 +6,7 @@ const OvertimeEntriesDragAndDropItems = document.querySelectorAll('.overtime-ent
 const Entries = document.querySelectorAll('.entry');
 
 homeButton.addEventListener('click', () => {
-    window.location.href = 'https://localhost:7208/Admin/Today/Index';
+    window.location.href = 'https://localhost:7208';
 })
 
 // Todo should work
@@ -186,4 +186,6 @@ $(function () {
         $(".ovetime-toggle").toggleClass("down-overtime");
         $(".overtime-entries").slideToggle(300);
     })
+
+    $('#login').load("/Identity/Account/Login");
 });

@@ -1,0 +1,156 @@
+﻿.starting-page-navbar {
+    position: absolute !important;
+    margin: 0px !important;
+}
+
+.starting-page-body {
+    width: 100%;
+    height: 100vh;
+}
+
+.logo-wrapper {
+    width: 10%;
+}
+
+.logo > img {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    left: 10%;
+}
+
+.link-wrapper {
+    width: 50%;
+}
+
+.link-wrapper > a {
+    position: relative;
+    right: -10%;
+    font-size: 17px;
+}
+
+.link-wrapper > a > i {
+    margin-left: 10px;
+}
+
+.stargin-page-main-element {
+    text-align: center;
+    height: 100vh;
+}
+
+.main-content {
+    padding-top: 130px;
+}
+
+.main-content > h1 {
+    margin-bottom: 1vh;
+}
+
+.main-content > img {
+    width: 300px;
+    display: block;
+    margin: auto;
+    margin-bottom: 10vh;
+}
+
+.starting-page-body > main > .main-content > .get-started-button {
+    background-color: #1da19b;
+    border: 1px solid black;
+    padding: 5px;
+    border-radius: 4px;
+    color: white;
+    font-size: 15px;
+}
+
+@media screen and (min-width: 414px) {
+    .main-content > h1 {
+        margin-bottom: 10vh;
+    }
+ 
+}
+
+@media screen and (min-width: 768px) {
+    .main-content > h1 {
+        margin-bottom: 10vh;
+    }
+
+    .main-content > img {
+        width: 500px;
+    }
+
+    .starting-page-body > main > .main-content > .get-started-button {
+        font-size: 25px;
+    }
+
+    .link-wrapper > a {
+        font-size: 23px;
+        right: -20%;
+    }
+}
+
+@media screen and (min-width: 912px) {
+    .main-content > h1 {
+        margin-bottom: -3vh;
+        font-size: 50px;
+    }
+
+    .main-content > img {
+        width: 700px;
+    }
+
+    .starting-page-body > main > .main-content > .get-started-button {
+        font-size: 35px;
+    }
+
+    .link-wrapper > a {
+        font-size: 29px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .main-content > h1 {
+        margin-bottom: -3vh;
+        font-size: 30px;
+    }
+
+    .main-content > img {
+        width: 300px;
+    }
+
+    .starting-page-body > main > .main-content > .get-started-button {
+        font-size: 20px;
+    }
+
+    .link-wrapper > a {
+        font-size: 17px;
+    }
+
+    .starting-page-navbar {
+        padding: 10px !important;
+    }
+}
+
+@media screen and (min-width: 1700px) {
+    .main-content > h1 {
+        margin-bottom: -10vh;
+        font-size: 35px;
+    }
+
+    .main-content > img {
+        width: 700px;
+        margin-bottom: 5vh;
+    }
+
+    .starting-page-body > main > .main-content > .get-started-button {
+        font-size: 20px;
+    }
+
+    .link-wrapper > a {
+        font-size: 22px;
+
+    }
+
+    .starting-page-navbar {
+        padding: 20px !important;
+    }
+}

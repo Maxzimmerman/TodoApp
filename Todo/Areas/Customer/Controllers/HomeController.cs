@@ -39,12 +39,12 @@ namespace Todo.Areas.Customer.Controllers
                     }
                     else
                     {
-                        return View("_LoginPartial");
+                        return View("StartingPage");
                     }
                 }
                 else
                 {
-                    return View();
+                    return View("StartingPage");
                 }
             }
             catch (Exception ex)

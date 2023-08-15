@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Content Remove="Areas\Identity\Pages\Account\Manage\_ViewStart.cshtml" />
+    <Content Remove="Areas\Identity\Pages\Account\_ViewStart.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,10 +82,10 @@
     <None Include="Areas\Identity\Pages\Account\ResetPasswordConfirmation.cshtml" />
     <None Include="Areas\Identity\Pages\Account\_StatusMessage.cshtml" />
     <None Include="Areas\Identity\Pages\Account\_ViewImports.cshtml" />
+    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
     <None Include="Areas\Identity\Pages\Error.cshtml" />
     <None Include="Areas\Identity\Pages\_ValidationScriptsPartial.cshtml" />
     <None Include="Areas\Identity\Pages\_ViewImports.cshtml" />
-    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

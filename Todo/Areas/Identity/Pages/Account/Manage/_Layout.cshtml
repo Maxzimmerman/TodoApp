@@ -5,12 +5,14 @@
     }
     else
     {
-        Layout = "/Views/Shared/_Layout.cshtml";
+        Layout = "/Views/Shared/_Layout";
     }
 }
 
 <h1>Manage your account</h1>
-
+<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+    <button type="submit" class="nav-link btn btn-link text-dark">Click here to Logout</button>
+</form>
 <div>
     <h2>Change your account settings</h2>
     <hr />
