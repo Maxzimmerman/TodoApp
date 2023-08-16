@@ -275,6 +275,7 @@ namespace Todo.Areas.Customer.Controllers
         {
             var currentUser = (ClaimsIdentity)User.Identity;
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = _context.Users.FirstOrDefault(u => u.Id == currentUserId);
 
             if(addTodo == null)
             {

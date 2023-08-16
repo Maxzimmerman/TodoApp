@@ -53,7 +53,7 @@
                         {
                             foreach (var item in Model.Where(todo => todo.EndDate > DateTime.Today && todo.IChecked == false))
                             {
-                                <div class="today-entry entry" hx-get="Customer/home/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
+                                <div class="today-entry entry" hx-get="Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
                                     <hr>
                                     <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
                                     <p>@item.EndDate.ToShortDateString()</p>
@@ -80,7 +80,7 @@
                         {
                             foreach (var item in Model.Where(todo => todo.EndDate < DateTime.Today && todo.IChecked == false))
                             {
-                                <div draggable="true" class="overtime-entry entry" hx-get="Customer/home/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
+                                <div draggable="true" class="overtime-entry entry" hx-get="Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
                                     <hr>
                                     <p class="entry-id overtime-item-id">@item.Id</p>
                                     <h5 class="overtime-item-header"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>

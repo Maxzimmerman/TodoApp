@@ -5,8 +5,14 @@
 
 /*Basic*/
 
-html {
-    font-family: 'Lato', sans-serif;
+@font-face {
+    font-family: "Roboto";
+    font-size: 1rem;
+    src: url("../fonts/Itim-Regular.ttf") format('opentype');
+}
+
+* :not(i, .check-button) {
+    font-family: "Roboto" !important;
 }
 
 @media (min-width: 768px) {

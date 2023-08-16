@@ -1,11 +1,21 @@
 ﻿@model TodoEntry
 
-<form method="post" action="https://localhost:7208/Customer/Home/AddDetail" class="detail-form">
+<form method="post" action="https://localhost:7208/Admin/Today/AddDetail" class="detail-form">
     <i class="fa-solid fa-xmark detail-close-button" id="detail-close-button" onclick="closeModal()"></i>
     <input class="detial-title" asp-for="Title" placeholder="Titel" />
     <input class="detail-description" asp-for="Description" placeholder="Beschreibung" />
     <input class="detail-startdate" asp-for="StartDate" placeholder="Vom" />
     <input class="detail-enddate" asp-for="EndDate" placeholder="Bis" />
+
+    <div class="detail-checkboxes">
+        <input asp-for="User" placeholder="Erledigt" />
+        <input asp-for="ApplicationUserId" placeholder="Gelöscht" />
+    </div>
+
+    <div class="detail-checkboxes">
+        <input asp-for="Category" placeholder="Erledigt" />
+        <input asp-for="Priority" placeholder="Gelöscht" />
+    </div>
 
     <div class="detail-checkboxes">
         <input asp-for="IChecked" type="checkbox" placeholder="Erledigt" />
