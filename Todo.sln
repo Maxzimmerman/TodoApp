@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Todo.Models", "Todo.Models\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoApp.Tests", "TodoApp.Tests\TodoApp.Tests.csproj", "{56109E3C-80DD-45CC-8E52-068324C3E345}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoUtility", "TodoUtility\TodoUtility.csproj", "{45517370-6C75-41B3-90C3-74B6C5D3B4B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TodoUtility", "TodoUtility\TodoUtility.csproj", "{45517370-6C75-41B3-90C3-74B6C5D3B4B5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{643F2322-85A5-4201-97DF-924ADB81FE0F}"
+	ProjectSection(SolutionItems) = preProject
+		Nodes.txt = Nodes.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,27 +1,31 @@
 ﻿@model TodoEntry
 
-<form method="post" action="https://localhost:7208/Admin/Today/AddDetail" class="detail-form">
+<form method="post" action="/Admin/Today/AddDetail" class="detail-form">
     <i class="fa-solid fa-xmark detail-close-button" id="detail-close-button" onclick="closeModal()"></i>
+
     <input class="detial-title" asp-for="Title" placeholder="Titel" />
+
     <input class="detail-description" asp-for="Description" placeholder="Beschreibung" />
+
+    <label asp-for="StartDate">Beginn</label>
     <input class="detail-startdate" asp-for="StartDate" placeholder="Vom" />
+
+    <label asp-for="EndDate">Endet</label>
     <input class="detail-enddate" asp-for="EndDate" placeholder="Bis" />
+
     <div class="detail-checkboxes">
-        <input asp-for="Id" placeholder="Erledigt" />
-    </div>
-    <div class="detail-checkboxes">
-        <input asp-for="User" placeholder="Erledigt" />
-        <input asp-for="ApplicationUserId" placeholder="Gelöscht" />
+        <input asp-for="Id" hidden/>
     </div>
 
     <div class="detail-checkboxes">
-        <input asp-for="Category" placeholder="Erledigt" />
-        <input asp-for="Priority" placeholder="Gelöscht" />
+        <input asp-for="ApplicationUserId" hidden />
     </div>
 
-    <div class="detail-checkboxes">
+    <div class="detail-checkboxes" hidden>
         <input asp-for="IChecked" type="checkbox" placeholder="Erledigt" />
+        <label asp-for="IChecked"></label>
         <input asp-for="IDeleted" type="checkbox" placeholder="Gelöscht" />
+        <label asp-for="IDeleted"></label>
     </div>
 
     <div class="detail-category-prio">

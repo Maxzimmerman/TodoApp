@@ -11,12 +11,55 @@
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
     padding: 20px;
+    background-color: white;
 }
 
 .detail-close-button {
     position: absolute;
-    right: 3.5%;
-    font-size: 1.4rem;
+    right: 6%;
+    font-size: 2rem;
+}
+
+@media screen and (min-width: 540px) {
+    .detail-close-button {
+        right: 5%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .detail-close-button {
+        right: 3.3%;
+    }
+}
+
+@media screen and (min-width: 820px) {
+    .detail-close-button {
+        right: 3%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .detail-close-button {
+        right: 2.5%;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .detail-close-button {
+        right: 2.3%;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .detail-close-button {
+        right: 1.5%;
+    }
+}
+
+@media screen and (min-width: 1800px) {
+    .detail-close-button {
+        right: 1.2%;
+    }
 }
 
 .detial-title {

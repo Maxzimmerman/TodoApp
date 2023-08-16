@@ -115,60 +115,6 @@ namespace Todo.Areas.Customer.Controllers
             }
         }
 
-        public IActionResult SearchResults(string input)
-        {
-            var currentUser = (ClaimsIdentity)User.Identity;
-            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-            List<TodoEntry> todoList = new List<TodoEntry>();
-
-            if (string.IsNullOrEmpty(input))
-            {
-                _logger.LogInformation($"not entreis found");
-                todoList = _context.todos.Where(x => x.ApplicationUserId == currentUserId).ToList();
-            } 
-            else
-            {
-                _logger.LogInformation($"{todoList.Count}");
-
-                todoList = _context.todos.
-                    Where(x => x.ApplicationUserId == currentUserId && x.Title.ToLower().Contains(input.ToLower())).ToList();
-            }
-            return PartialView("_SearchResults", todoList);
-        }
-
-        // Checked Partial
-
-        public IActionResult Checked()
-        {
-            var currentUser = (ClaimsIdentity)User.Identity;
-            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            var entries = _context.todos.Where(e => e.IChecked == true && e.ApplicationUserId == currentUserId).ToList();
-
-            return PartialView("_Checked", entries);
-        }
-
-        public IActionResult AddModal()
-        {
-            IEnumerable<SelectListItem> categories = 
-                _context.categories.Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value = u.Id.ToString(),
-            });
-            IEnumerable<SelectListItem> priorities = 
-                _context.priorities.Select(p => new SelectListItem
-            {
-                Text = p.Name,
-                Value = p.Id.ToString(),
-            });
-
-            ViewBag.Categories = categories;
-            ViewBag.Priorities = priorities;
-            
-            return PartialView("_AddModal");
-        }
-
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
@@ -220,54 +166,6 @@ namespace Todo.Areas.Customer.Controllers
             return RedirectToAction("Index");
         }
 
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult Detail(int id)
-        {
-            if(id == 0)
-            {
-                _logger.LogInformation($"{id} is 0");
-                return BadRequest($"{id} ist 0");
-            }
-
-            var entry = _context.todos.FirstOrDefault(e => e.Id == id);
-
-            if(entry == null)
-            {
-                _logger.LogInformation($"{entry.Title} not Found");
-                return NotFound($"{entry.Title} not Found");
-            }
-
-            IEnumerable<SelectListItem> priorities = _context.priorities
-                .Select(e => new SelectListItem
-                {
-                    Text = e.Name,
-                    Value = e.Id.ToString(),
-                });
-
-            IEnumerable<SelectListItem> categories = _context.categories
-                .Select(e => new SelectListItem
-                {
-                    Text = e.Name,
-                    Value = e.Id.ToString(),
-                });
-
-            if(priorities == null || categories == null)
-            {
-                _logger.LogInformation($"{priorities} - {categories} not found");
-                return NotFound($"{priorities} - {categories} not found");
-            } 
-            else
-            {
-                ViewBag.Categories = categories;
-                ViewBag.Priorities = priorities;
-                _logger.LogInformation($"return detail {entry.Title}");
-
-                return PartialView("_DetailPartial", entry);
-            }
-        }
-
-        // Todo however the addTodo id is always 0
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
@@ -275,30 +173,46 @@ namespace Todo.Areas.Customer.Controllers
         {
             var currentUser = (ClaimsIdentity)User.Identity;
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-            var user = _context.Users.FirstOrDefault(u => u.Id == currentUserId);
 
-            if(addTodo == null)
+            if (addTodo == null)
             {
                 _logger.LogInformation($"{addTodo.Title} not in correct in shape");
                 return BadRequest($"{addTodo.Title} in invalidem Zustand");
             }
 
-            var entry = _context.todos.FirstOrDefault(e => e.Id == addTodo.Id);
-
-            entry.Title = addTodo.Title;
-            entry.Description = addTodo.Description;
-            entry.StartDate = addTodo.StartDate;
-            entry.EndDate = addTodo.EndDate;
-            entry.IChecked = addTodo.IChecked;
-            entry.IDeleted = addTodo.IDeleted;
-            entry.CategoryId = addTodo.CategoryId;
-            entry.PriorityId = addTodo.PriorityId;
-            entry.ApplicationUserId = currentUserId;
-
+            _context.Update(addTodo);
             _context.SaveChanges();
 
             _logger.LogInformation($"{addTodo.Title} adjusted");
-            return RedirectToAction("index");
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        public IActionResult DeleteButton(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest($"{id} can't be 0");
+            }
+            else
+            {
+                var todo = _context.todos.FirstOrDefault(x => x.Id == id);
+
+                if (todo == null)
+                {
+                    return NotFound($"Could not found any entry with id: {id}!");
+                }
+                else
+                {
+                    todo.IDeleted = true;
+                    _context.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+            }
         }
     }
 }

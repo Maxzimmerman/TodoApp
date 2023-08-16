@@ -21,37 +21,6 @@ namespace Todo.Areas.Admin.Contrellers
             _context = context;
         }
 
-        public IActionResult Index()
-        {
-            List<TodoEntry> entries;
-            try
-            {
-                if(User.Identity.IsAuthenticated)
-                {
-                    var currentUser = (ClaimsIdentity)User.Identity;
-                    var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-                    entries = _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToList();
-
-                    if (entries.Count == 0)
-                    {
-                        return View(entries);
-                    }
-                    _logger.LogInformation("All");
-                    return View("Today", entries);
-                }
-                else
-                {
-                    return BadRequest("Login first");
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogInformation($"{ex.Message}");
-                return View("Today");
-            }
-        }
-
         public IActionResult SearchResults(string input)
         {
             var currentUser = (ClaimsIdentity)User.Identity;
@@ -104,57 +73,6 @@ namespace Todo.Areas.Admin.Contrellers
             ViewBag.Priorities = priorities;
 
             return PartialView("_AddModal");
-        }
-
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult AddModal(TodoEntry todoEntry)
-        {
-            var currentUser = (ClaimsIdentity)User.Identity;
-            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            if (todoEntry == null)
-            {
-                _logger.LogInformation($"{todoEntry.Title} not in correct shape");
-                return BadRequest($"{todoEntry.Title} Ist nicht valide");
-            }
-            else
-            {
-                _logger.LogInformation($"{todoEntry.Title} added");
-                todoEntry.ApplicationUserId = currentUserId;
-                _context.todos.Add(todoEntry);
-                TempData["addedtodo"] = $"{todoEntry.Title} Hinzugefügt";
-                _context.SaveChanges();
-                return RedirectToAction("Today");
-            }
-        }
-
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult CheckTodo(int id)
-        {
-            if (id == 0)
-            {
-                _logger.LogInformation("id can't be 0");
-                return NotFound("Entschuldige bitte es ist etwas schief gelaufen");
-            }
-
-            var entry = _context.todos.FirstOrDefault(t => t.Id == id);
-
-            if (entry == null)
-            {
-                _logger.LogInformation($"{entry.Title} not is correct shape");
-                return NotFound("Entschuldige bitte es ist etwas schief gelaufen");
-            }
-
-            entry.IChecked = true;
-            _context.SaveChanges();
-            TempData["checkedtodo"] = $"{entry.Title} Angepasst";
-            _logger.LogInformation($"{entry.Title} is checked");
-
-            return RedirectToAction("Today");
         }
 
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
@@ -224,7 +142,7 @@ namespace Todo.Areas.Admin.Contrellers
 
             _logger.LogInformation($"{addTodo.Title} adjusted");
 
-            return RedirectToAction("Views/Shared/Today");
+            return RedirectToAction("Index");
         }
     }
 }

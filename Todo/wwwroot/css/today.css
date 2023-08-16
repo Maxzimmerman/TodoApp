@@ -111,6 +111,7 @@ body p {
 
 .today-entry > p {
     color: #287233;
+    margin-top: 5px;
 }
 
 .overtime-entry > p {
@@ -127,4 +128,82 @@ body p {
 
 .today-item-id {
     display: none;
+}
+
+form > .delete-button {
+    display: inline;
+    position: relative;
+    top: -60px;
+    right: -74.5%;
+    padding: 10px;
+    border: 0;
+    background-color: none;
+    background: none;
+}
+
+.delete-button {
+    /*display: none;*/
+    color: #cb2821;
+    display: inline;
+    position: relative;
+    top: -60px;
+    right: -74.5%;
+    padding: 10px;
+    border: 0;
+    background-color: none;
+    background: none;
+}
+
+@media screen and (min-width: 375px) {
+    .delete-button {
+        right: -76%;
+    }
+}
+
+@media screen and (min-width: 390px) {
+    .delete-button {
+        right: -77%;
+    }
+}
+
+@media screen and (min-width: 412px) {
+    .delete-button {
+        right: -79%;
+    }
+}
+
+@media screen and (min-width: 540px) {
+    .delete-button {
+        right: -85.3%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .delete-button {
+        right: -89.3%;
+    }
+}
+
+@media screen and (min-width: 820px) {
+    .delete-button {
+        right: -89.3%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .delete-button {
+        right: -92.3%;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .delete-button {
+        right: -93.6%;
+    }
+}
+
+@media screen and (min-width: 1580px) {
+    .delete-button {
+        right: -94.6%;
+    }
 }
