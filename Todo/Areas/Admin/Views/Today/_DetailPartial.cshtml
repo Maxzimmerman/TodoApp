@@ -6,7 +6,9 @@
     <input class="detail-description" asp-for="Description" placeholder="Beschreibung" />
     <input class="detail-startdate" asp-for="StartDate" placeholder="Vom" />
     <input class="detail-enddate" asp-for="EndDate" placeholder="Bis" />
-
+    <div class="detail-checkboxes">
+        <input asp-for="Id" placeholder="Erledigt" />
+    </div>
     <div class="detail-checkboxes">
         <input asp-for="User" placeholder="Erledigt" />
         <input asp-for="ApplicationUserId" placeholder="Gelöscht" />

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Todo.Areas.Customer.Controllers;
 using Todo.DataAccess.data;
@@ -174,19 +175,19 @@ namespace Todo.Areas.Admin.Contrellers
                 return NotFound($"{entry.Title} not Found");
             }
 
-            IEnumerable<SelectListItem> priorities = _context.priorities
+            IEnumerable<SelectListItem> priorities = _context.priorities.ToList()
                 .Select(e => new SelectListItem
                 {
                     Text = e.Name,
                     Value = e.Id.ToString(),
-                });
+                }).ToList();
 
-            IEnumerable<SelectListItem> categories = _context.categories
+            IEnumerable<SelectListItem> categories = _context.categories.ToList()
                 .Select(e => new SelectListItem
                 {
                     Text = e.Name,
                     Value = e.Id.ToString(),
-                });
+                }).ToList();
 
             if (priorities == null || categories == null)
             {
@@ -218,23 +219,12 @@ namespace Todo.Areas.Admin.Contrellers
                 return BadRequest($"{addTodo.Title} in invalidem Zustand");
             }
 
-            var entry = _context.todos.FirstOrDefault(e => e.Id == addTodo.Id);
-
-            entry.Title = addTodo.Title;
-            entry.Description = addTodo.Description;
-            entry.StartDate = addTodo.StartDate;
-            entry.EndDate = addTodo.EndDate;
-            entry.IChecked = addTodo.IChecked;
-            entry.IDeleted = addTodo.IDeleted;
-            entry.CategoryId = addTodo.CategoryId;
-            entry.PriorityId = addTodo.PriorityId;
-            entry.ApplicationUserId = currentUserId;
-
+            _context.Update(addTodo);
             _context.SaveChanges();
 
             _logger.LogInformation($"{addTodo.Title} adjusted");
 
-            return RedirectToAction("Today");
+            return RedirectToAction("Views/Shared/Today");
         }
     }
 }
