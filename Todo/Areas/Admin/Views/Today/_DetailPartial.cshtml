@@ -7,11 +7,14 @@
 
     <input class="detail-description" asp-for="Description" placeholder="Beschreibung" />
 
-    <label asp-for="StartDate">Beginn</label>
-    <input class="detail-startdate" asp-for="StartDate" placeholder="Vom" />
+    <div class="detail-date-section">
+        <label asp-for="StartDate">Beginn</label>
+        <input class="detail-startdate" asp-for="StartDate" placeholder="Vom" />
 
-    <label asp-for="EndDate">Endet</label>
-    <input class="detail-enddate" asp-for="EndDate" placeholder="Bis" />
+        <label asp-for="EndDate">Endet</label>
+        <input class="detail-enddate" asp-for="EndDate" placeholder="Bis" />
+    </div>
+    
 
     <div class="detail-checkboxes">
         <input asp-for="Id" hidden/>

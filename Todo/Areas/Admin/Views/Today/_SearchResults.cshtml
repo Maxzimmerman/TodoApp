@@ -4,11 +4,11 @@
     @{
         foreach(TodoEntry todo in Model)
         {
-            <a href="#" class="">
+            <div hx-get="Admin/Today/Detail?id=@todo.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()" class="">
                 <div>
                     <p>@todo.Title</p>
                 </div>
-            </a>
+            </div>
         }
     }
 </div>

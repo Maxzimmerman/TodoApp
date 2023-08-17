@@ -54,27 +54,27 @@
     }
 }
 
-@media screen and (width: 390px) {
+@media screen and (min-width: 390px) {
+    .form {
+        left: 11%;
+    }
+}
+
+@media screen and (min-width: 393px) {
     .form {
         left: 12%;
     }
 }
 
-@media screen and (width: 393px) {
-    .form {
-        left: 12%;
-    }
-}
-
-@media screen and (width: 412px) {
+@media screen and (min-width: 412px) {
     .form {
         left: 13%;
     }
 }
 
-@media screen and (width: 540px) {
+@media screen and (min-width: 540px) {
     .form {
-        left: 14%;
+        left: 13%;
         width: 400px;
     }
 
@@ -97,9 +97,9 @@
     }
 }
 
-@media screen and (width: 912px) {
+@media screen and (min-width: 912px) {
     .form {
-        left: 16%;
+        left: 17%;
         width: 600px;
     }
 }
@@ -148,4 +148,18 @@
 
 .checkboxes {
     display: none;
+    margin: 10px 0px 10px 0px;
+}
+
+.date-section {
+    margin: 20px 0px 20px 0px;
+}
+
+.date-section > input {
+    display:block;
+    margin: 5px 0px 5px 0px;;
+}
+
+.select-section {
+    margin: 5px 0px 5px 0px;
 }

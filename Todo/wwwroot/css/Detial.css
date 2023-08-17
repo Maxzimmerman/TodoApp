@@ -20,50 +20,8 @@
     font-size: 2rem;
 }
 
-@media screen and (min-width: 540px) {
-    .detail-close-button {
-        right: 5%;
-    }
-}
-
-@media screen and (min-width: 768px) {
-    .detail-close-button {
-        right: 3.3%;
-    }
-}
-
-@media screen and (min-width: 820px) {
-    .detail-close-button {
-        right: 3%;
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .detail-close-button {
-        right: 2.5%;
-    }
-}
-
-@media screen and (min-width: 1280px) {
-    .detail-close-button {
-        right: 2.3%;
-    }
-}
-
-@media screen and (min-width: 1600px) {
-    .detail-close-button {
-        right: 1.5%;
-    }
-}
-
-@media screen and (min-width: 1800px) {
-    .detail-close-button {
-        right: 1.2%;
-    }
-}
-
 .detial-title {
-    margin-top: 4rem;
+    margin-top: 1.5rem;
     font-size: 1.5rem;
 }
 
@@ -90,3 +48,227 @@
     padding: 5px;
 }
 
+.detail-date-section {
+    margin: 10px 0px 10px 0px;
+}
+
+.detail-date-section > input {
+    display: block;
+}
+
+@media screen and (min-width: 390px) {
+    .detial-title {
+        margin-top: 2rem;
+    }
+
+    .detail-date-section {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .detail-category-prio {
+        margin-bottom: 1rem;
+    }
+
+    .detail-form {
+        height: 45%;
+        top: 55%;
+    }
+}
+
+@media screen and (min-width: 412px) {
+    .detial-title {
+        margin-top: 2rem;
+    }
+
+    .detail-date-section {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .detail-category-prio {
+        margin-bottom: 1rem;
+    }
+
+    .detail-form {
+        height: 40%;
+        top: 60%;
+    }
+}
+
+@media screen and (min-width: 414px) {
+    .detial-title {
+        margin-top: 2rem;
+    }
+
+    .detail-date-section {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .detail-category-prio {
+        margin-bottom: 4rem;
+    }
+
+    .detail-category-prio {
+        margin-bottom: 1rem;
+    }
+
+    .detail-form {
+        height: 40%;
+        top: 60%;
+    }
+}
+
+@media screen and (min-width: 540px) {
+    .detail-close-button {
+        right: 5%;
+    }
+
+    .detial-title {
+        margin-top: 2rem;
+        font-size: 30px;
+    }
+
+    .detail-date-section {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .detail-category-prio {
+        margin-bottom: 1rem;
+    }
+
+    .detail-date-section > input {
+        display: block;
+    }
+
+    .detail-form {
+        height: 50%;
+        top: 50%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .detail-close-button {
+        right: 3.3%;
+    }
+
+    .detial-title {
+        margin-top: 2rem;
+        font-size: 30px;
+    }
+
+    .detail-date-section {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .detail-category-prio {
+        margin-bottom: 2rem;
+    }
+
+    .detail-date-section > input {
+        display: inline;
+        margin: 0px 60px 0px 60px;
+    }
+
+    .detail-form {
+        height: 30%;
+        top: 70%;
+    }
+}
+
+@media screen and (min-width: 820px) {
+    .detail-close-button {
+        right: 3%;
+    }
+
+    .detial-title {
+        margin-top: 4rem;
+        font-size: 30px;
+    }
+
+    .detail-date-section {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .detail-category-prio {
+        margin-bottom: 1rem;
+    }
+
+    .detail-date-section > input {
+        display: inline;
+        margin: 0px 80px 0px 80px;
+    }
+
+    .detail-form {
+        height: 25%;
+        top: 75%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .detail-close-button {
+        right: 2.5%;
+    }
+
+    .detial-title {
+        margin-top: 4rem;
+        font-size: 30px;
+    }
+
+    .detail-date-section {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .detail-category-prio {
+        margin-bottom: 1rem;
+    }
+
+    .detail-date-section > input {
+        display: inline;
+        margin: 0px 80px 0px 80px;
+    }
+
+    .detail-form {
+        height: 50%;
+        top: 50%;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .detail-close-button {
+        right: 2.3%;
+    }
+
+    .detial-title {
+        margin-top: 4rem;
+        font-size: 30px;
+    }
+
+    .detail-date-section {
+        margin: 20px 0px 20px 0px;
+    }
+
+    .detail-category-prio {
+        margin-bottom: 1rem;
+    }
+
+    .detail-date-section > input {
+        display: inline;
+        margin: 0px 80px 0px 80px;
+    }
+
+    .detail-form {
+        height: 40%;
+        top: 60%;
+    }
+}
+
+@media screen and (min-width: 1600px) {
+    .detail-close-button {
+        right: 1.5%;
+    }
+}
+
+@media screen and (min-width: 1800px) {
+    .detail-close-button {
+        right: 1.2%;
+    }
+}

@@ -3,8 +3,13 @@
 <form class="form" method="post" action="https://localhost:7208/Customer/Home/AddModal">
     <input class="title" asp-for="Title" action="" placeholder="Titel" />
     <input class="description" asp-for="Description" placeholder="Beschreibung" />
-    <input class="first-date" asp-for="StartDate" placeholder="Vom" />
-    <input class="last-date" asp-for="EndDate" placeholder="Bis" />
+
+    <div class="date-section">
+        <label asp-for="StartDate">Von:</label>
+        <input class="first-date" asp-for="StartDate" />
+        <label asp-for="EndDate">Bis:</label>
+        <input class="last-date" asp-for="EndDate" />
+    </div>
 
     <div class="checkboxes">
         <input asp-for="IChecked" type="checkbox" placeholder="Erledigt" />
