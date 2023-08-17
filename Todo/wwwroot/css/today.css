@@ -89,6 +89,8 @@ body p {
 
 #overtime-toggle {
     transition: all 0.2s linear;
+    position: relative;
+    left: 59%;
 }
 
 #overtime-toggle.down-overtime {
@@ -100,6 +102,8 @@ body p {
     -moz-transition: all 0.2s linear;
     -webkit-transition: all 0.2s linear;
     transition: all 0.2s linear;
+    position: relative;
+    left: 32%;
 }
 
 .today-toggle.down {
@@ -134,7 +138,7 @@ form > .delete-button {
     display: inline;
     position: relative;
     top: -60px;
-    right: -74.5%;
+    right: -70.5%;
     padding: 10px;
     border: 0;
     background-color: none;
@@ -154,9 +158,26 @@ form > .delete-button {
     background: none;
 }
 
+.today-entry-counter {
+    position: fixed;
+    top: 10%;
+}
+
+.over-time-entry-counter {
+    position: relative;
+}
+
 @media screen and (min-width: 375px) {
     .delete-button {
         right: -76%;
+    }
+
+    .today-toggle {
+        left: 35%;
+    }
+
+    #overtime-toggle {
+        left: 61%;
     }
 }
 
@@ -164,11 +185,27 @@ form > .delete-button {
     .delete-button {
         right: -77%;
     }
+
+    .today-toggle {
+        left: 40%;
+    }
+
+    #overtime-toggle {
+        left: 65%;
+    }
 }
 
 @media screen and (min-width: 412px) {
     .delete-button {
         right: -79%;
+    }
+
+    .today-toggle {
+        left: 44%;
+    }
+
+    #overtime-toggle {
+        left: 67%;
     }
 }
 
@@ -176,11 +213,27 @@ form > .delete-button {
     .delete-button {
         right: -85.3%;
     }
+
+    .today-toggle {
+        left: 60%;
+    }
+
+    #overtime-toggle {
+        left: 76%;
+    }
 }
 
 @media screen and (min-width: 768px) {
     .delete-button {
         right: -89.3%;
+    }
+
+    .today-toggle {
+        left: 71%;
+    }
+
+    #overtime-toggle {
+        left: 83%;
     }
 }
 
@@ -188,11 +241,27 @@ form > .delete-button {
     .delete-button {
         right: -89.3%;
     }
+
+    .today-toggle {
+        left: 71%;
+    }
+
+    #overtime-toggle {
+        left: 83%;
+    }
 }
 
 @media screen and (min-width: 1024px) {
     .delete-button {
         right: -92.3%;
+    }
+
+    .today-toggle {
+        left: 80%;
+    }
+
+    #overtime-toggle {
+        left: 89%;
     }
 }
 
@@ -200,10 +269,36 @@ form > .delete-button {
     .delete-button {
         right: -93.6%;
     }
+
+    .today-toggle {
+        left: 83%;
+    }
+
+    #overtime-toggle {
+        left: 90%;
+    }
 }
 
 @media screen and (min-width: 1580px) {
     .delete-button {
         right: -94.6%;
+    }
+
+    .today-toggle {
+        left: 83%;
+    }
+
+    #overtime-toggle {
+        left: 90%;
+    }
+}
+
+@media screen and (min-width: 1400px) {
+    .today-toggle {
+        left: 86%;
+    }
+
+    #overtime-toggle {
+        left: 92%;
     }
 }

@@ -41,7 +41,7 @@
             <div class="today-secition">
                 <h1 class="today-header">Heute </h1><p>@DateTime.Now.ToShortDateString()</p>
                 <i class="fa-solid fa-angle-right today-toggle rotate-toggle"></i>
-
+                <p class="today-entries-counter"></p>
                 <div class="today-entries">
                     @{
                         if (Model.Count == 0)
@@ -57,7 +57,7 @@
                                     <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
                                     <p>@item.EndDate.ToShortDateString()</p>
                                 </div>
-                                <form action="https://localhost:7208/Admin/Today/DeleteButton?id=@item.Id" method="post">
+                                <form action="https://localhost:7208/Customer/Home/DeleteButton?id=@item.Id" method="post">
                                     <button type="submit" class="delete-button">Löschen</button>
                                 </form>
                             }
@@ -70,7 +70,7 @@
             <div class="overtime-seciton">
                 <h3 class="overtime-header">Überfällig</h3>
                 <i id="overtime-toggle" class="fa-solid fa-angle-right ovetime-toggle"></i>
-
+                <p class="over-time-entry-counter"></p>
                 <div class="overtime-entries">
                     @{
                         if (Model.Count == 0)
@@ -87,10 +87,11 @@
                                     <h5 class="overtime-item-header"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
                                     <p>@item.EndDate.ToShortDateString()</p>
                                 </div>
-                                <form action="https://localhost:7208/Admin/Today/DeleteButton?id=@item.Id" method="post">
+                                <form action="https://localhost:7208/Customer/Home/DeleteButton?id=@item.Id" method="post">
                                     <button type="submit" class="delete-button">Löschen</button>
                                 </form>
                             }
+                            
                         }
                     }
                 </div>
