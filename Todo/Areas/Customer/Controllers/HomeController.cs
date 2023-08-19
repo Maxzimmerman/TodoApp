@@ -9,6 +9,9 @@ using Todo.Models;
 
 namespace Todo.Areas.Customer.Controllers
 {
+    // These endpints are in fact splited into these and the Admin/TodayController
+    // Here are all endpoints which are redirecting to the today the homepage after a user i logged in
+    // because i can't access it in the Admin/TodayController
     [Area("Customer")]
     public class HomeController : Controller
     {
@@ -21,7 +24,7 @@ namespace Todo.Areas.Customer.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             List<TodoEntry> entries;
             try
@@ -31,7 +34,7 @@ namespace Todo.Areas.Customer.Controllers
                     var currentUser = (ClaimsIdentity)User.Identity;
                     var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-                    entries = _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToList();
+                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToListAsync();
 
                     if (User.Identity.IsAuthenticated)
                     {
@@ -55,7 +58,7 @@ namespace Todo.Areas.Customer.Controllers
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public async Task<IActionResult> Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
@@ -63,45 +66,9 @@ namespace Todo.Areas.Customer.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<TodoEntry>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult Todo()
+        public async Task<IActionResult> Todo()
         {
-            var entries = _context.todos.Include(entry => entry.Category).Include(entry => entry.Priority).ToList();
-
-            if(entries.Count == 0)
-            {
-                _logger.LogInformation($"{entries.Count} not entries found");
-                return NotFound($"{entries.Count} Einträge gefunden");
-            }
-            else
-            {
-                _logger.LogInformation($"{entries.Count} entries");
-                return Ok(entries);
-            }
-        }
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Category>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult Category()
-        {
-            var entries = _context.categories.ToList();
-
-            if(entries.Count == 0)
-            {
-                _logger.LogInformation($"{entries.Count} not entries found");
-                return NotFound($"{entries.Count} Einträge gefunden");
-            }
-            else
-            {
-                _logger.LogInformation($"{entries.Count} entries");
-                return Ok(entries);
-            }
-        }
-        [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<Priority>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult Prio()
-        {
-            var entries = _context.priorities.ToList();
+            var entries = await _context.todos.Include(entry => entry.Category).Include(entry => entry.Priority).ToListAsync();
 
             if(entries.Count == 0)
             {
@@ -118,7 +85,7 @@ namespace Todo.Areas.Customer.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult AddModal(TodoEntry todoEntry)
+        public async Task<IActionResult> AddModal(TodoEntry todoEntry)
         {
             var currentUser = (ClaimsIdentity)User.Identity;
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -131,10 +98,13 @@ namespace Todo.Areas.Customer.Controllers
             else
             {
                 _logger.LogInformation($"{todoEntry.Title} added");
+
                 todoEntry.ApplicationUserId = currentUserId;
-                _context.todos.Add(todoEntry);
+                await _context.todos.AddAsync(todoEntry);
+                await _context.SaveChangesAsync();
+
                 TempData["addedtodo"] = $"{todoEntry.Title} Hinzugefügt";
-                _context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
         }
@@ -142,7 +112,7 @@ namespace Todo.Areas.Customer.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public IActionResult CheckTodo(int id)
+        public async Task<IActionResult> CheckTodo(int id)
         {
             if(id == 0)
             {
@@ -150,7 +120,7 @@ namespace Todo.Areas.Customer.Controllers
                 return NotFound("Entschuldige bitte es ist etwas schief gelaufen");
             }
 
-            var entry = _context.todos.FirstOrDefault(t => t.Id == id);
+            var entry = await _context.todos.FirstOrDefaultAsync(t => t.Id == id);
 
             if(entry == null)
             {
@@ -159,8 +129,10 @@ namespace Todo.Areas.Customer.Controllers
             }
 
             entry.IChecked = true;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+
             TempData["checkedtodo"] = $"{entry.Title} Angepasst";
+
             _logger.LogInformation($"{entry.Title} is checked");
 
             return RedirectToAction("Index");
@@ -169,7 +141,7 @@ namespace Todo.Areas.Customer.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult AddDetail(TodoEntry addTodo)
+        public async Task<IActionResult> AddDetail(TodoEntry addTodo)
         {
             var currentUser = (ClaimsIdentity)User.Identity;
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
@@ -181,7 +153,7 @@ namespace Todo.Areas.Customer.Controllers
             }
 
             _context.Update(addTodo);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             _logger.LogInformation($"{addTodo.Title} adjusted");
 
@@ -191,7 +163,7 @@ namespace Todo.Areas.Customer.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult DeleteButton(int id)
+        public async Task<IActionResult> DeleteButton(int id)
         {
             if (id == 0)
             {
@@ -199,7 +171,7 @@ namespace Todo.Areas.Customer.Controllers
             }
             else
             {
-                var todo = _context.todos.FirstOrDefault(x => x.Id == id);
+                var todo = await _context.todos.FirstOrDefaultAsync(x => x.Id == id);
 
                 if (todo == null)
                 {
@@ -208,7 +180,7 @@ namespace Todo.Areas.Customer.Controllers
                 else
                 {
                     todo.IDeleted = true;
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
 
                     return RedirectToAction("Index");
                 }

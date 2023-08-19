@@ -10,15 +10,27 @@
     <Compile Remove="Areas\Admin\Controllers\**" />
     <Compile Remove="Areas\Admin\Data\**" />
     <Compile Remove="Areas\Admin\Models\**" />
+    <Compile Remove="Areas\Customer\Data\**" />
+    <Compile Remove="Areas\Customer\Models\**" />
+    <Compile Remove="Controllers\**" />
     <Content Remove="Areas\Admin\Controllers\**" />
     <Content Remove="Areas\Admin\Data\**" />
     <Content Remove="Areas\Admin\Models\**" />
+    <Content Remove="Areas\Customer\Data\**" />
+    <Content Remove="Areas\Customer\Models\**" />
+    <Content Remove="Controllers\**" />
     <EmbeddedResource Remove="Areas\Admin\Controllers\**" />
     <EmbeddedResource Remove="Areas\Admin\Data\**" />
     <EmbeddedResource Remove="Areas\Admin\Models\**" />
+    <EmbeddedResource Remove="Areas\Customer\Data\**" />
+    <EmbeddedResource Remove="Areas\Customer\Models\**" />
+    <EmbeddedResource Remove="Controllers\**" />
     <None Remove="Areas\Admin\Controllers\**" />
     <None Remove="Areas\Admin\Data\**" />
     <None Remove="Areas\Admin\Models\**" />
+    <None Remove="Areas\Customer\Data\**" />
+    <None Remove="Areas\Customer\Models\**" />
+    <None Remove="Controllers\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,10 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Customer\Data\" />
-    <Folder Include="Areas\Customer\Models\" />
     <Folder Include="Areas\Customer\Views\Today\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,8 +8,20 @@
                 <div>
                     <p>@todo.Title</p>
                 </div>
-                <div id="search-link-id"></div>
+                <div id="search-link-id" hidden>@todo.Id</div>
             </a>
         }
     }
 </div>
+
+<script>
+    $(function () {
+        console.log($('.search-bar-link'))
+        console.log($('#detail-page'))
+        console.log($('#search-link-id').text())
+        $('.search-bar-link').on('click', function () {
+            var id = $('#search-link-id').text();
+            $('#detail-page').load("/Admin/Today/DetailSearchLinkResult?id=" + id);
+        });
+    });
+</script>

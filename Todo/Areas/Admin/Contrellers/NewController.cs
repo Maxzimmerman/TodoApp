@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Todo.Areas.Customer.Controllers
+namespace Todo.Areas.Admin.Contrellers
 {
-    [Area("Customer")]
-    public class Future : Controller
+    public class NewController : Controller
     {
+        [Area("Admin")]
         public IActionResult Index()
         {
             return View();

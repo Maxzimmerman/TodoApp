@@ -17,9 +17,9 @@
             <a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa-solid fa-user"></i></a>
         </div>
         <div class="hamburger-menu-drop-down">
-            <a asp-area="Customer" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
-            <a asp-area="Admin" asp-controller="Today" asp-action="Index"><i class="fa-solid fa-calendar-days"> @DateTime.Now.ToShortDateString()</i> Heute</a>
-            <a asp-area="Customer" asp-controller="Future" asp-action="Index">Demnächst</a>
+            <a asp-area="Admin" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
+            <a asp-area="Admin" asp-controller="InBox" asp-action="Index"><i class="fa-solid fa-calendar-days"> @DateTime.Now.ToShortDateString()</i> Heute</a>
+            <a asp-area="Admin" asp-controller="Future" asp-action="Index">Demnächst</a>
         </div>
         <div class="search-bar-header">
             <input id="inputQuery" type="text" />

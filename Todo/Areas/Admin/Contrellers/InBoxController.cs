@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Todo.Areas.Customer.Controllers
+namespace Todo.Areas.Admin.Contrellers
 {
-    public class New : Controller
+    [Area("Admin")]
+    public class InBoxController : Controller
     {
-        [Area("Customer")]
         public IActionResult Index()
         {
             return View();

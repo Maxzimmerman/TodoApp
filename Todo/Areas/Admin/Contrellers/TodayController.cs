@@ -9,6 +9,9 @@ using Todo.Models;
 
 namespace Todo.Areas.Admin.Contrellers
 {
+    // These endpints are in fact splited into these and the Customer/HomeController
+    // Here are all endpoints which are returning partial views
+    // because i can't access them in the Customer/HomeController
     [Area("Admin")]
     public class TodayController : Controller
     {
@@ -21,8 +24,8 @@ namespace Todo.Areas.Admin.Contrellers
             _context = context;
         }
 
-        public IActionResult SearchResults(string input)
-       {
+        public async Task<IActionResult> SearchResults(string input)
+        {
             var currentUser = (ClaimsIdentity)User.Identity;
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
             List<TodoEntry> todoList = new List<TodoEntry>();
@@ -30,44 +33,49 @@ namespace Todo.Areas.Admin.Contrellers
             if (string.IsNullOrEmpty(input))
             {
                 _logger.LogInformation($"not entreis found");
-                todoList = _context.todos.Where(x => x.ApplicationUserId == currentUserId && x.IDeleted == false).ToList();
+
+                todoList = await _context.todos.Where(x => x.ApplicationUserId == currentUserId && x.IDeleted == false && x.IChecked == false).ToListAsync();
             }
             else
             {
                 _logger.LogInformation($"{todoList.Count}");
 
-                todoList = _context.todos.
-                    Where(x => x.ApplicationUserId == currentUserId && x.IDeleted == false && x.Title.ToLower().Trim().Contains(Convert.ToString(input.ToLower().Trim()))).ToList();
+                todoList = await _context.todos.
+                    Where(x => x.ApplicationUserId == currentUserId 
+                    && x.IDeleted == false 
+                    && x.IChecked == false 
+                    && x.Title.ToLower().Trim().Contains(Convert.ToString(input.ToLower().Trim()))).ToListAsync();
             }
             return PartialView("_SearchResults", todoList);
         }
 
         // Checked Partial
 
-        public IActionResult Checked()
+        public async Task<IActionResult> Checked()
         {
             var currentUser = (ClaimsIdentity)User.Identity;
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var entries = _context.todos.Where(e => e.IChecked == true && e.ApplicationUserId == currentUserId).ToList();
+            var entries = await _context.todos.Where(e => e.IChecked == true && e.ApplicationUserId == currentUserId).ToListAsync();
 
             return PartialView("_Checked", entries);
         }
 
-        public IActionResult AddModal()
+        public async Task<IActionResult> AddModal()
         {
             IEnumerable<SelectListItem> categories =
-                _context.categories.Select(u => new SelectListItem
+                await _context.categories.Select(u => new SelectListItem
                 {
                     Text = u.Name,
                     Value = u.Id.ToString(),
-                });
+                }).ToListAsync();
+
             IEnumerable<SelectListItem> priorities =
-                _context.priorities.Select(p => new SelectListItem
+                await _context.priorities.Select(p => new SelectListItem
                 {
                     Text = p.Name,
                     Value = p.Id.ToString(),
-                });
+                }).ToListAsync();
 
             ViewBag.Categories = categories;
             ViewBag.Priorities = priorities;
@@ -77,7 +85,7 @@ namespace Todo.Areas.Admin.Contrellers
 
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult Detail(int id)
+        public async Task<IActionResult> Detail(int id)
         {
             if (id == 0)
             {
@@ -85,7 +93,7 @@ namespace Todo.Areas.Admin.Contrellers
                 return BadRequest($"{id} ist 0");
             }
 
-            var entry = _context.todos.FirstOrDefault(e => e.Id == id);
+            var entry = await _context.todos.FirstOrDefaultAsync(e => e.Id == id);
 
             if (entry == null)
             {
@@ -122,32 +130,9 @@ namespace Todo.Areas.Admin.Contrellers
             }
         }
 
-        // Todo however the addTodo id is always 0
-        [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult AddDetail(TodoEntry addTodo)
-        {
-            var currentUser = (ClaimsIdentity)User.Identity;
-            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            if (addTodo == null)
-            {
-                _logger.LogInformation($"{addTodo.Title} not in correct in shape");
-                return BadRequest($"{addTodo.Title} in invalidem Zustand");
-            }
-
-            _context.Update(addTodo);
-            _context.SaveChanges();
-
-            _logger.LogInformation($"{addTodo.Title} adjusted");
-
-            return RedirectToAction("Index");
-        }
-
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public IActionResult DetailSearchLinkResult(int id)
+        public async Task<IActionResult> DetailSearchLinkResult(int id)
         {
             if (id == 0)
             {
@@ -155,7 +140,7 @@ namespace Todo.Areas.Admin.Contrellers
                 return BadRequest($"{id} ist 0");
             }
 
-            var entry = _context.todos.FirstOrDefault(e => e.Id == id);
+            var entry = await _context.todos.FirstOrDefaultAsync(e => e.Id == id);
 
             if (entry == null)
             {
