@@ -6,7 +6,7 @@ const OvertimeEntriesDragAndDropItems = document.querySelectorAll('.overtime-ent
 const Entries = document.querySelectorAll('.entry');
 
 homeButton.addEventListener('click', () => {
-    window.location.href = 'https://localhost:7208';
+    window.location.href = '';
 })
 
 // Todo should work

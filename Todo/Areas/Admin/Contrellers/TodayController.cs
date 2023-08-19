@@ -22,7 +22,7 @@ namespace Todo.Areas.Admin.Contrellers
         }
 
         public IActionResult SearchResults(string input)
-        {
+       {
             var currentUser = (ClaimsIdentity)User.Identity;
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
             List<TodoEntry> todoList = new List<TodoEntry>();
@@ -30,14 +30,14 @@ namespace Todo.Areas.Admin.Contrellers
             if (string.IsNullOrEmpty(input))
             {
                 _logger.LogInformation($"not entreis found");
-                todoList = _context.todos.Where(x => x.ApplicationUserId == currentUserId).ToList();
+                todoList = _context.todos.Where(x => x.ApplicationUserId == currentUserId && x.IDeleted == false).ToList();
             }
             else
             {
                 _logger.LogInformation($"{todoList.Count}");
 
                 todoList = _context.todos.
-                    Where(x => x.ApplicationUserId == currentUserId && x.Title.ToLower().Contains(input.ToLower())).ToList();
+                    Where(x => x.ApplicationUserId == currentUserId && x.IDeleted == false && x.Title.ToLower().Trim().Contains(Convert.ToString(input.ToLower().Trim()))).ToList();
             }
             return PartialView("_SearchResults", todoList);
         }
@@ -143,6 +143,53 @@ namespace Todo.Areas.Admin.Contrellers
             _logger.LogInformation($"{addTodo.Title} adjusted");
 
             return RedirectToAction("Index");
+        }
+
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        public IActionResult DetailSearchLinkResult(int id)
+        {
+            if (id == 0)
+            {
+                _logger.LogInformation($"{id} is 0");
+                return BadRequest($"{id} ist 0");
+            }
+
+            var entry = _context.todos.FirstOrDefault(e => e.Id == id);
+
+            if (entry == null)
+            {
+                _logger.LogInformation($"{entry.Title} not Found");
+                return NotFound($"{entry.Title} not Found");
+            }
+
+            IEnumerable<SelectListItem> priorities = _context.priorities.ToList()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.Name,
+                    Value = e.Id.ToString(),
+                }).ToList();
+
+            IEnumerable<SelectListItem> categories = _context.categories.ToList()
+                .Select(e => new SelectListItem
+                {
+                    Text = e.Name,
+                    Value = e.Id.ToString(),
+                }).ToList();
+
+            if (priorities == null || categories == null)
+            {
+                _logger.LogInformation($"{priorities} - {categories} not found");
+                return NotFound($"{priorities} - {categories} not found");
+            }
+            else
+            {
+                ViewBag.Categories = categories;
+                ViewBag.Priorities = priorities;
+                _logger.LogInformation($"return detail {entry.Title}");
+
+                return PartialView("_DetailSearchLinkPartial", entry);
+            }
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿@model TodoEntry
 
-<form class="form" method="post" action="https://localhost:7208/Customer/Home/AddModal">
+<form class="form" method="post" action="/Customer/Home/AddModal">
     <input class="title" asp-for="Title" action="" placeholder="Titel" />
     <input class="description" asp-for="Description" placeholder="Beschreibung" />
 
     <div class="date-section">
-        <label asp-for="StartDate">Von:</label>
+        <label>Von:</label>
         <input class="first-date" asp-for="StartDate" />
-        <label asp-for="EndDate">Bis:</label>
+        <label>Bis:</label>
         <input class="last-date" asp-for="EndDate" />
     </div>
 

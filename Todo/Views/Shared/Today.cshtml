@@ -57,7 +57,7 @@
                                     <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
                                     <p>@item.EndDate.ToShortDateString()</p>
                                 </div>
-                                <form action="https://localhost:7208/Customer/Home/DeleteButton?id=@item.Id" method="post">
+                                <form action="/Customer/Home/DeleteButton?id=@item.Id" method="post">
                                     <button type="submit" class="delete-button">Löschen</button>
                                 </form>
                             }
@@ -87,7 +87,7 @@
                                     <h5 class="overtime-item-header"><a asp-route-id="@item.Id" asp-area="Customer" asp-controller="Home" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
                                     <p>@item.EndDate.ToShortDateString()</p>
                                 </div>
-                                <form action="https://localhost:7208/Customer/Home/DeleteButton?id=@item.Id" method="post">
+                                <form action="/Customer/Home/DeleteButton?id=@item.Id" method="post">
                                     <button type="submit" class="delete-button">Löschen</button>
                                 </form>
                             }
@@ -102,6 +102,8 @@
             </div>
 
             <div id="detail-page">
+            </div>
+            <div id="detail-page-search-result">
             </div>
 
             <div class="added-alert">@TempData["addedtodo"]</div>

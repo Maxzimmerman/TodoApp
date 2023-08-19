@@ -4,11 +4,12 @@
     @{
         foreach(TodoEntry todo in Model)
         {
-            <div hx-get="Admin/Today/Detail?id=@todo.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()" class="">
+            <a class="search-bar-link">
                 <div>
                     <p>@todo.Title</p>
                 </div>
-            </div>
+                <div id="search-link-id"></div>
+            </a>
         }
     }
 </div>
