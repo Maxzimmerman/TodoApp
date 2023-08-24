@@ -1,11 +1,44 @@
 ﻿@page
 @model IndexModel
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
 <h3>@ViewData["Title"]</h3>
+@{
+    if (SignInManager.IsSignedIn(User))
+    {
+        <div class="navbar">
+            <i class="fa-solid fa-bars hambuger-menu-button"></i>
+            <i class="fa-solid fa-house home-button"></i>
+            <i class="fa-solid fa-magnifying-glass search-bar-button"></i>
+            <i class="fa-solid fa-plus add-modal-button"></i>
+            <i class="fa-solid fa-check check-bar-button"></i>
+            <!--<i class="fa-solid fa-bell"></i>-->
+            <a asp-area="Identity" asp-page="/Account/Manage/Index">@UserManager.GetUserName(User) <i class="fa-solid fa-user"></i></a>
+        </div>
+        <div class="hamburger-menu-drop-down">
+            <a asp-area="Admin" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-calendar-days"> @DateTime.Now.ToShortDateString()</i> Heute</a>
+            <a asp-area="Admin" asp-controller="Future" asp-action="Index">Demnächst</a>
+            <hr class="hamburger-menu-hr">
+            <h5>Favoriten</h5>
+            <h5>Projekte:</h5>
+            <div class="project-holder">
+                @{
+                    // foreach (Project project in Model.Projects)
+                    // {
+                    //     <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">@project.Title <span>@Model.TodoEntries.Where(todo => todo.ProjectId == project.Id).Count()</span></a>
+                    // }
+                }
+            </div>
+        </div>
+    }
+}
 <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
     <button type="submit" class="nav-link btn btn-link text-dark">Abmelden</button>
 </form>

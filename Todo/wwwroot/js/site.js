@@ -2,7 +2,6 @@
 const homeButton = document.querySelector('.fa-house');
 const OvertimeEntriesDragAndDropContainer = document.querySelector('.overtime-entries');
 const OvertimeEntriesDragAndDropItems = document.querySelectorAll('.overtime-entry');
-
 const Entries = document.querySelectorAll('.entry');
 
 homeButton.addEventListener('click', () => {
@@ -75,15 +74,13 @@ function getAfterElement(container, y, draggingElement) {
 
 // hamburger menu
 $(function () {
-    $('.hamburger-menu-drop-down').slideUp(0);
-    $('.fa-bars').on('click', function () {
+    
+    $('.fa-bars').on('click', function (e) {
         $('.hamburger-menu-drop-down').slideToggle(100);
+        e.stopPropagation();
         if (screen.width < 540) {
-            $('.search-bar-header').slideUp(0);
+            
         }
-        $('#checked-bar').slideUp(0);
-        $('#add-modal').slideUp(0);
-        
     })
 
     //searchbar
@@ -93,9 +90,6 @@ $(function () {
     
     $('.fa-magnifying-glass').on('click', function () {
         $('.search-bar-header').slideToggle(100);
-        $('.hamburger-menu-drop-down').slideUp(0);
-        $('#checked-bar').slideUp(0);
-        $('#add-modal').slideUp(0);
     });
 
     $('.fa-xmark').on('click', function () {
@@ -122,9 +116,6 @@ $(function () {
         if (screen.width < 540) {
             $('.search-bar-header').slideUp(0);
         }
-        
-        $('#checked-bar').slideUp(0);
-        $('.hamburger-menu-drop-down').slideUp(0);
 
         $('#cancel').on('click', function () {
             console.log('ehll')
@@ -142,8 +133,6 @@ $(function () {
         if (screen.width < 540) {
             $('.search-bar-header').slideUp(0);
         }
-        $('#add-modal').slideUp(0);
-        $('.hamburger-menu-drop-down').slideUp(0);
     })
 
     // Todo make this work

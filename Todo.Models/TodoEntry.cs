@@ -32,5 +32,9 @@ namespace Todo.Models
         public string ApplicationUserId { get; set; }
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
+
+        public int ProjectId { get; set; }
+        [ForeignKey("ProjectId")]
+        public Project Project { get; set; }
     }
 }

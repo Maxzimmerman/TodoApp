@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using System.Dynamic;
 using System.Security.Claims;
 using Todo.DataAccess.data;
 using Todo.Models;
+using Todo.Models.ViewModels;
 
 namespace Todo.Areas.Customer.Controllers
 {
@@ -34,11 +36,18 @@ namespace Todo.Areas.Customer.Controllers
                     var currentUser = (ClaimsIdentity)User.Identity;
                     var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+                    ProjectAndTodoEntryViewModel projectAndTodoEntryViewModel = new ProjectAndTodoEntryViewModel();
+
+                    var projects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId).ToListAsync();
+
                     entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToListAsync();
+
+                    projectAndTodoEntryViewModel.TodoEntries = entries;
+                    projectAndTodoEntryViewModel.Projects = projects;
 
                     if (User.Identity.IsAuthenticated)
                     {
-                        return View("Today", entries);
+                        return View("Today", projectAndTodoEntryViewModel);
                     }
                     else
                     {

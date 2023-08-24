@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Todo.Areas.Customer.Controllers;
 using Todo.DataAccess.data;
 using Todo.Models;
+using Todo.Models.ViewModels;
 
 namespace Todo.Areas.Admin.Contrellers
 {
@@ -44,7 +45,7 @@ namespace Todo.Areas.Admin.Contrellers
                     Where(x => x.ApplicationUserId == currentUserId 
                     && x.IDeleted == false 
                     && x.IChecked == false 
-                    && x.Title.ToLower().Trim().Contains(Convert.ToString(input.ToLower().Trim()))).ToListAsync();
+                    && x.Title.ToLower().Trim().Contains(input.ToLower().Trim())).ToListAsync();
             }
             return PartialView("_SearchResults", todoList);
         }
@@ -77,8 +78,17 @@ namespace Todo.Areas.Admin.Contrellers
                     Value = p.Id.ToString(),
                 }).ToListAsync();
 
+            IEnumerable<SelectListItem> projects =
+                await _context.projects.Select(p => new SelectListItem
+                {
+                    Text = p.Title,
+                    Value = p.Id.ToString(),
+                }).ToListAsync();
+                
+
             ViewBag.Categories = categories;
             ViewBag.Priorities = priorities;
+            ViewBag.Projects = projects;
 
             return PartialView("_AddModal");
         }
@@ -115,6 +125,13 @@ namespace Todo.Areas.Admin.Contrellers
                     Value = e.Id.ToString(),
                 }).ToList();
 
+            IEnumerable<SelectListItem> projects =
+                await _context.projects.Select(p => new SelectListItem
+                {
+                    Text = p.Title,
+                    Value = p.Id.ToString(),
+                }).ToListAsync();
+
             if (priorities == null || categories == null)
             {
                 _logger.LogInformation($"{priorities} - {categories} not found");
@@ -124,6 +141,7 @@ namespace Todo.Areas.Admin.Contrellers
             {
                 ViewBag.Categories = categories;
                 ViewBag.Priorities = priorities;
+                ViewBag.Projects = projects;
                 _logger.LogInformation($"return detail {entry.Title}");
 
                 return PartialView("_DetailPartial", entry);

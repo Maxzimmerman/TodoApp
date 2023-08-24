@@ -1,4 +1,4 @@
-﻿@model Todo.Models.ViewModels.ProjectAndTodoEntryViewModel;
+﻿@model Todo.Models.ViewModels.ProjectDetailPartialViewModel;
 
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<IdentityUser> SignInManager
@@ -27,7 +27,7 @@
                 @{
                     foreach (Project project in Model.Projects)
                     {
-                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">@project.Title <span>@Model.TodoEntries.Where(todo => todo.ProjectId == project.Id).Count()</span></a>
+                        <a asp-area="Admin" asp-controller="Today" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">@project.Title <span>@Model.TodoEntries.Where(todo => todo.ProjectId == project.Id).Count()</span></a>
                     }
                 }
             </div>
@@ -50,7 +50,7 @@
         if (SignInManager.IsSignedIn(User))
         {
             <div class="today-secition">
-                <h1 class="today-header">Heute </h1><p>@DateTime.Now.ToShortDateString()</p>
+                <h1 class="today-header">@Model.Project.Title </h1>
                 <i class="fa-solid fa-angle-right today-toggle rotate-toggle"></i>
                 <p class="today-entries-counter"></p>
                 <div class="today-entries">
@@ -108,17 +108,6 @@
                 </div>
 
             </div>
-            <div class="add-new-section">
-                <i class="fa-solid fa-plus add-modal-button"></i><p>Aufgabe hinzufügen</p>
-            </div>
-
-            <div id="detail-page">
-            </div>
-            <div id="detail-page-search-result">
-            </div>
-
-            <div class="added-alert">@TempData["addedtodo"]</div>
-            <div class="checked-alert">@TempData["checkedtodo"]</div>
         }
         else
         {
@@ -126,6 +115,3 @@
         }
     }
 </div>
-
-
-                  

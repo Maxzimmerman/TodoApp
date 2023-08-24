@@ -24,6 +24,11 @@
         </select>
     </div>
 
+    <div class="select-section">
+        <select asp-for="ProjectId" asp-items="ViewBag.projects">
+        </select>
+    </div>
+
     <div class="button-section">
         <button id="cancel" type="button">Abbrechen</button>
         <button class="add" type="submit">Aufgabe hinzufügen</button>

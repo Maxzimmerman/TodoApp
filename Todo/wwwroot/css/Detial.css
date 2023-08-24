@@ -12,6 +12,7 @@
     border-bottom-right-radius: 0px;
     padding: 20px;
     background-color: white;
+    z-index: 9;
 }
 
 .detail-close-button {
