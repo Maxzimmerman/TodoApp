@@ -1,4 +1,4 @@
-﻿@model Todo.Models.ViewModels.ProjectAndTodoEntryViewModel;
+﻿@model Todo.Models.ViewModels.ProjectLikedAndTodoEntryViewModel;
 
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<IdentityUser> SignInManager
@@ -14,20 +14,32 @@
             <i class="fa-solid fa-plus add-modal-button"></i>
             <i class="fa-solid fa-check check-bar-button"></i>
             <!--<i class="fa-solid fa-bell"></i>-->
-            <a asp-area="Identity" asp-page="/Account/Manage/Index">@UserManager.GetUserName(User) <i class="fa-solid fa-user"></i></a>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa-solid fa-user"></i></a>
         </div>
         <div class="hamburger-menu-drop-down">
             <a asp-area="Admin" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
-            <a asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-calendar-days"> @DateTime.Now.ToShortDateString()</i> Heute</a>
+            <a asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-calendar-days"><p> @DateTime.Now.ToShortDateString()</p></i> Heute</a>
             <a asp-area="Admin" asp-controller="Future" asp-action="Index">Demnächst</a>
             <hr class="hamburger-menu-hr">
             <h5>Favoriten</h5>
-            <h5>Projekte:</h5>
+            @{
+                if (Model.LikdedProjects != null)
+                {
+                    foreach (Project project in Model.LikdedProjects)
+                    {
+                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title <span>@Model.TodoEntries.Where(todo => todo.ProjectId == project.Id).Count()</span><i class="fa-solid fa-gear project-settings-button"></i></a>
+                    }
+                }
+            }
+            <h5>Projekte <span><i class="fa-solid fa-plus add-project-button"></i></span></h5>
             <div class="project-holder">
                 @{
-                    foreach (Project project in Model.Projects)
+                    if (Model.Projects != null)
                     {
-                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">@project.Title <span>@Model.TodoEntries.Where(todo => todo.ProjectId == project.Id).Count()</span></a>
+                        foreach (Project project in Model.Projects)
+                        {
+                            <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title <span>@Model.TodoEntries.Where(todo => todo.ProjectId == project.Id).Count()</span><i class="fa-solid fa-gear project-settings-button"></i></a>
+                        }
                     }
                 }
             </div>

@@ -11,5 +11,6 @@ namespace Todo.Models.ViewModels
         public List<TodoEntry> TodoEntries { get; set; }
         public Project Project { get; set; }
         public List<Project> Projects { get; set; }
+        public List<Project> LikedProjects { get; set; }
     }
 }

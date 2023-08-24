@@ -18,5 +18,7 @@ namespace Todo.Models
         public string ApplicationUserId { get; set; }
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsLiked { get; set; }
     }
 }

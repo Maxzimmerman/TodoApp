@@ -36,14 +36,16 @@ namespace Todo.Areas.Customer.Controllers
                     var currentUser = (ClaimsIdentity)User.Identity;
                     var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-                    ProjectAndTodoEntryViewModel projectAndTodoEntryViewModel = new ProjectAndTodoEntryViewModel();
+                    ProjectLikedAndTodoEntryViewModel projectAndTodoEntryViewModel = new ProjectLikedAndTodoEntryViewModel();
 
-                    var projects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId).ToListAsync();
+                    var projects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsDeleted == false).ToListAsync();
+                    var likedProjects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsLiked == true && p.IsDeleted == false).ToListAsync();
 
-                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToListAsync();
+                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId && e.IDeleted == false && e.IChecked == false).ToListAsync();
 
                     projectAndTodoEntryViewModel.TodoEntries = entries;
                     projectAndTodoEntryViewModel.Projects = projects;
+                    projectAndTodoEntryViewModel.LikdedProjects = likedProjects;
 
                     if (User.Identity.IsAuthenticated)
                     {

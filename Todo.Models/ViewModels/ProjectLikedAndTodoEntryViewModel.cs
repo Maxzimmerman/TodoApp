@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Todo.Models.ViewModels
 {
-    public class NavBarViewModel
+    public class ProjectLikedAndTodoEntryViewModel
     {
         public List<TodoEntry> TodoEntries { get; set; }
         public List<Project> Projects { get; set; }
-        public List<Project> LikedProjects { get; set; }
+        public List<Project> LikdedProjects { get; set; }
     }
 }

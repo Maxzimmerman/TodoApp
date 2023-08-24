@@ -25,9 +25,32 @@
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
+.project-settings-button {
+    position: relative;
+    left: 57%;
+}
+
+.add-project-button {
+    position: relative;
+    left: calc(69%);
+}
+
+i {
+    padding: 5px;
+}
+
+i:hover {
+    background-color: #c6c6c6;
+    border-radius: 3px;
+}
+
+a:hover {
+    color: black;
+}
+
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
@@ -39,6 +62,10 @@ body {
     margin-right: 0px;
 }
 
+.fa-user {
+    margin-left: 5px;
+}
+
 /*Navbar*/
 
 .navbar {
@@ -47,7 +74,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 4;
 }
 
 /*Hamburgermenu*/
@@ -99,6 +126,102 @@ body {
 
 .hamburger-menu-drop-down > a:hover {
     background-color: #dddddd;
+}
+
+@media screen and (min-width: 375px) {
+    .project-settings-button {
+        position: relative;
+        left: 59%;
+    }
+
+    .add-project-button {
+        position: relative;
+        left: calc(70%);
+    }
+}
+
+@media screen and (min-width: 390px) {
+    .project-settings-button {
+        position: relative;
+        left: 60%;
+    }
+
+    .add-project-button {
+        position: relative;
+        left: calc(72%);
+    }
+}
+
+@media screen and (min-width: 412px) {
+    .project-settings-button {
+        position: relative;
+        left: 63%;
+    }
+
+    .add-project-button {
+        position: relative;
+        left: calc(73%);
+    }
+}
+
+@media screen and (min-width: 540px) {
+    .project-settings-button {
+        position: relative;
+        left: 72%;
+    }
+
+    .add-project-button {
+        position: relative;
+        left: calc(80%);
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .project-settings-button {
+        position: relative;
+        left: 81%;
+    }
+
+    .add-project-button {
+        position: relative;
+        left: calc(86%);
+    }
+}
+
+@media screen and (min-width: 820px) {
+    .project-settings-button {
+        position: relative;
+        left: 82%;
+    }
+
+    .add-project-button {
+        position: relative;
+        left: calc(87%);
+    }
+}
+
+@media screen and (min-width: 912px) {
+    .project-settings-button {
+        position: relative;
+        left: 84%;
+    }
+
+    .add-project-button {
+        position: relative;
+        left: calc(88%);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .project-settings-button {
+        position: relative;
+        left: 21%;
+    }
+
+    .add-project-button {
+        position: relative;
+        left: calc(39%);
+    }
 }
 
 @media screen and (width: 540px) {

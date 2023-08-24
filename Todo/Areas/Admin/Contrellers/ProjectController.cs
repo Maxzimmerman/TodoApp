@@ -39,22 +39,16 @@ namespace Todo.Areas.Admin.Contrellers
 
             ProjectDetailPartialViewModel projectDetailPartial = new ProjectDetailPartialViewModel();
             var project = await _context.projects.FirstOrDefaultAsync(p => p.Id == id);
-            var todos = await _context.todos.Where(t => t.ProjectId == project.Id).ToListAsync();
-            var projects = await _context.projects.Where(project => project.ApplicationUserId == currentUserId).ToListAsync();
+            var todos = await _context.todos.Where(t => t.ApplicationUserId == currentUserId && t.ProjectId == id && t.IDeleted == false && t.IChecked == false).ToListAsync();
+            var projects = await _context.projects.Where(project => project.ApplicationUserId == currentUserId && project.IsDeleted == false).ToListAsync();
+            var liked_projects = await _context.projects.Where(likedProject => likedProject.ApplicationUserId == currentUserId && likedProject.IsDeleted == false && likedProject.IsLiked == true).ToListAsync();
 
-            if(projects == null || projects.Count == 0 || project.Id == 0 || project == null || todos.Count == 0 || todos == null)
-            {
-                _logger.LogInformation($"Some of these were not found: {project}, {project}, {todos}");
-                return NotFound($"Some of these were not found: {project}, {project}, {todos}");
-            }
-            else
-            {
-                projectDetailPartial.Project = project;
-                projectDetailPartial.TodoEntries = todos;
-                projectDetailPartial.Projects = projects;
+            projectDetailPartial.Project = project;
+            projectDetailPartial.TodoEntries = todos;
+            projectDetailPartial.Projects = projects;
+            projectDetailPartial.LikedProjects = liked_projects;
 
-                return View("_ProjectDetailPartial", projectDetailPartial);
-            }
+            return View("_ProjectDetailPartial", projectDetailPartial);
         }
     }
 }
