@@ -27,7 +27,7 @@
                 {
                     foreach (Project project in Model.LikedProjects)
                     {
-                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title <span>@Model.TodoEntries.Where(todo => todo.ProjectId == project.Id).Count()</span><i class="fa-solid fa-gear project-settings-button"></i></a>
+                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title <i class="fa-solid fa-gear project-settings-button"></i></a>
                     }
                 }
             }
@@ -38,7 +38,7 @@
                     {
                         foreach (Project project in Model.Projects)
                         {
-                            <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title <span>@Model.TodoEntries.Where(todo => todo.ProjectId == project.Id).Count()</span><i class="fa-solid fa-gear project-settings-button"></i></a>
+                            <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title <i class="fa-solid fa-gear project-settings-button"></i></a>
                         }
                     }
                 }

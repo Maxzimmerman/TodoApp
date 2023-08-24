@@ -41,7 +41,7 @@ namespace Todo.Areas.Customer.Controllers
                     var projects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsDeleted == false).ToListAsync();
                     var likedProjects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsLiked == true && p.IsDeleted == false).ToListAsync();
 
-                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId && e.IDeleted == false && e.IChecked == false).ToListAsync();
+                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId && e.IDeleted == false && e.IChecked == false && e.ProjectId == null).ToListAsync();
 
                     projectAndTodoEntryViewModel.TodoEntries = entries;
                     projectAndTodoEntryViewModel.Projects = projects;
@@ -111,6 +111,7 @@ namespace Todo.Areas.Customer.Controllers
                 _logger.LogInformation($"{todoEntry.Title} added");
 
                 todoEntry.ApplicationUserId = currentUserId;
+                todoEntry.ProjectId = null;
                 await _context.todos.AddAsync(todoEntry);
                 await _context.SaveChangesAsync();
 

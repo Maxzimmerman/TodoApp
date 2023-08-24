@@ -17,5 +17,11 @@ namespace Todo.DataAccess.data
         public DbSet<Priority> priorities { get; set; }
         public DbSet<ApplicationUser> users { get; set; }
         public DbSet<Project> projects { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TodoEntry>().Property(m => m.ProjectId).IsRequired(false);
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

@@ -26,23 +26,15 @@ namespace Todo.Areas.Admin.Contrellers
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             NavBarViewModel navBarViewModel = new NavBarViewModel();
-            var todos = await _context.todos.Where(t => t.ApplicationUserId == currentUserId && t.IDeleted == false && t.IChecked == false).ToListAsync();
+            var todos = await _context.todos.Where(t => t.ApplicationUserId == currentUserId && t.IDeleted == false && t.IChecked == false && t.ProjectId == null).ToListAsync();
             var likedProjects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsLiked == true && p.IsDeleted == false).ToListAsync();
             var projects = await _context.projects.Where(project => project.ApplicationUserId == currentUserId && project.IsDeleted == false).ToListAsync();
 
-            if (projects == null || projects.Count == 0 || todos.Count == 0 || todos == null)
-            {
-                _logger.LogInformation($"Some of these were not found: {todos}");
-                return NotFound($"Some of these were not found: {projects}, {todos}");
-            }
-            else
-            {
-                navBarViewModel.TodoEntries = todos;
-                navBarViewModel.Projects = projects;
-                navBarViewModel.LikedProjects = likedProjects;
+            navBarViewModel.TodoEntries = todos;
+            navBarViewModel.Projects = projects;
+            navBarViewModel.LikedProjects = likedProjects;
 
-                return View(navBarViewModel);
-            }
+            return View(navBarViewModel);
         }
     }
 }
