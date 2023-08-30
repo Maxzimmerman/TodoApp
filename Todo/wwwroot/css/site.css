@@ -33,9 +33,19 @@
 }
 
 .project-settings-button {
-    position: relative;
-    left: 57%;
+    position: fixed;
+    right: 10%;
     display: inline;
+    width: 25px;
+    height: 25px;
+}
+
+.project-adjust-button {
+    position: fixed;
+    right: 20%;
+    display: inline;
+    width: 25px;
+    height: 25px;
 }
 
 .add-project-button {
@@ -133,8 +143,16 @@ body {
 
 @media screen and (min-width: 375px) {
     .project-settings-button {
-        position: relative;
-        left: 59%;
+        position: fixed;
+        right: 10%;
+    }
+
+    .project-adjust-button {
+        position: fixed;
+        right: 20%;
+        display: inline;
+        width: 25px;
+        height: 25px;
     }
 
     .add-project-button {
@@ -145,8 +163,16 @@ body {
 
 @media screen and (min-width: 390px) {
     .project-settings-button {
-        position: relative;
-        left: 60%;
+        position: fixed;
+        right: 10%;
+    }
+
+    .project-adjust-button {
+        position: fixed;
+        right: 20%;
+        display: inline;
+        width: 25px;
+        height: 25px;
     }
 
     .add-project-button {
@@ -157,8 +183,16 @@ body {
 
 @media screen and (min-width: 412px) {
     .project-settings-button {
-        position: relative;
-        left: 63%;
+        position: fixed;
+        right: 10%;
+    }
+
+    .project-adjust-button {
+        position: fixed;
+        right: 20%;
+        display: inline;
+        width: 25px;
+        height: 25px;
     }
 
     .add-project-button {
@@ -169,8 +203,16 @@ body {
 
 @media screen and (min-width: 540px) {
     .project-settings-button {
-        position: relative;
-        left: 72%;
+        position: fixed;
+        right: 10%;
+    }
+
+    .project-adjust-button {
+        position: fixed;
+        right: 20%;
+        display: inline;
+        width: 25px;
+        height: 25px;
     }
 
     .add-project-button {
@@ -181,8 +223,16 @@ body {
 
 @media screen and (min-width: 768px) {
     .project-settings-button {
-        position: relative;
-        left: 81%;
+        position: fixed;
+        right: 10%;
+    }
+
+    .project-adjust-button {
+        position: fixed;
+        right: 20%;
+        display: inline;
+        width: 25px;
+        height: 25px;
     }
 
     .add-project-button {
@@ -193,8 +243,16 @@ body {
 
 @media screen and (min-width: 820px) {
     .project-settings-button {
-        position: relative;
-        left: 82%;
+        position: fixed;
+        right: 10%;
+    }
+
+    .project-adjust-button {
+        position: fixed;
+        right: 20%;
+        display: inline;
+        width: 25px;
+        height: 25px;
     }
 
     .add-project-button {
@@ -205,8 +263,16 @@ body {
 
 @media screen and (min-width: 912px) {
     .project-settings-button {
-        position: relative;
-        left: 84%;
+        position: fixed;
+        left: 10%;
+    }
+
+    .project-adjust-button {
+        position: fixed;
+        left: 8%;
+        display: inline;
+        width: 25px;
+        height: 25px;
     }
 
     .add-project-button {
@@ -217,8 +283,16 @@ body {
 
 @media screen and (min-width: 1024px) {
     .project-settings-button {
-        position: relative;
-        left: 21%;
+        position: fixed;
+        left: 10%;
+    }
+
+    .project-adjust-button {
+        position: fixed;
+        left: 8%;
+        display: inline;
+        width: 25px;
+        height: 25px;
     }
 
     .add-project-button {

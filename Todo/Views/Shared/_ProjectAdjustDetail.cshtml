@@ -1,0 +1,19 @@
+﻿@model UserProject
+
+<form method="post" action="/Admin/Today/AddDetail" class="detail-form">
+    <i class="fa-solid fa-xmark detail-close-button" id="detail-close-button" onclick="closeModal()"></i>
+
+    <input class="detial-title" asp-for="Title" placeholder="Titel" />
+
+    <div class="detail-checkboxes">
+        <input asp-for="Id" hidden />
+    </div>
+
+    <div class="detail-checkboxes">
+        <input asp-for="ApplicationUserId" hidden />
+    </div>
+
+    <div class="">
+        <button class="store-entry" type="submit">Speichern</button>
+    </div>
+</form>

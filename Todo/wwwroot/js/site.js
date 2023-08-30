@@ -3,6 +3,7 @@ const homeButton = document.querySelector('.fa-house');
 const OvertimeEntriesDragAndDropContainer = document.querySelector('.overtime-entries');
 const OvertimeEntriesDragAndDropItems = document.querySelectorAll('.overtime-entry');
 const Entries = document.querySelectorAll('.entry');
+const ProjectEditModal = document.querySelector('#detail-page-project');
 
 homeButton.addEventListener('click', () => {
     window.location.href = '';
@@ -21,6 +22,14 @@ function closeModal() {
 }
 function ShowModal() {
     DetailPage.style.display = "flex";
+}
+
+function ShowModalProjectDetail() {
+    ProjectEditModal.style.display = "flex";
+}
+
+function CloseModalProjectDetail() {
+    ProjectEditModal.style.display = "none";
 }
 
 OvertimeEntriesDragAndDropItems.forEach(item => {

@@ -27,7 +27,7 @@
                 {
                     foreach (UserProject project in Model.LikdedProjects)
                     {
-                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title </a>
+                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project" >- @project.Title </a>
 
                         <i class="fa-solid fa-gear project-settings-button"></i>
                     }
@@ -42,13 +42,8 @@
                         {
                             <div class="project-inner-holder">
                                 <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title </a>
-
-                                <i class="fa-solid fa-gear project-settings-button"></i>
-
-                                <div class="project-settings-holder">
-                                    <a asp-area="Admin" asp-controller="Project" asp-action="">Löschen</a>
-                                    <a asp-area="Admin" asp-controller="Project" asp-action="">Anpassen</a>
-                                </div>
+                                <a hx-get="Admin/Today/ProjectDetail?id=@project.Id" hx-target="#detail-page-project" hx-trigger="click" onclick="ShowModalProjectDetail()"><i class="fa-solid fa-sliders project-adjust-button"></i></a>
+                                <a asp-area="Admin" asp-controller="Project" asp-action="Delete" asp-route-id="@project.Id"><i class="fa-solid fa-trash project-settings-button"></i></a>
                             </div>
                             
                         }
@@ -141,6 +136,7 @@
             </div>
             <div id="detail-page-search-result">
             </div>
+            <div id="detail-page-project"></div>
 
             <div class="added-alert">@TempData["addedtodo"]</div>
             <div class="checked-alert">@TempData["checkedtodo"]</div>

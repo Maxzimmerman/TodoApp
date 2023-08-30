@@ -38,7 +38,12 @@
                     {
                         foreach (UserProject project in Model.Projects)
                         {
-                            <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title <i class="fa-solid fa-gear project-settings-button"></i></a>
+                            <div class="project-inner-holder">
+                                <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title </a>
+
+                                <a asp-area="Admin" asp-controller="Project" asp-action="Delete" asp-route-id="@project.Id"><i class="fa-solid fa-trash project-settings-button"></i></a>
+                            </div>
+
                         }
                     }
                 }

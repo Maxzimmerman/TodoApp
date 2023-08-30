@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Evaluation;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -54,6 +55,77 @@ namespace Todo.Areas.Admin.Contrellers
             await _context.SaveChangesAsync();
 
             return RedirectToAction("Index", "Home", new { Area = "Customer" });
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if(id == 0)
+            {
+                return BadRequest($"Id was {id}");
+            }
+            else
+            {
+                var project = await _context.projects.FirstOrDefaultAsync(e => e.Id == id);
+
+                if(project == null)
+                {
+                    return NotFound($"Project: {project.Title} was not found");
+                }
+                else
+                {
+                    project.IsDeleted = true;
+                    _context.SaveChanges();
+
+                    return RedirectToAction("Index", "Home", new { Area = "Customer" });
+                }
+            }
+        }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        public async Task<IActionResult> ProjectDetail(int id)
+        {
+            if (id == 0)
+            {
+                _logger.LogInformation($"{id} is 0");
+                return BadRequest($"{id} ist 0");
+            }
+
+            var entry = await _context.projects.FirstOrDefaultAsync(e => e.Id == id);
+
+            if (entry == null)
+            {
+                _logger.LogInformation($"{entry.Title} not Found");
+                return NotFound($"{entry.Title} not Found");
+            }
+            else
+            {
+                _logger.LogInformation($"return detail {entry.Title}");
+
+                return PartialView("_ProjectAdjustDetail", entry);
+            }
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        public async Task<IActionResult> DetailProject(UserProject project)
+        {
+            if (project.Id == 0)
+            {
+                return BadRequest($"Id was {project.Id}");
+            }
+            else
+            {
+                _context.Update(project);
+                _context.SaveChanges();
+
+                return RedirectToAction("Index", "Home", new { Area = "Customer" });
+            }
         }
 
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
