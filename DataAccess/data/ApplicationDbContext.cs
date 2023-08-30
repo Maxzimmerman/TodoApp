@@ -16,7 +16,7 @@ namespace Todo.DataAccess.data
         public DbSet<Category> categories { get; set; }
         public DbSet<Priority> priorities { get; set; }
         public DbSet<ApplicationUser> users { get; set; }
-        public DbSet<Project> projects { get; set; }
+        public DbSet<UserProject> projects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

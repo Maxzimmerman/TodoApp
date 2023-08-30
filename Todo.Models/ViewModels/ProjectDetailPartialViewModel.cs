@@ -9,8 +9,8 @@ namespace Todo.Models.ViewModels
     public class ProjectDetailPartialViewModel
     {
         public List<TodoEntry> TodoEntries { get; set; }
-        public Project Project { get; set; }
-        public List<Project> Projects { get; set; }
-        public List<Project> LikedProjects { get; set; }
+        public UserProject Project { get; set; }
+        public List<UserProject> Projects { get; set; }
+        public List<UserProject> LikedProjects { get; set; }
     }
 }

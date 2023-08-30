@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Evaluation;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Todo.Areas.Customer.Controllers;
 using Todo.DataAccess.data;
+using Todo.Models;
 using Todo.Models.ViewModels;
 
 namespace Todo.Areas.Admin.Contrellers
@@ -22,6 +24,36 @@ namespace Todo.Areas.Admin.Contrellers
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Settings()
+        {
+            return PartialView("_ProjectSettingsPartial");
+        }
+
+        [HttpGet]
+        public IActionResult Add() 
+        { 
+            return PartialView("_AddProjectPartial");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddProject(UserProject project)
+        {
+            var currentUser = (ClaimsIdentity)User.Identity;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (project == null)
+            {
+                return BadRequest("Wrong Project");
+            }
+
+            project.ApplicationUserId = currentUserId;
+            await _context.AddAsync(project);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Home", new { Area = "Customer" });
         }
 
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]

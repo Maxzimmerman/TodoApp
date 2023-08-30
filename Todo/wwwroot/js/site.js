@@ -111,7 +111,7 @@ $(function () {
     $('#add-modal').slideUp(0);
 
     $('#add-modal').load("/Admin/Today/AddModal");
-    $('.fa-plus').on('click', function () {
+    $('.add-modal-button').on('click', function () {
         $('#add-modal').slideToggle(100);
         if (screen.width < 540) {
             $('.search-bar-header').slideUp(0);
@@ -120,6 +120,22 @@ $(function () {
         $('#cancel').on('click', function () {
             console.log('ehll')
             $('#add-modal').slideUp(0);
+        });
+    })
+
+    // Project AddModal
+    $('#project-add-modal').slideUp(0);
+
+    $('#project-add-modal').load("/Admin/Project/Add");
+    $('.add-project-button').on('click', function () {
+        $('#project-add-modal').slideToggle(100);
+        if (screen.width < 540) {
+            $('.search-bar-header').slideUp(0);
+        }
+
+        $('#cancel-project').on('click', function () {
+            console.log('ehll')
+            $('#project-add-modal').slideUp(0);
         });
     })
 

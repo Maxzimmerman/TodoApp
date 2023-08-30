@@ -9,6 +9,6 @@ namespace Todo.Models.ViewModels
     public class ProjectAndTodoEntryViewModel
     {
         public List<TodoEntry> TodoEntries { get; set; }
-        public List<Project> Projects { get; set; }
+        public List<UserProject> Projects { get; set; }
     }
 }

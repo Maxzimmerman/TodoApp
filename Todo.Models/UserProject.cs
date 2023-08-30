@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Todo.Models
 {
-    public class Project
+    public class UserProject
     {
         [Key]
         public int Id { get; set; }
