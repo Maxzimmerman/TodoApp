@@ -1,6 +1,6 @@
 ﻿@model TodoEntry
 
-<form method="post" action="/Customer/Home/AddDetail" class="detail-form">
+<form method="post" action="/Admin/Today/AddDetail" class="detail-form detial-search-link-form">
     <i class="fa-solid fa-xmark detail-close-button" id="detail-close-button" onclick="closeModal()"></i>
 
     <input class="detial-title" asp-for="Title" placeholder="Titel" />
@@ -14,10 +14,10 @@
         <label asp-for="EndDate">Endet</label>
         <input class="detail-enddate" asp-for="EndDate" placeholder="Bis" />
     </div>
-    
+
 
     <div class="detail-checkboxes">
-        <input asp-for="Id" hidden/>
+        <input asp-for="Id" hidden />
     </div>
 
     <div class="detail-checkboxes">
@@ -36,11 +36,6 @@
         </select>
 
         <select asp-for="PriorityId" asp-items="ViewBag.Priorities">
-        </select>
-    </div>
-
-    <div class="detail-category-prio">
-        <select asp-for="ProjectId" asp-items="ViewBag.projects">
         </select>
     </div>
 

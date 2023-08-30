@@ -50,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Views\Today\" />
     <Folder Include="Areas\Customer\Views\Today\" />
   </ItemGroup>
 

@@ -62,6 +62,35 @@ namespace Todo.Areas.Admin.Contrellers
             return PartialView("_Checked", entries);
         }
 
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public async Task<IActionResult> CheckTodo(int id)
+        {
+            if (id == 0)
+            {
+                _logger.LogInformation("id can't be 0");
+                return NotFound("Entschuldige bitte es ist etwas schief gelaufen");
+            }
+
+            var entry = await _context.todos.FirstOrDefaultAsync(t => t.Id == id);
+
+            if (entry == null)
+            {
+                _logger.LogInformation($"{entry.Title} not is correct shape");
+                return NotFound("Entschuldige bitte es ist etwas schief gelaufen");
+            }
+
+            entry.IChecked = true;
+            await _context.SaveChangesAsync();
+
+            TempData["checkedtodo"] = $"{entry.Title} Angepasst";
+
+            _logger.LogInformation($"{entry.Title} is checked");
+
+            return RedirectToAction("Index", "Home", new {Area="Customer"});
+        }
+
         public async Task<IActionResult> AddModal()
         {
             IEnumerable<SelectListItem> categories =
@@ -91,6 +120,34 @@ namespace Todo.Areas.Admin.Contrellers
             ViewBag.Projects = projects;
 
             return PartialView("_AddModal");
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public async Task<IActionResult> AddModal(TodoEntry todoEntry)
+        {
+            var currentUser = (ClaimsIdentity)User.Identity;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (todoEntry == null)
+            {
+                _logger.LogInformation($"{todoEntry.Title} not in correct shape");
+                return BadRequest($"{todoEntry.Title} Ist nicht valide");
+            }
+            else
+            {
+                _logger.LogInformation($"{todoEntry.Title} added");
+
+                todoEntry.ApplicationUserId = currentUserId;
+                todoEntry.ProjectId = null;
+                await _context.todos.AddAsync(todoEntry);
+                await _context.SaveChangesAsync();
+
+                TempData["addedtodo"] = $"{todoEntry.Title} Hinzugefügt";
+
+                return RedirectToAction("Index", "Home", new {Area="Customer"});
+            }
         }
 
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
@@ -125,12 +182,12 @@ namespace Todo.Areas.Admin.Contrellers
                     Value = e.Id.ToString(),
                 }).ToList();
 
-            IEnumerable<SelectListItem> projects =
-                await _context.projects.Select(p => new SelectListItem
+            IEnumerable<SelectListItem> projects = _context.projects
+                .Select(p => new SelectListItem
                 {
                     Text = p.Title,
                     Value = p.Id.ToString(),
-                }).ToListAsync();
+                }).ToList();
 
             if (priorities == null || categories == null)
             {
@@ -146,6 +203,28 @@ namespace Todo.Areas.Admin.Contrellers
 
                 return PartialView("_DetailPartial", entry);
             }
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        public async Task<IActionResult> AddDetail(TodoEntry addTodo)
+        {
+            var currentUser = (ClaimsIdentity)User.Identity;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            if (addTodo == null)
+            {
+                _logger.LogInformation($"{addTodo.Title} not in correct in shape");
+                return BadRequest($"{addTodo.Title} in invalidem Zustand");
+            }
+
+            _context.Update(addTodo);
+            await _context.SaveChangesAsync();
+
+            _logger.LogInformation($"{addTodo.Title} adjusted");
+
+            return RedirectToAction("Index", "Home", new {Area="Customer"});
         }
 
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
@@ -192,6 +271,33 @@ namespace Todo.Areas.Admin.Contrellers
                 _logger.LogInformation($"return detail {entry.Title}");
 
                 return PartialView("_DetailSearchLinkPartial", entry);
+            }
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
+        public async Task<IActionResult> DeleteButton(int id)
+        {
+            if (id == 0)
+            {
+                return BadRequest($"{id} can't be 0");
+            }
+            else
+            {
+                var todo = await _context.todos.FirstOrDefaultAsync(x => x.Id == id);
+
+                if (todo == null)
+                {
+                    return NotFound($"Could not found any entry with id: {id}!");
+                }
+                else
+                {
+                    todo.IDeleted = true;
+                    await _context.SaveChangesAsync();
+
+                    return RedirectToAction("Index", "Home", new {Area="Customer"});
+                }
             }
         }
     }

@@ -41,7 +41,7 @@ namespace Todo.Areas.Customer.Controllers
                     var projects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsDeleted == false).ToListAsync();
                     var likedProjects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsLiked == true && p.IsDeleted == false).ToListAsync();
 
-                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId && e.IDeleted == false && e.IChecked == false && e.ProjectId == null).ToListAsync();
+                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId && e.IDeleted == false && e.IChecked == false && e.ProjectId == null || e.PriorityId == 1).ToListAsync();
 
                     projectAndTodoEntryViewModel.TodoEntries = entries;
                     projectAndTodoEntryViewModel.Projects = projects;
@@ -90,112 +90,6 @@ namespace Todo.Areas.Customer.Controllers
             {
                 _logger.LogInformation($"{entries.Count} entries");
                 return Ok(entries);
-            }
-        }
-
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public async Task<IActionResult> AddModal(TodoEntry todoEntry)
-        {
-            var currentUser = (ClaimsIdentity)User.Identity;
-            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            if(todoEntry == null)
-            {
-                _logger.LogInformation($"{todoEntry.Title} not in correct shape");
-                return BadRequest($"{todoEntry.Title} Ist nicht valide");
-            }
-            else
-            {
-                _logger.LogInformation($"{todoEntry.Title} added");
-
-                todoEntry.ApplicationUserId = currentUserId;
-                todoEntry.ProjectId = null;
-                await _context.todos.AddAsync(todoEntry);
-                await _context.SaveChangesAsync();
-
-                TempData["addedtodo"] = $"{todoEntry.Title} Hinzugefügt";
-
-                return RedirectToAction("Index");
-            }
-        }
-
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        public async Task<IActionResult> CheckTodo(int id)
-        {
-            if(id == 0)
-            {
-                _logger.LogInformation("id can't be 0");
-                return NotFound("Entschuldige bitte es ist etwas schief gelaufen");
-            }
-
-            var entry = await _context.todos.FirstOrDefaultAsync(t => t.Id == id);
-
-            if(entry == null)
-            {
-                _logger.LogInformation($"{entry.Title} not is correct shape");
-                return NotFound("Entschuldige bitte es ist etwas schief gelaufen");
-            }
-
-            entry.IChecked = true;
-            await _context.SaveChangesAsync();
-
-            TempData["checkedtodo"] = $"{entry.Title} Angepasst";
-
-            _logger.LogInformation($"{entry.Title} is checked");
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public async Task<IActionResult> AddDetail(TodoEntry addTodo)
-        {
-            var currentUser = (ClaimsIdentity)User.Identity;
-            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            if (addTodo == null)
-            {
-                _logger.LogInformation($"{addTodo.Title} not in correct in shape");
-                return BadRequest($"{addTodo.Title} in invalidem Zustand");
-            }
-
-            _context.Update(addTodo);
-            await _context.SaveChangesAsync();
-
-            _logger.LogInformation($"{addTodo.Title} adjusted");
-
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public async Task<IActionResult> DeleteButton(int id)
-        {
-            if (id == 0)
-            {
-                return BadRequest($"{id} can't be 0");
-            }
-            else
-            {
-                var todo = await _context.todos.FirstOrDefaultAsync(x => x.Id == id);
-
-                if (todo == null)
-                {
-                    return NotFound($"Could not found any entry with id: {id}!");
-                }
-                else
-                {
-                    todo.IDeleted = true;
-                    await _context.SaveChangesAsync();
-
-                    return RedirectToAction("Index");
-                }
             }
         }
     }
