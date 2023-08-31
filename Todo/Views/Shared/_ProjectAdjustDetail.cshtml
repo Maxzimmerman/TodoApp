@@ -1,7 +1,7 @@
 ﻿@model UserProject
 
-<form method="post" action="/Admin/Today/AddDetail" class="detail-form">
-    <i class="fa-solid fa-xmark detail-close-button" id="detail-close-button" onclick="closeModal()"></i>
+<form method="post" action="/Admin/Project/DetailProject" class="detail-form">
+    <i class="fa-solid fa-xmark detail-close-button" onclick="CloseModalProjectDetail()"></i>
 
     <input class="detial-title" asp-for="Title" placeholder="Titel" />
 
@@ -11,6 +11,15 @@
 
     <div class="detail-checkboxes">
         <input asp-for="ApplicationUserId" hidden />
+    </div>
+
+    <div class="detail-checkboxes">
+        <input asp-for="IsLiked"/>
+        <label asp-for="IsDeleted">Gefällt mir</label>
+    </div>
+
+    <div class="detail-checkboxes">
+        <input asp-for="IsDeleted" hidden/>
     </div>
 
     <div class="">

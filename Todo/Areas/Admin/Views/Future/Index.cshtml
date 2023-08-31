@@ -27,7 +27,7 @@
                 {
                     foreach (UserProject project in Model.LikedProjects)
                     {
-                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title <i class="fa-solid fa-gear project-settings-button"></i></a>
+                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title</a>
                     }
                 }
             }
@@ -40,8 +40,8 @@
                         {
                             <div class="project-inner-holder">
                                 <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title </a>
-
-                                <a asp-area="Admin" asp-controller="Project" asp-action="Delete" asp-route-id="@project.Id"><i class="fa-solid fa-trash project-settings-button"></i></a>
+                                <a hx-get="/Admin/Project/ProjectDetail?id=@project.Id" hx-target="#detail-page-project" hx-trigger="click" onclick="ShowModalProjectDetail()"><i class="fa-solid fa-sliders project-adjust-button"></i></a>
+                                <a href="/Admin/Project/DeleteProject?id=@project.Id"><i class="fa-solid fa-trash project-settings-button"></i></a>
                             </div>
 
                         }

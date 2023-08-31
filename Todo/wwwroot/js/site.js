@@ -4,6 +4,7 @@ const OvertimeEntriesDragAndDropContainer = document.querySelector('.overtime-en
 const OvertimeEntriesDragAndDropItems = document.querySelectorAll('.overtime-entry');
 const Entries = document.querySelectorAll('.entry');
 const ProjectEditModal = document.querySelector('#detail-page-project');
+const ProjectDetialPage = document.querySelector('.detail-close-button-project');
 
 homeButton.addEventListener('click', () => {
     window.location.href = '';

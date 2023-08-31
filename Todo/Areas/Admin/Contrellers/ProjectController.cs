@@ -57,10 +57,9 @@ namespace Todo.Areas.Admin.Contrellers
             return RedirectToAction("Index", "Home", new { Area = "Customer" });
         }
 
-        [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> DeleteProject(int id)
         {
             if(id == 0)
             {
