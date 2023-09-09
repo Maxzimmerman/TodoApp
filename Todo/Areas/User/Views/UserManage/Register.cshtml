@@ -1,0 +1,42 @@
+﻿@model Todo.Models.ViewModels.RegisterViewModel
+
+<div class="register-body">
+
+    <div class="row">
+        <div class="half-shadow"></div>
+        <div class="col-md-4 register-card">
+            <form id="registerForm" method="post" action="/User/UserManage/Register">
+                <h2>Erstelle ein neues Profil</h2>
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                    <label asp-for="Email">Email</label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Name" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Name">Password</label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="Password">Password</label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
+                    <label asp-for="ConfirmPassword">Confirm Password</label>
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            </form>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Login">Du hast bereits ein Profil?</a>
+        </div>
+
+        <!--Todo needed when adding login with facebook-->
+        <div class="">
+            <section>
+            </section>
+        </div>
+    </div>
+</div>

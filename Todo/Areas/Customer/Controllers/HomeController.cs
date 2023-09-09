@@ -29,6 +29,7 @@ namespace Todo.Areas.Customer.Controllers
         public async Task<IActionResult> Index()
         {
             List<TodoEntry> entries;
+            var users = await _context.users.ToListAsync();
             try
             {
                 if(User.Identity.IsAuthenticated)
@@ -41,7 +42,7 @@ namespace Todo.Areas.Customer.Controllers
                     var projects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsDeleted == false).ToListAsync();
                     var likedProjects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsLiked == true && p.IsDeleted == false).ToListAsync();
 
-                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId && e.IDeleted == false && e.IChecked == false && e.ProjectId == null || e.PriorityId == 1).ToListAsync();
+                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId && e.IDeleted == false && e.IChecked == false && e.ProjectId == null).ToListAsync();
 
                     projectAndTodoEntryViewModel.TodoEntries = entries;
                     projectAndTodoEntryViewModel.Projects = projects;

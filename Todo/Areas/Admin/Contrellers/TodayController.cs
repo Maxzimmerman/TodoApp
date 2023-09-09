@@ -141,6 +141,7 @@ namespace Todo.Areas.Admin.Contrellers
 
                 todoEntry.ApplicationUserId = currentUserId;
                 todoEntry.ProjectId = null;
+                todoEntry.DateOfCreation = DateTime.Today;
                 await _context.todos.AddAsync(todoEntry);
                 await _context.SaveChangesAsync();
 

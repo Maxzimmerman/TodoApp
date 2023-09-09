@@ -1,4 +1,4 @@
-﻿@model Todo.Models.ViewModels.NavBarViewModel;
+﻿@model Todo.Models.ViewModels.ProjectLikedAndTodoEntryViewModel;
 
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<IdentityUser> SignInManager
@@ -14,7 +14,8 @@
             <i class="fa-solid fa-plus add-modal-button"></i>
             <i class="fa-solid fa-check check-bar-button"></i>
             <!--<i class="fa-solid fa-bell"></i>-->
-            <a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa-solid fa-user"></i></a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@UserManager.GetUserName(User)<i class="fa-solid fa-user"></i></a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Logout">Abmelden</a>
         </div>
         <div class="hamburger-menu-drop-down">
             <a asp-area="Admin" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
@@ -23,9 +24,9 @@
             <hr class="hamburger-menu-hr">
             <h5>Favoriten</h5>
             @{
-                if (Model.LikedProjects != null)
+                if (Model.LikdedProjects != null)
                 {
-                    foreach (UserProject project in Model.LikedProjects)
+                    foreach (UserProject project in Model.LikdedProjects)
                     {
                         <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title</a>
                     }
@@ -57,6 +58,7 @@
         </div>
         <div id="add-modal">
         </div>
+        <div id="project-add-modal"></div>
         <div id="checked-bar">
         </div>
     }
@@ -67,10 +69,30 @@
         if (SignInManager.IsSignedIn(User))
         {
             <div class="today-secition">
-                <h1 class="today-header">New </h1><p>@DateTime.Now.ToShortDateString()</p>
+                <h1 class="today-header">Eingang </h1>
                 <i class="fa-solid fa-angle-right today-toggle rotate-toggle"></i>
                 <p class="today-entries-counter"></p>
                 <div class="today-entries">
+                    @{
+                        if (Model.TodoEntries.Count == 0)
+                        {
+                            <p>Keine Enträge</p>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.TodoEntries.Where(todo => todo.EndDate > DateTime.Today && todo.IChecked == false && todo.IDeleted == false))
+                            {
+                                <div class="today-entry entry" hx-get="Admin/Today/Detail?id=@item.Id" hx-target=".detail-page" hx-trigger="click" onclick="ShowModal()">
+                                    <hr>
+                                    <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Admin" asp-controller="Today" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
+                                    <p>@item.EndDate.ToShortDateString()</p>
+                                </div>
+                                <form action="/Admin/Today/DeleteButton?id=@item.Id" method="post">
+                                    <button type="submit" class="delete-button">Löschen</button>
+                                </form>
+                            }
+                        }
+                    }
                 </div>
 
             </div>
@@ -80,9 +102,43 @@
                 <i id="overtime-toggle" class="fa-solid fa-angle-right ovetime-toggle"></i>
                 <p class="over-time-entry-counter"></p>
                 <div class="overtime-entries">
+                    @{
+                        if (Model.TodoEntries.Count == 0)
+                        {
+                            <p>Keine Enträge</p>
+                        }
+                        else
+                        {
+                            foreach (var item in Model.TodoEntries.Where(todo => todo.EndDate < DateTime.Today && todo.IChecked == false && todo.IDeleted == false))
+                            {
+                                <div draggable="true" class="overtime-entry entry" hx-get="Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
+                                    <hr>
+                                    <p class="entry-id overtime-item-id">@item.Id</p>
+                                    <h5 class="overtime-item-header"><a asp-route-id="@item.Id" asp-area="Admin" asp-controller="Today" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
+                                    <p>@item.EndDate.ToShortDateString()</p>
+                                </div>
+                                <form action="/Admin/Today/DeleteButton?id=@item.Id" method="post">
+                                    <button type="submit" class="delete-button">Löschen</button>
+                                </form>
+                            }
+
+                        }
+                    }
                 </div>
 
             </div>
+            <div class="add-new-section">
+                <i class="fa-solid fa-plus add-modal-button"></i><p>Aufgabe hinzufügen</p>
+            </div>
+
+            <div class="detail-page">
+            </div>
+            <div id="detail-page-search-result">
+            </div>
+            <div id="detail-page-project"></div>
+
+            <div class="added-alert">@TempData["addedtodo"]</div>
+            <div class="checked-alert">@TempData["checkedtodo"]</div>
         }
         else
         {

@@ -24,6 +24,10 @@
         <input asp-for="ApplicationUserId" hidden />
     </div>
 
+    <div class="detail-checkboxes">
+        <input asp-for="DateOfCreation" hidden />
+    </div>
+
     <div class="detail-checkboxes" hidden>
         <input asp-for="IChecked" type="checkbox" placeholder="Erledigt" />
         <label asp-for="IChecked"></label>
@@ -34,13 +38,16 @@
     <div class="detail-category-prio">
         <select asp-for="CategoryId" asp-items="ViewBag.Categories">
         </select>
+    </div>
 
+    <div class="detail-category-prio">
         <select asp-for="PriorityId" asp-items="ViewBag.Priorities">
         </select>
     </div>
 
     <div class="detail-category-prio">
         <select asp-for="ProjectId" asp-items="ViewBag.Projects">
+            <option selected>Keine</option>
         </select>
     </div>
 

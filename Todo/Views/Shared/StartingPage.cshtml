@@ -4,7 +4,7 @@
             <div class="logo"><img src="/Bilder/todoapplogo.png"/></div>
         </div>
         <div class="link-wrapper">
-            <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Login">Anmelden <i class="fa-solid fa-user"></i></a>
+            <a class="nav-link text-dark" id="register" asp-area="User" asp-controller="UserManage" asp-action="Login">Anmelden <i class="fa-solid fa-user"></i></a>
         </div>
     </nav>
 
@@ -12,7 +12,7 @@
         <div class="main-content">
             <h1>Max's Todo</h1>
             <img src="~/Bilder/new-starting-page-content.png"/>
-            <a asp-area="Identity" asp-page="/Account/Register" class="get-started-button">Starte noch heute</a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Register" class="get-started-button">Starte noch heute</a>
         </div>
         <footer class="footer">
 

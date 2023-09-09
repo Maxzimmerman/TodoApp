@@ -13,6 +13,6 @@ namespace Todo.Models
     public class ApplicationUser : IdentityUser
     {
         [Required]
-        public string UserName { get; set; }
+        public string ApplicationUserName { get; set; }
     }
 }

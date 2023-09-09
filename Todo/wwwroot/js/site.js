@@ -138,6 +138,7 @@ $(function () {
 
     $('#project-add-modal').load("/Admin/Project/Add");
     $('.add-project-button').on('click', function () {
+        console.log('add project button')
         $('#project-add-modal').slideToggle(100);
         if (screen.width < 540) {
             $('.search-bar-header').slideUp(0);

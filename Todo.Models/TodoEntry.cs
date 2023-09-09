@@ -36,5 +36,7 @@ namespace Todo.Models
         public int? ProjectId { get; set; }
         [ForeignKey("ProjectId")]
         public UserProject Project { get; set; }
+
+        public DateTime DateOfCreation { get; set; }
     }
 }
