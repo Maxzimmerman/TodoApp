@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Build.Evaluation;
 using Microsoft.EntityFrameworkCore;
@@ -152,6 +153,70 @@ namespace Todo.Areas.Admin.Contrellers
             projectDetailPartial.LikedProjects = liked_projects;
 
             return View("_ProjectDetailPartial", projectDetailPartial);
+        }
+
+        public async Task<IActionResult> AddModalProject()
+        {
+            IEnumerable<SelectListItem> categories =
+                await _context.categories.Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString(),
+                }).ToListAsync();
+
+            IEnumerable<SelectListItem> priorities =
+                await _context.priorities.Select(p => new SelectListItem
+                {
+                    Text = p.Name,
+                    Value = p.Id.ToString(),
+                }).ToListAsync();
+
+            IEnumerable<SelectListItem> projects =
+                await _context.projects.Select(p => new SelectListItem
+                {
+                    Text = p.Title,
+                    Value = p.Id.ToString(),
+                }).ToListAsync();
+
+
+            ViewBag.Categories = categories;
+            ViewBag.Priorities = priorities;
+            ViewBag.Projects = projects;
+
+            return PartialView("_AddModalProject");
+        }
+
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TodoEntry))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
+        public async Task<IActionResult> AddModalProject(TodoEntry todoEntry)
+        {
+            var currentUser = (ClaimsIdentity)User.Identity;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+           
+            string urlReferrer = Request.Headers["Referer"]!.ToString();
+
+            if (todoEntry == null)
+            {
+                _logger.LogInformation($"{todoEntry.Title} not in correct shape");
+                return BadRequest($"{todoEntry.Title} Ist nicht valide");
+            }
+            else
+            {
+                _logger.LogInformation($"{todoEntry.Title} added");
+
+                todoEntry.ApplicationUserId = currentUserId;
+                todoEntry.ProjectId = Convert.ToInt32(urlReferrer[^2..]);
+                todoEntry.DateOfCreation = DateTime.Today;
+
+               
+                await _context.todos.AddAsync(todoEntry);
+                await _context.SaveChangesAsync();
+
+                TempData["addedtodo"] = $"{todoEntry.Title} Hinzugefügt";
+
+                return RedirectToAction("Index", "Home", new { Area = "Customer" });
+            }
         }
     }
 }

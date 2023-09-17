@@ -38,9 +38,10 @@ namespace Todo.Areas.Admin.Contrellers
             return View(projectLikedAndTodoEntryViewModel);
         }
 
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string))]
-        public async Task<IActionResult> Detail(int id)
+        public async Task<IActionResult> DetailNew(int id)
         {
             if (id == 0)
             {

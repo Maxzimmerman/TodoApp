@@ -1,0 +1,31 @@
+﻿@model TodoEntry
+
+<form class="form" method="post" action="/Admin/Project/AddModalProject">
+    <input class="title" asp-for="Title" placeholder="Titel" />
+    <input class="description" asp-for="Description" placeholder="Beschreibung" />
+
+    <div class="date-section">
+        <label>Von:</label>
+        <input class="first-date" asp-for="StartDate" />
+        <label>Bis:</label>
+        <input class="last-date" asp-for="EndDate" />
+    </div>
+
+    <div class="checkboxes">
+        <input asp-for="IChecked" type="checkbox" placeholder="Erledigt" />
+        <input asp-for="IDeleted" type="checkbox" placeholder="Gelöscht" />
+    </div>
+
+    <div class="select-section">
+        <select asp-for="CategoryId" asp-items="ViewBag.Categories">
+        </select>
+
+        <select asp-for="PriorityId" asp-items="ViewBag.Priorities">
+        </select>
+    </div>
+
+    <div class="button-section">
+        <button id="cancel" type="button">Abbrechen</button>
+        <button class="add" type="submit">Aufgabe hinzufügen</button>
+    </div>
+</form>
