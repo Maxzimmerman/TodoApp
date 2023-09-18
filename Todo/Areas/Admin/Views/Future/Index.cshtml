@@ -14,8 +14,10 @@
             <i class="fa-solid fa-plus add-modal-button"></i>
             <i class="fa-solid fa-check check-bar-button"></i>
             <!--<i class="fa-solid fa-bell"></i>-->
-            <a asp-area="Identity" asp-page="/Account/Manage/Index"><i class="fa-solid fa-user"></i></a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@UserManager.GetUserName(User)<i class="fa-solid fa-user"></i></a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Logout">Abmelden</a>
         </div>
+
         <div class="hamburger-menu-drop-down">
             <a asp-area="Admin" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
             <a asp-area="Customer" asp-controller="Home" asp-action="Index"><i class="fa-solid fa-calendar-days"><p> @DateTime.Now.ToShortDateString()</p></i> Heute</a>
@@ -23,11 +25,11 @@
             <hr class="hamburger-menu-hr">
             <h5>Favoriten</h5>
             @{
-                if(Model.LikedProjects != null)
+                if (Model.LikedProjects != null)
                 {
                     foreach (UserProject project in Model.LikedProjects)
                     {
-                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title</a>
+                        <a asp-area="Admin" asp-controller="Project" asp-action="DetailProjectPartial" asp-route-id="@project.Id" class="project">- @project.Title </a>
                     }
                 }
             }
@@ -60,6 +62,15 @@
         <div id="project-add-modal"></div>
         <div id="checked-bar">
         </div>
+        <div class="add-new-section">
+            <i class="fa-solid fa-plus add-modal-button"></i><p>Aufgabe hinzufügen</p>
+        </div>
+
+        <div id="detail-page">
+        </div>
+        <div id="detail-page-search-result">
+        </div>
+        <div id="detail-page-project"></div>
     }
 }
 
@@ -67,25 +78,35 @@
     @{
         if (SignInManager.IsSignedIn(User))
         {
-            <div class="today-secition">
-                <h1 class="today-header">Future </h1><p>@DateTime.Now.ToShortDateString()</p>
-                <i class="fa-solid fa-angle-right today-toggle rotate-toggle"></i>
-                <p class="today-entries-counter"></p>
-                <div class="today-entries">
-                    
-                </div>
+                                <div id="calendar"></div>
 
-            </div>
-
-            <div class="overtime-seciton">
-                <h3 class="overtime-header">Überfällig</h3>
-                <i id="overtime-toggle" class="fa-solid fa-angle-right ovetime-toggle"></i>
-                <p class="over-time-entry-counter"></p>
-                <div class="overtime-entries">
-                    
-                </div>
-
-            </div>
+                                @section scripts {
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('#calendar').fullCalendar({
+                                                header: {
+                                                    left: 'prev, next today',
+                                                    center: 'title',
+                                                    right: 'month,basicWeek,basicDay'
+                                                },
+                                                defaultView: 'month',
+                                                events: [
+                                                    @foreach (var todoEntry in Model.TodoEntries)
+                                                        {
+                                                            <text>
+                                                                        {
+                                                                            title: '@todoEntry.Title',
+                                                                            start: '@todoEntry.StartDate.ToString("yyyy-MM-ddTHH:mm:ss")',
+                                                                            end: '@todoEntry.EndDate.ToString("yyyy-MM-ddTHH:mm:ss")'
+                                                                        },
+                                                            </text>
+                                                        }
+                                                ]
+                                                
+                                            })
+                                        })
+                                    </script>
+                                }
         }
         else
         {

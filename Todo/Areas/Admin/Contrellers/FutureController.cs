@@ -26,7 +26,7 @@ namespace Todo.Areas.Admin.Contrellers
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             NavBarViewModel navBarViewModel = new NavBarViewModel();
-            var todos = await _context.todos.Where(t => t.ApplicationUserId == currentUserId && t.IDeleted == false && t.IChecked == false && t.ProjectId == null).ToListAsync();
+            var todos = await _context.todos.Where(t => t.ApplicationUserId == currentUserId).ToListAsync();
             var likedProjects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsLiked == true && p.IsDeleted == false).ToListAsync();
             var projects = await _context.projects.Where(project => project.ApplicationUserId == currentUserId && project.IsDeleted == false).ToListAsync();
 

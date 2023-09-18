@@ -92,7 +92,7 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 4;
+    z-index: 400;
 }
 
 /*Hamburgermenu*/
@@ -344,7 +344,7 @@ body {
 .search-bar-header {
     border: none;
     padding: 0px;
-    z-index: 2;
+    z-index: 600;
 }
 
 .search-bar-header > input {
