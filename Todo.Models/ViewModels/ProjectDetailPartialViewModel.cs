@@ -12,5 +12,6 @@ namespace Todo.Models.ViewModels
         public UserProject Project { get; set; }
         public List<UserProject> Projects { get; set; }
         public List<UserProject> LikedProjects { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

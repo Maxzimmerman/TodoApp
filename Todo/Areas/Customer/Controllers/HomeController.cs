@@ -44,9 +44,12 @@ namespace Todo.Areas.Customer.Controllers
 
                     entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId && e.IDeleted == false && e.IChecked == false && e.ProjectId == null).ToListAsync();
 
+                    var user = _context.users.Where(u => u.Id == currentUserId).FirstOrDefault();
+
                     projectAndTodoEntryViewModel.TodoEntries = entries;
                     projectAndTodoEntryViewModel.Projects = projects;
                     projectAndTodoEntryViewModel.LikdedProjects = likedProjects;
+                    projectAndTodoEntryViewModel.User = user;
 
                     if (User.Identity.IsAuthenticated)
                     {

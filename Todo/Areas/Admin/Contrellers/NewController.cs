@@ -30,10 +30,12 @@ namespace Todo.Areas.Admin.Contrellers
             var todos = await _context.todos.Where(t => t.ApplicationUserId == currentUserId && t.IDeleted == false && t.IChecked == false && t.ProjectId == null && t.DateOfCreation == DateTime.Today).ToListAsync();
             var likedProjects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsLiked == true && p.IsDeleted == false).ToListAsync();
             var projects = await _context.projects.Where(project => project.ApplicationUserId == currentUserId && project.IsDeleted == false).ToListAsync();
+            var user = _context.users.Where(u => u.Id == currentUserId).FirstOrDefault();
 
             projectLikedAndTodoEntryViewModel.TodoEntries = todos;
             projectLikedAndTodoEntryViewModel.Projects = projects;
             projectLikedAndTodoEntryViewModel.LikdedProjects = likedProjects;
+            projectLikedAndTodoEntryViewModel.User = user;
 
             return View(projectLikedAndTodoEntryViewModel);
         }

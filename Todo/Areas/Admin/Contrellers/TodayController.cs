@@ -34,6 +34,7 @@ namespace Todo.Areas.Admin.Contrellers
             if (string.IsNullOrEmpty(input))
             {
                 _logger.LogInformation($"not entreis found");
+                var user = _context.users.Where(e => e.Id == currentUserId).FirstOrDefault();
 
                 todoList = await _context.todos.Where(x => x.ApplicationUserId == currentUserId && x.IDeleted == false && x.IChecked == false).ToListAsync();
             }

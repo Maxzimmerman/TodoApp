@@ -146,11 +146,13 @@ namespace Todo.Areas.Admin.Contrellers
             var todos = await _context.todos.Where(t => t.ApplicationUserId == currentUserId && t.ProjectId == id && t.IDeleted == false && t.IChecked == false).ToListAsync();
             var projects = await _context.projects.Where(project => project.ApplicationUserId == currentUserId && project.IsDeleted == false).ToListAsync();
             var liked_projects = await _context.projects.Where(likedProject => likedProject.ApplicationUserId == currentUserId && likedProject.IsDeleted == false && likedProject.IsLiked == true).ToListAsync();
+            var user = await _context.users.Where(u => u.Id == currentUserId).FirstOrDefaultAsync();
 
             projectDetailPartial.Project = project;
             projectDetailPartial.TodoEntries = todos;
             projectDetailPartial.Projects = projects;
             projectDetailPartial.LikedProjects = liked_projects;
+            projectDetailPartial.User = user;
 
             return View("_ProjectDetailPartial", projectDetailPartial);
         }

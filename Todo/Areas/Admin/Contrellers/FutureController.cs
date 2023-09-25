@@ -29,10 +29,12 @@ namespace Todo.Areas.Admin.Contrellers
             var todos = await _context.todos.Where(t => t.ApplicationUserId == currentUserId).ToListAsync();
             var likedProjects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsLiked == true && p.IsDeleted == false).ToListAsync();
             var projects = await _context.projects.Where(project => project.ApplicationUserId == currentUserId && project.IsDeleted == false).ToListAsync();
+            var user = await _context.users.Where(u => u.Id == currentUserId).FirstOrDefaultAsync();
 
             navBarViewModel.TodoEntries = todos;
             navBarViewModel.Projects = projects;
             navBarViewModel.LikedProjects = likedProjects;
+            navBarViewModel.User = user;
 
             return View(navBarViewModel);
         }

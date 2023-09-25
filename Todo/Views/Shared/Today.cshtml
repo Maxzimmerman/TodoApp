@@ -14,7 +14,7 @@
             <i class="fa-solid fa-plus add-modal-button"></i>
             <i class="fa-solid fa-check check-bar-button"></i>
             <!--<i class="fa-solid fa-bell"></i>-->
-            <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@UserManager.GetUserName(User)<i class="fa-solid fa-user"></i></a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@Model.User.ApplicationUserName<i class="fa-solid fa-user"></i></a>
             <a asp-area="User" asp-controller="UserManage" asp-action="Logout">Abmelden</a>
         </div>
         

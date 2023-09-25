@@ -1,39 +1,41 @@
 const container = document.querySelector('.overtime-entries');
 const draggables = document.querySelectorAll('.overtime-entry');
 
-draggables.forEach(draggable => {
-    draggable.addEventListener('dragstart', () => {
-        draggable.classList.add('dragging')
-    })
+let draggedElement = null;
+let originalIndex = -1;
+
+draggables.forEach((draggable, index) => {
+    draggable.draggable = true;
+
+    draggable.addEventListener('dragstart', (e) => {
+        draggedElement = draggable;
+        originalIndex = index;
+        e.dataTransfer.setData('text/plain', ''); // Required for Firefox
+        setTimeout(() => {
+            draggable.classList.add('dragging');
+        }, 0);
+    });
 
     draggable.addEventListener('dragend', () => {
-        draggable.classList.remove('dragging')
-    })
-})
+        draggedElement = null;
+        originalIndex = -1;
+        draggable.classList.remove('dragging');
+    });
+});
 
+container.addEventListener('dragover', (e) => {
+    e.preventDefault();
 
-container.addEventListener('dragover', e => {
-    e.preventDefault()
-    const afterElement = getDragAfterElement(container, e.clientY)
-    const draggable = document.querySelector('.dragging')
-    if (afterElement == null) {
-        container.appendChild(draggable)
-    } else {
-        container.insertBefore(draggable, afterElement)
-    }
-    })
+    if (!draggedElement) return;
 
-
-function getDragAfterElement(container, y) {
-    const draggableElements = [...container.querySelectorAll('.draggable:not(.dragging)')]
-
-    return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect()
-        const offset = y - box.top - box.height / 2
-        if (offset < 0 && offset > closest.offset) {
-            return { offset: offset, element: child }
+    const newIndex = [...container.querySelectorAll('.overtime-entry')].indexOf(draggedElement);
+    if (newIndex !== originalIndex) {
+        if (newIndex < originalIndex) {
+            container.insertBefore(draggedElement, draggables[newIndex]);
         } else {
-            return closest
+            container.insertBefore(draggedElement, draggables[newIndex + 1]);
         }
-    }, { offset: Number.NEGATIVE_INFINITY }).element
-}
+        originalIndex = newIndex;
+    }
+});
+
