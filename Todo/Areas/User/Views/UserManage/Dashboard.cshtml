@@ -1,0 +1,159 @@
+﻿@model Todo.Models.ViewModels.DashboardData;
+
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    if (SignInManager.IsSignedIn(User))
+    {
+        <div class="navbar">
+            <i class="fa-solid fa-house home-button"></i>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@Model.User.ApplicationUserName<i class="fa-solid fa-user"></i></a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Logout">Abmelden</a>
+        </div>
+    }
+}
+
+<div class="body container">
+    <h2 class="mt-3 mb-3">@Model.User.ApplicationUserName'Dashboard</h2>
+    <div class="row">
+        <div class="today-overview first-section col-12 col-md-4 bg-white shadow rounded border p-5" style="margin: 10px auto 10px auto;">
+            <canvas id="today-overview"></canvas>
+        </div>
+        <div class="last-seven-days-overview first-section col-12 col-md-4 bg-white shadow rounded border p-5" style="margin: 10px auto 10px auto;">
+            <canvas id="last-seven-days-overview"></canvas>
+        </div>
+        <div class="todays-goal first-section col-12 col-md-3 bg-white shadow rounded border p-5" style="margin: 10px auto 10px auto;">
+            <canvas id="todays-goal"></canvas>
+        </div>
+    </div>
+    <div class="second-section row">
+        <div class="open-tasks col-6 col-md-3 shadow rounded border p-2" style="margin: 10px auto 10px auto; background-color: rgba(255, 99, 132); color: white">
+            <h5>Offene Aufgaben: @Model.NotCheckedEntrie.Count</h5>
+        </div>
+        <div class="completed-today col-6 col-md-3 shadow rounded border p-2" style="margin: 10px auto 10px auto; background-color: rgba(201, 203, 207); color: white">
+            <h5>Eledigt heute:</h5>
+        </div>
+        <div class="total-tasks col-6 col-md-3 shadow rounded border p-2" style="margin: 10px auto 10px auto; background-color: rgba(153, 102, 255); color: white">
+            <h5>Aufgaben insgesamt: @Model.TodoEntries.Count</h5>
+        </div>
+        <div class="projects col-6 col-md-3 shadow rounded border p-2" style="margin: 10px auto 10px auto; background-color: rgba(54, 162, 235); color: white">
+            <h5>Projekte: @Model.Projects.Count </h5>
+        </div>
+    </div>
+    <div class="third-section">
+        <div class="upcoming-tasks"></div>
+        <div class="calender"></div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const LastSevenDays = document.getElementById('last-seven-days-overview');
+        const TodayOverview = document.getElementById('today-overview');
+        const TodaysGoal = document.getElementById('todays-goal');
+
+
+        // First Chart
+
+        const labelsTwo = ["09:00", "12:00", "15:00", "19:00", "21:00"];
+        const dataTwo = {
+            labels: labelsTwo,
+            datasets: [{
+                data: [65, 59, 80, 81, 56, 55, 40],
+                fill: false,
+                tension: 0.1,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+            }]
+        };
+
+        new Chart(TodayOverview, {
+            type: 'bar',
+            data: dataTwo,
+            options: {
+                maintainAspectRatio: false,
+            }
+        })
+
+        // Second Chart
+
+        const labelsOne = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
+        const dataOne = {
+            labels: labelsOne,
+            datasets: [{
+                data: [65, 59, 80, 81, 56, 55, 40],
+                fill: false,
+                tension: 0.1,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+            }]
+        };
+
+        new Chart(LastSevenDays, {
+            type: 'line',
+            data: dataOne,
+            options: {
+                maintainAspectRatio: false,
+            }
+        })
+
+        // Third Chart
+        const labelsThree = ["Tagesziel", "Erledigte Aufgaben"];
+        const dataThree = {
+            labels: labelsThree,
+            datasets: [{
+                data: [5, 2],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1,
+                backgroundColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(54, 162, 235)',
+                    'rgb(255, 205, 86)'
+                ],
+            }]
+        };
+
+        new Chart(TodaysGoal, {
+            type: 'pie',
+            data: dataThree,
+            options: {
+                maintainAspectRatio: false,
+            }
+        })
+    });
+</script>
