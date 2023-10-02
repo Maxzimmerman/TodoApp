@@ -80,7 +80,7 @@
                         }
                         else
                         {
-                            foreach (var item in Model.TodoEntries.Where(todo => todo.EndDate > DateTime.Today && todo.IChecked == false && todo.IDeleted == false))
+                            foreach (var item in Model.TodoEntries.Where(todo => todo.DateOfCreation == DateTime.Today && todo.IChecked == false && todo.IDeleted == false))
                             {
                                 <div class="today-entry entry" hx-get="Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
                                     <hr>

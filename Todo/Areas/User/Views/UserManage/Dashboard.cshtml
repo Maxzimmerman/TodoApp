@@ -33,7 +33,7 @@
             <h5>Offene Aufgaben: @Model.NotCheckedEntrie.Count</h5>
         </div>
         <div class="completed-today col-6 col-md-3 shadow rounded border p-2" style="margin: 10px auto 10px auto; background-color: rgba(201, 203, 207); color: white">
-            <h5>Eledigt heute:</h5>
+            <h5>Eledigt heute: @Model.TodaysCheckedEntries.Count</h5>
         </div>
         <div class="total-tasks col-6 col-md-3 shadow rounded border p-2" style="margin: 10px auto 10px auto; background-color: rgba(153, 102, 255); color: white">
             <h5>Aufgaben insgesamt: @Model.TodoEntries.Count</h5>
@@ -99,7 +99,7 @@
         const dataOne = {
             labels: labelsOne,
             datasets: [{
-                data: [65, 59, 80, 81, 56, 55, 40],
+                data: [@Model.MondayChecked.Count, @Model.ThuesdayChecked.Count, @Model.WednesDayChecked.Count, @Model.ThursdayChecked.Count, @Model.FridayChecked.Count, @Model.SaturdayChecked.Count, @Model.SondayChecked.Count],
                 fill: false,
                 tension: 0.1,
                 backgroundColor: [
@@ -132,11 +132,11 @@
         })
 
         // Third Chart
-        const labelsThree = ["Tagesziel", "Erledigte Aufgaben"];
+        const labelsThree = ["Erledigte Aufgaben", "Tagesziel"];
         const dataThree = {
             labels: labelsThree,
             datasets: [{
-                data: [5, 2],
+                data: [@Model.TodaysCheckedEntries.Count, 5],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1,

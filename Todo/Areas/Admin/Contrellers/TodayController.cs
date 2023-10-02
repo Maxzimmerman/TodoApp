@@ -83,6 +83,7 @@ namespace Todo.Areas.Admin.Contrellers
             }
 
             entry.IChecked = true;
+            entry.ChecktedDate = DateTime.Today;
             await _context.SaveChangesAsync();
 
             TempData["checkedtodo"] = $"{entry.Title} Angepasst";
@@ -143,6 +144,7 @@ namespace Todo.Areas.Admin.Contrellers
                 todoEntry.ApplicationUserId = currentUserId;
                 todoEntry.ProjectId = null;
                 todoEntry.DateOfCreation = DateTime.Today;
+                todoEntry.ChecktedDate = null;
                 await _context.todos.AddAsync(todoEntry);
                 await _context.SaveChangesAsync();
 

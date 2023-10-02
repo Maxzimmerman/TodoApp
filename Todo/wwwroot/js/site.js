@@ -5,7 +5,7 @@ const ProjectEditModal = document.querySelector('#detail-page-project');
 const ProjectDetialPage = document.querySelector('.detail-close-button-project');
 
 homeButton.addEventListener('click', () => {
-    window.location.href = '';
+    window.location.href = "https://localhost:7208/"
 })
 
 // Todo should work

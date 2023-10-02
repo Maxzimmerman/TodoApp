@@ -121,7 +121,6 @@ namespace Todo.Areas.Admin.Api
             {
                 todo.Title = entry.Title;
                 todo.Description = entry.Description;
-                todo.StartDate = entry.StartDate;
                 todo.EndDate = entry.EndDate;
                 todo.IChecked = entry.IChecked;
                 todo.IDeleted = entry.IDeleted;

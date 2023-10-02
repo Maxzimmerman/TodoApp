@@ -14,7 +14,6 @@ namespace Todo.Models
         public string Title { get; set; }
         [MaxLength(100)]
         public string Description { get; set; }
-        public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         [DefaultValue(false)]
         public bool IChecked { get; set; }
@@ -38,5 +37,6 @@ namespace Todo.Models
         public UserProject Project { get; set; }
 
         public DateTime DateOfCreation { get; set; }
+        public DateTime? ChecktedDate { get; set; }
     }
 }
