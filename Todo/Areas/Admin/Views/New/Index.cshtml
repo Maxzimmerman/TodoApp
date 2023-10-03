@@ -109,7 +109,7 @@
                         }
                         else
                         {
-                            foreach (var item in Model.TodoEntries.Where(todo => todo.EndDate < DateTime.Today && todo.IChecked == false && todo.IDeleted == false))
+                            foreach (var item in Model.TodoEntries.Where(todo => todo.EndDate >= DateTime.Today && todo.IChecked == false && todo.IDeleted == false))
                             {
                                 <div draggable="true" class="overtime-entry entry" hx-get="/Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
                                     <hr>

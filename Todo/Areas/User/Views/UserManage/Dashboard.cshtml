@@ -7,16 +7,16 @@
 @{
     if (SignInManager.IsSignedIn(User))
     {
-        <div class="navbar">
-            <i class="fa-solid fa-house home-button"></i>
-            <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@Model.User.ApplicationUserName<i class="fa-solid fa-user"></i></a>
-            <a asp-area="User" asp-controller="UserManage" asp-action="Logout">Abmelden</a>
-        </div>
+    <div class="navbar">
+                    <i class="fa-solid fa-house home-button"></i>
+                    <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@Model.User.ApplicationUserName<i class="fa-solid fa-user"></i></a>
+                    <a asp-area="User" asp-controller="UserManage" asp-action="Logout">Abmelden</a>
+    </div>
     }
 }
 
 <div class="body container">
-    <h2 class="mt-3 mb-3">@Model.User.ApplicationUserName'Dashboard</h2>
+    <h2 class="mt-3 mb-3">@Model.User.ApplicationUserName Dashboard</h2>
     <div class="row">
         <div class="today-overview first-section col-12 col-md-4 bg-white shadow rounded border p-5" style="margin: 10px auto 10px auto;">
             <canvas id="today-overview"></canvas>
@@ -57,7 +57,7 @@
 
         // First Chart
 
-        const labelsTwo = ["09:00", "12:00", "15:00", "19:00", "21:00"];
+        const labelsTwo = ["06:00", "09:00", "12:00", "15:00", "18:00", "21:00"];
         const dataTwo = {
             labels: labelsTwo,
             datasets: [{
@@ -132,11 +132,15 @@
         })
 
         // Third Chart
-        const labelsThree = ["Erledigte Aufgaben", "Tagesziel"];
+        var thirdChartMaxVal = 5 - @Model.TodaysCheckedEntries.Count;
+        if (thirdChartMaxVal <= 0) {
+            thirdChartMaxVal = 0;
+        }
+        const labelsThree = ["Erledigte Aufgaben", "Verbleibende"];
         const dataThree = {
             labels: labelsThree,
             datasets: [{
-                data: [@Model.TodaysCheckedEntries.Count, 5],
+                data: [@Model.TodaysCheckedEntries.Count, thirdChartMaxVal],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1,

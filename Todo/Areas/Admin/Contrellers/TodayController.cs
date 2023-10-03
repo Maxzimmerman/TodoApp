@@ -83,7 +83,7 @@ namespace Todo.Areas.Admin.Contrellers
             }
 
             entry.IChecked = true;
-            entry.ChecktedDate = DateTime.Today;
+            entry.ChecktedDate = DateTime.Now;
             await _context.SaveChangesAsync();
 
             TempData["checkedtodo"] = $"{entry.Title} Angepasst";
