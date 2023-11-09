@@ -28,6 +28,15 @@ namespace Todo.Areas.Customer.Controllers
 
         public async Task<IActionResult> Index()
         {
+            //var todos = _context.todos.ToList();
+            //TodoEntryList list = new TodoEntryList();
+            //list.TodoEntries = todos;
+            //var first = list[0];
+            //_logger.LogInformation("'''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''" +
+            //    "###########################################################################################################################################" +
+            //    "########################################################" +  first.Title);
+
+
             List<TodoEntry> entries;
             var users = await _context.users.ToListAsync();
             try

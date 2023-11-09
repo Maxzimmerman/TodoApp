@@ -10,12 +10,8 @@
         <div class="navbar">
             <i class="fa-solid fa-bars hambuger-menu-button"></i>
             <i class="fa-solid fa-house home-button"></i>
-            <i class="fa-solid fa-magnifying-glass search-bar-button"></i>
-            <i class="fa-solid fa-plus add-modal-button"></i>
-            <i class="fa-solid fa-check check-bar-button"></i>
             <!--<i class="fa-solid fa-bell"></i>-->
             <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@Model.User.ApplicationUserName<i class="fa-solid fa-user"></i></a>
-            <a asp-area="User" asp-controller="UserManage" asp-action="Logout">Abmelden</a>
         </div>
 
         <div class="hamburger-menu-drop-down">
@@ -51,15 +47,10 @@
                 }
             </div>
         </div>
-        <div class="search-bar-header">
-            <input id="inputQuery" type="text" />
-            <i class="fa-solid fa-xmark"></i>
-
-            <div id="SearchResults"></div>
-        </div>
         <div id="add-modal">
         </div>
         <div id="project-add-modal"></div>
+        <div id="view-to-add-a-project"></div>
         <div id="checked-bar">
         </div>
         <div class="overtime-seciton">
@@ -69,9 +60,7 @@
             </div>
 
         </div>
-        <div class="add-new-section">
-            <i class="fa-solid fa-plus add-modal-button"></i><p>Aufgabe hinzufügen</p>
-        </div>
+
 
         <div id="detail-page">
         </div>

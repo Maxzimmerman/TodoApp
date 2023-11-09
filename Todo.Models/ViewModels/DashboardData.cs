@@ -22,5 +22,27 @@ namespace Todo.Models.ViewModels
         public List<TodoEntry> FridayChecked { get; set; }
         public List<TodoEntry> SaturdayChecked { get; set; }
         public List<TodoEntry> SondayChecked { get; set; }
+        public List<TodoEntry> SixAMChecked { get; set; }
+        public List<TodoEntry> NineAMChecked { get; set; }
+        public List<TodoEntry> TwelveAMChecked { get; set; }
+        public List<TodoEntry> FifteenAMChecked { get; set; }
+        public List<TodoEntry> EightenAMChecked { get; set; }
+        public List<TodoEntry> TwentyOneAMChecked { get; set; }
+        public List<TodoEntry> JanuaryChecked { get; set; }
+        public List<TodoEntry> FebruaryChecked { get; set; }
+        public List<TodoEntry> MarchChecked { get; set; }
+        public List<TodoEntry> AptrilChecked { get; set; }
+        public List<TodoEntry> MayChecked { get; set; }
+        public List<TodoEntry> JuneChecked { get; set; }
+        public List<TodoEntry> JulyChecked { get; set; }
+        public List<TodoEntry> AugustChecked { get; set; }
+        public List<TodoEntry> SeptemberChecked { get; set; }
+        public List<TodoEntry> OktoberChecked { get; set; }
+        public List<TodoEntry> NovemberChecked { get; set; }
+        public List<TodoEntry> DecemberChecked { get; set; }
+        public List<TodoEntry> UncheckedToday { get; set; }
+        public List<TodoEntry> CheckedThisWeek { get; set; }
+        public List<TodoEntry> CheckedThisYear { get; set; }    
+        public List<Dictionary<DateTime, DateTime>> keyValuePairs { get; set; }
     }
 }

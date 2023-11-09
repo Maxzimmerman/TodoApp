@@ -42,35 +42,12 @@ $(function () {
         }
     })
 
-    //searchbar
-    if (screen.width < 540) {
-        $('.search-bar-header').slideUp(0);
-    }
-    
-    $('.fa-magnifying-glass').on('click', function () {
-        $('.search-bar-header').slideToggle(100);
-    });
-
-    $('.fa-xmark').on('click', function () {
-        if (screen.width < 540) {
-            $('.search-bar-header').slideUp(0);
-            $('#inputQuery').val('');
-        } else {
-            $('#inputQuery').val('');
-            $('.Results').slideUp(0);
-        }
-    })
-
-    $('.search-bar-header').on('keyup', function () {
-        var input = $('#inputQuery').val();
-        $('#SearchResults').load("/Admin/Today/SearchResults?input=" + input);
-    })
-
     // Add Modal
     $('#add-modal').slideUp(0);
 
     $('#add-modal').load("/Admin/Today/AddModal");
     $('.add-modal-button').on('click', function () {
+        
         $('#add-modal').slideToggle(100);
         if (screen.width < 540) {
             $('.search-bar-header').slideUp(0);
@@ -82,24 +59,24 @@ $(function () {
         });
     })
 
-    // Project AddModal
-    $('#project-add-modal').slideUp(0);
+    // Project AddModal To add a new project in header
+    $('#view-to-add-a-project').slideUp(0);
 
-    $('#project-add-modal').load("/Admin/Project/Add");
+    $('#view-to-add-a-project').load("/Admin/Project/AddPartial");
     $('.add-project-button').on('click', function () {
+        
         console.log('add project button')
-        $('#project-add-modal').slideToggle(100);
+        $('#view-to-add-a-project').slideToggle(100);
         if (screen.width < 540) {
             $('.search-bar-header').slideUp(0);
         }
 
-        $('#cancel-project').on('click', function () {
-            console.log('ehll')
-            $('#project-add-modal').slideUp(0);
+        $('#cancel-project-to-add-project').on('click', function () {
+            console.log('ehll');
+            $('#view-to-add-a-project').slideUp(0);
         });
-    })
+    });
 
-    
 
     // Checked bar
     $('#checked-bar').slideUp(0);

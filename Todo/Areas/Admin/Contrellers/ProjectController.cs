@@ -35,7 +35,7 @@ namespace Todo.Areas.Admin.Contrellers
         }
 
         [HttpGet]
-        public IActionResult Add() 
+        public IActionResult AddPartial() 
         { 
             return PartialView("_AddProjectPartial");
         }
@@ -157,6 +157,7 @@ namespace Todo.Areas.Admin.Contrellers
             return View("_ProjectDetailPartial", projectDetailPartial);
         }
 
+        [HttpGet]
         public async Task<IActionResult> AddModalProject()
         {
             IEnumerable<SelectListItem> categories =
