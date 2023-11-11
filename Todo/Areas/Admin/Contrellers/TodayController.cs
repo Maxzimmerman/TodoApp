@@ -36,7 +36,7 @@ namespace Todo.Areas.Admin.Contrellers
                 _logger.LogInformation($"not entreis found");
                 var user = _context.users.Where(e => e.Id == currentUserId).FirstOrDefault();
 
-                todoList = await _context.todos.Where(x => x.ApplicationUserId == currentUserId && x.IDeleted == false && x.IChecked == false).ToListAsync();
+                todoList = await _context.todos.Include(x => x.Priority).Where(x => x.ApplicationUserId == currentUserId && x.IDeleted == false && x.IChecked == false).ToListAsync();
             }
             else
             {
@@ -186,7 +186,7 @@ namespace Todo.Areas.Admin.Contrellers
                     Value = e.Id.ToString(),
                 }).ToList();
 
-            IEnumerable<SelectListItem> projects = _context.projects
+            IEnumerable<SelectListItem> projects = _context.projects.Where(e => e.IsDeleted == false).ToList() 
                 .Select(p => new SelectListItem
                 {
                     Text = p.Title,

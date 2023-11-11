@@ -109,6 +109,18 @@ namespace Todo.Areas.User.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> EditUser()
+        {
+            var currentUser = (ClaimsIdentity)User.Identity;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+
+            var user = _context.users.FirstOrDefault(x => x.Id == currentUserId);
+
+            return View(user);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> Dashboard()
         {
             var currentUser = (ClaimsIdentity)User.Identity;

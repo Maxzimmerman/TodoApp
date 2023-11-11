@@ -11,7 +11,8 @@
             <i class="fa-solid fa-bars hambuger-menu-button"></i>
             <i class="fa-solid fa-house home-button"></i>
             <!--<i class="fa-solid fa-bell"></i>-->
-            <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@Model.User.ApplicationUserName<i class="fa-solid fa-user"></i></a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard"><i class="fa-solid fa-chart-line"></i></a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="EditUser">@Model.User.ApplicationUserName<i class="fa-solid fa-user"></i></a>
         </div>
 
         <div class="hamburger-menu-drop-down">
@@ -70,39 +71,39 @@
     }
 }
 
-<div class="body container">
+<div class="body-for-future container">
     @{
         if (SignInManager.IsSignedIn(User))
         {
-                                <div id="calendar"></div>
+            <div id="calendar"></div>
 
-                                @section scripts {
-                                    <script>
-                                        $(document).ready(function () {
-                                            $('#calendar').fullCalendar({
-                                                header: {
-                                                    left: 'prev, next today',
-                                                    center: 'title',
-                                                    right: 'month,basicWeek,basicDay'
-                                                },
-                                                defaultView: 'month',
-                                                events: [
-                                                    @foreach (var todoEntry in Model.TodoEntries)
-                                                        {
-                                                            <text>
-                                                                        {
-                                                                            title: '@todoEntry.Title',
-                                                                            start: '@todoEntry.EndDate.ToString("yyyy-MM-ddTHH:mm:ss")',
-                                                                            end: ""
+             @section scripts {
+             <script>
+                 $(document).ready(function () {
+                      $('#calendar').fullCalendar({
+                           header: {
+                               left: 'prev, next today',
+                               center: 'title',
+                               right: 'month,basicWeek,basicDay'
+                           },
+                           defaultView: 'month',
+                           events: [
+                                @foreach (var todoEntry in Model.TodoEntries)
+                                {
+                                     <text>
+                                     {
+                                         title: '@todoEntry.Title',
+                                         start: '@todoEntry.EndDate.ToString("yyyy-MM-ddTHH:mm:ss")',
+                                         end: ""
                                                                         },
-                                                            </text>
-                                                        }
-                                                ]
-                                                
-                                            })
-                                        })
-                                    </script>
+                                     </text>
                                 }
+                           ]
+                                                
+                      })
+                 })
+             </script>
+             }
         }
         else
         {

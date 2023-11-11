@@ -143,7 +143,7 @@ namespace Todo.Areas.Admin.Contrellers
 
             ProjectDetailPartialViewModel projectDetailPartial = new ProjectDetailPartialViewModel();
             var project = await _context.projects.FirstOrDefaultAsync(p => p.Id == id);
-            var todos = await _context.todos.Where(t => t.ApplicationUserId == currentUserId && t.ProjectId == id && t.IDeleted == false && t.IChecked == false).ToListAsync();
+            var todos = await _context.todos.Where(t => t.ApplicationUserId == currentUserId && t.ProjectId == id && t.IDeleted == false && t.IChecked == false).Include(t => t.Priority).ToListAsync();
             var projects = await _context.projects.Where(project => project.ApplicationUserId == currentUserId && project.IsDeleted == false).ToListAsync();
             var liked_projects = await _context.projects.Where(likedProject => likedProject.ApplicationUserId == currentUserId && likedProject.IsDeleted == false && likedProject.IsLiked == true).ToListAsync();
             var user = await _context.users.Where(u => u.Id == currentUserId).FirstOrDefaultAsync();

@@ -7,6 +7,11 @@
     padding: 3rem;
 }
 
+.body-for-future {
+    padding-top: 5rem !important;
+    padding: 0rem;
+}
+
 @media screen and (min-width: 1024px) {
     
 }
@@ -121,6 +126,17 @@ body p {
     -moz-transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     transform: rotate(90deg);
+}
+
+.entry {
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0px 9px rgb(0 0 0 / 0.09);
+}
+
+.entry:hover {
+    cursor: pointer;
 }
 
 .today-entry > p {
@@ -315,6 +331,8 @@ form > .delete-button {
 
 @media screen and (min-width: 1480px) {
     .hambuger-menu-button {
-        visibility: hidden;
+        display: none;
     }
+
+
 }

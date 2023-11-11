@@ -11,7 +11,8 @@
             <i class="fa-solid fa-bars hambuger-menu-button"></i>
             <i class="fa-solid fa-house home-button"></i>
             <!--<i class="fa-solid fa-bell"></i>-->
-            <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@Model.User.ApplicationUserName<i class="fa-solid fa-user"></i></a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard"><i class="fa-solid fa-chart-line"></i></a>
+            <a asp-area="User" asp-controller="UserManage" asp-action="EditUser">@Model.User.ApplicationUserName<i class="fa-solid fa-user"></i></a>
         </div>
         <div class="hamburger-menu-drop-down">
             <a asp-area="Admin" asp-controller="New" asp-action="Index"><i class="fa-solid fa-folder"></i>Eingang</a>
@@ -72,14 +73,28 @@
                         {
                             foreach (var item in Model.TodoEntries.Where(todo => todo.EndDate >= DateTime.Today && todo.IChecked == false && todo.IDeleted == false))
                             {
-                                <div class="today-entry entry" hx-get="/Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
-                                    <hr>
-                                    <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Admin" asp-controller="Today" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
-                                    <p>@item.EndDate.ToShortDateString()</p>
-                                </div>
-                                <form action="/Admin/Today/DeleteButton?id=@item.Id" method="post">
-                                    <button type="submit" class="delete-button">Löschen</button>
-                                </form>
+                                if(item.Priority != null)
+                                {
+                                    <div class="today-entry entry" hx-get="/Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()" style="border: 1px solid @item.Priority.Color">
+                                        <hr>
+                                        <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Admin" asp-controller="Today" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
+                                        <p>@item.EndDate.ToShortDateString()</p>
+                                    </div>
+                                    <form action="/Admin/Today/DeleteButton?id=@item.Id" method="post" style="height: 2px">
+                                        <button type="submit" class="delete-button">Löschen</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <div class="today-entry entry" hx-get="/Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
+                                        <hr>
+                                        <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Admin" asp-controller="Today" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
+                                        <p>@item.EndDate.ToShortDateString()</p>
+                                    </div>
+                                    <form action="/Admin/Today/DeleteButton?id=@item.Id" method="post" style="height: 2px">
+                                        <button type="submit" class="delete-button">Löschen</button>
+                                    </form>
+                                }
                             }
                         }
                     }

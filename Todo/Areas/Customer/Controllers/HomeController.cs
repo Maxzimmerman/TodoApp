@@ -51,7 +51,7 @@ namespace Todo.Areas.Customer.Controllers
                     var projects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsDeleted == false).ToListAsync();
                     var likedProjects = await _context.projects.Where(p => p.ApplicationUserId == currentUserId && p.IsLiked == true && p.IsDeleted == false).ToListAsync();
 
-                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId && e.IDeleted == false && e.IChecked == false && e.ProjectId == null).ToListAsync();
+                    entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId && e.IDeleted == false && e.IChecked == false && e.ProjectId == null).Include(e => e.Priority).ToListAsync();
 
                     var user = _context.users.Where(u => u.Id == currentUserId).FirstOrDefault();
 
@@ -59,8 +59,8 @@ namespace Todo.Areas.Customer.Controllers
                     projectAndTodoEntryViewModel.Projects = projects;
                     projectAndTodoEntryViewModel.LikdedProjects = likedProjects;
                     projectAndTodoEntryViewModel.User = user;
-                  
 
+                    
                     if (User.Identity.IsAuthenticated)
                     {
                         return View("Today", projectAndTodoEntryViewModel);
