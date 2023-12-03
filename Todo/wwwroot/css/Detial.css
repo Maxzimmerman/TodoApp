@@ -13,6 +13,7 @@
     padding: 20px;
     background-color: white;
     z-index: 9;
+    color: black !important;
 }
 
 .detail-close-button {

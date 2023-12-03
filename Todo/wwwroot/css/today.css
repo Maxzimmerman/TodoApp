@@ -2,14 +2,29 @@
     z-index: -1;
 }
 
+html {
+    background: #222830;
+    color: white !important;
+}
+
+body {
+    background: #222830 !important;
+}
+
 .body {
     margin-top: 2rem;
     padding: 3rem;
+    color: white;
+}
+
+.add-new-section {
+    color: #929bab;
 }
 
 .body-for-future {
     padding-top: 5rem !important;
     padding: 0rem;
+    color: white; 
 }
 
 @media screen and (min-width: 1024px) {
@@ -130,9 +145,9 @@ body p {
 
 .entry {
     margin-top: 5px;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0px 9px rgb(0 0 0 / 0.09);
+    padding: 20px;
+    border-radius: 15px;
+    background: #2d343f;
 }
 
 .entry:hover {

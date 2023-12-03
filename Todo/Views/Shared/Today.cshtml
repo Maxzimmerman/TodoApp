@@ -76,10 +76,8 @@
                             {
                                 @if(item.Priority != null)
                                 {
-                                    <div class="today-entry entry" hx-get="Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()" style="border: @item.Priority.Color.ToLower() 1px solid">
-                                        <hr>
-                                        <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Admin" asp-controller="Today" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a><span>@item.Title</span></h5>
-                                        <p>@item.EndDate.ToShortDateString()</p>
+                                    <div class="today-entry entry" hx-get="Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
+                                        <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Admin" asp-controller="Today" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button @item.Priority.Color"></a><span>@item.Title</span></h5>
                                     </div>
                                     <form action="/Admin/Today/DeleteButton?id=@item.Id" method="post" style="height: 2px">
                                         <button type="submit" class="delete-button">Löschen</button>
@@ -87,10 +85,8 @@
                                 }
                                 else
                                 {
-                                    <div class="today-entry entry" hx-get="Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()" style="border: black 1px solid">
-                                        <hr>
+                                    <div class="today-entry entry" hx-get="Admin/Today/Detail?id=@item.Id" hx-target="#detail-page" hx-trigger="click" onclick="ShowModal()">
                                         <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Admin" asp-controller="Today" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a><span>@item.Title</span></h5>
-                                        <p>@item.EndDate.ToShortDateString()</p>
                                     </div>
                                     <form action="/Admin/Today/DeleteButton?id=@item.Id" method="post" style="height: 2px">
                                         <button type="submit" class="delete-button">Löschen</button>
