@@ -1,31 +1,29 @@
 ﻿@model Todo.Models.ViewModels.RegisterViewModel
 
-<div class="register-body">
+<div class="register-body container">
 
-    <div class="row">
-        <div class="half-shadow"></div>
-        <div class="col-md-4 register-card">
+    <div class="row card-container">
+        <div class="col-md-12 register-card">
             <form id="registerForm" method="post" action="/User/UserManage/Register">
                 <h2>Erstelle ein neues Profil</h2>
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Email">Email</label>
+                <div class="">
+                    <input asp-for="Email" class="" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Name" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Name" />
-                    <label asp-for="Name">Name</label>
+                <hr />
+                <div class="">
+                    <input asp-for="Name" class="" autocomplete="new-password" aria-required="true" placeholder="Name" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Password">Password</label>
+                <hr />
+                <div class="">
+                    <input asp-for="Password" class="" autocomplete="new-password" aria-required="true" placeholder="password" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                    <label asp-for="ConfirmPassword">Confirm Password</label>
+                <hr />
+                <div class="">
+                    <input asp-for="ConfirmPassword" class="" autocomplete="new-password" aria-required="true" placeholder="Bestätige password" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>

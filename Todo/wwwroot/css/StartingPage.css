@@ -7,11 +7,13 @@
 .starting-page-navbar {
     position: absolute !important;
     margin: 0px !important;
+    background-color: inherit !important;
 }
 
 .starting-page-body {
     width: 100%;
     height: 100vh;
+    color: white;
 }
 
 .logo-wrapper {
@@ -37,6 +39,7 @@
     margin: 0px;
     padding: 0px;
     display: inline;
+    color: white;
 }
 
 .link-wrapper > a > i {
@@ -49,12 +52,17 @@
 }
 
 .main-content {
-    padding-top: 130px;
+    padding: 150px 200px;
 }
 
 .main-content > h1 {
     margin-bottom: 1vh;
+    color: white;
+    font-size: 3rem !important;
+    float: left;
+    text-align: left;
 }
+
 
 .main-content > img {
     width: 300px;
@@ -157,19 +165,19 @@
     }
 
     .link-wrapper > a {
-        font-size: 17px;
+        font-size: 15px;
         right: -65%;
     }
 
     .starting-page-navbar {
-        padding: 10px !important;
+        padding: 50px 200px 50px 200px !important;
     }
 }
 
 @media screen and (min-width: 1700px) {
     .main-content > h1 {
         margin-bottom: -10vh;
-        font-size: 35px;
+        font-size: 3rem;
     }
 
     .main-content > img {
@@ -188,6 +196,6 @@
     }
 
     .starting-page-navbar {
-        padding: 20px !important;
+        padding: 50px 200px 50px 200px !important;
     }
 }

@@ -99,7 +99,7 @@ body {
 
 .navbar {
     background-color: #1da19b;
-    padding: 20px;
+    padding: 20px 50px 20px 50px;
     position: fixed;
     top: 0;
     width: 100%;
