@@ -1,0 +1,38 @@
+﻿.operation-bar {
+    padding: 25px;
+}
+
+
+.logo {
+    display: flex;
+    justify-content: start;
+    justify-items: start;
+    margin-bottom: 50px;
+}
+
+.logo > img {
+    position: relative;
+    left: 10px;
+}
+
+.bar {
+    display: flex;
+    flex-direction: column;
+}
+
+.bar > a {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+    .bar > a:hover {
+        background-color: #1da19b;
+        color: white;
+    }
+
+    .bar > .selected {
+        background-color: #1da19b;
+    }

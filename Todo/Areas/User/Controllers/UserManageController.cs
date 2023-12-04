@@ -75,6 +75,7 @@ namespace Todo.Areas.User.Controllers
                 {
                     
                 }
+
                 var result = await _signInManager.PasswordSignInAsync
                     (
                         loginViewModel.Email, 
@@ -116,6 +117,22 @@ namespace Todo.Areas.User.Controllers
 
 
             var user = _context.users.FirstOrDefault(x => x.Id == currentUserId);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditUser(ApplicationUser user)
+        {
+
+            if (user == null)
+            {
+                _logger.LogInformation($"{user.UserName} not in correct in shape");
+                return BadRequest($"{user.UserName} in invalidem Zustand");
+            }
+            
+            _context.Update(user);
+            await _context.SaveChangesAsync();
 
             return View(user);
         }

@@ -15,6 +15,10 @@
     font-family: "Roboto" !important;
 }*/
 
+a:hover {
+    color: white;
+}
+
 .socond-color {
     color: #212730;
 }

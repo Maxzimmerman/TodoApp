@@ -1,6 +1,128 @@
 ﻿@model ApplicationUser
 
 
-<h1>Halle @Model.ApplicationUserName</h1>
-<a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">@Model.ApplicationUserName<i class="fa-solid fa-user"></i></a>
-<a asp-area="User" asp-controller="Usermanage" asp-action="Logout">Logout</a>
+<div class="register-body container">
+
+    <div class="row card-container">
+        <div class="operation-bar col-md-4">
+            <div class="image-holder">
+                <div class="logo"><img style="width: 80px; height: 80px" src="/Bilder/user.png" /></div>
+            </div>
+
+            <div class="bar">
+                <a asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
+                <a asp-area="User" asp-controller="UserManage" asp-action="Dashboard">Dashboard</a>
+                <a asp-area="User" asp-controller="UserManage" asp-action="EditUser" class="selected">Profil Details </a>
+                <a asp-area="User" asp-controller="UserManage" asp-action="Logout">Abmelden </a>
+            </div>
+        </div>
+        <div class="col-md-8 register-card">
+            <form id="account" method="post" action="/User/UserManage/EditUser">
+                <h2>Profil Details</h2>
+
+                <div class="">
+                    <input asp-for="Id" hidden/>
+                </div>
+
+                <div>
+                    <input asp-for="NormalizedUserName" hidden />
+                </div>
+
+                <div>
+                    <input asp-for="NormalizedEmail" hidden/>
+                </div>
+
+                <div>
+                    <input asp-for="EmailConfirmed" hidden />
+                </div>
+
+                <div>
+                    <input asp-for="PasswordHash" hidden />
+                </div>
+
+                <div>
+                    <input asp-for="SecurityStamp" hidden />
+                </div>
+
+                <div>
+                    <input asp-for="ConcurrencyStamp" hidden />
+                </div>
+
+                <div>
+                    <input asp-for="PhoneNumberConfirmed" hidden />
+                </div>
+
+                <div>
+                    <input asp-for="TwoFactorEnabled" hidden />
+                </div>
+
+                <div>
+                    <input asp-for="LockoutEnd" hidden />
+                </div>
+
+                <div>
+                    <input asp-for="LockoutEnabled" hidden />
+                </div>
+
+                <div>
+                    <input asp-for="AccessFailedCount" hidden />
+                </div>
+
+                <div class="">
+                    <input asp-for="ApplicationUserName" placeholder="@Model.ApplicationUserName" />
+                </div>
+                <hr />
+
+                @{
+                    if(Model.PhoneNumber == null || Model.PhoneNumber == string.Empty)
+                    {
+
+                        <div class="">
+                            <input asp-for="PhoneNumber" autocomplete="on" placeholder="Telefonnummer" />
+                        </div>
+                        <hr />
+                    }
+                    else
+                    {
+                        <div class="">
+                            <input asp-for="PhoneNumber" autocomplete="on" placeholder="@Model.PhoneNumber" />
+                        </div>
+                        <hr />
+                    }
+                }
+
+
+                <div class="">
+                    <input asp-for="Email" placeholder="@Model.Email"/>
+                </div>
+                <hr />
+
+                <button class="rounded p-2" type="submit">Anpassen</button>
+
+            </form>
+        </div>
+        <div class="">
+            <section>
+                @{
+                    // if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                    // {
+
+                    // }
+                    // else
+                    // {
+                    //     <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                    //         <div>
+                    //             <p>
+                    //                 @foreach (var provider in Model.ExternalLogins!)
+                    //                 {
+                    //                     <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                    //                 }
+                    //             </p>
+                    //         </div>
+                    //     </form>
+                    // }
+                }
+            </section>
+        </div>
+    </div>
+</div>

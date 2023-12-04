@@ -26,6 +26,7 @@
                     <input asp-for="ConfirmPassword" class="" autocomplete="new-password" aria-required="true" placeholder="Bestätige password" />
                     <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
+                <hr />
                 <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
             </form>
             <a asp-area="User" asp-controller="UserManage" asp-action="Login">Du hast bereits ein Profil?</a>

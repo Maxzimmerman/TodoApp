@@ -43,6 +43,14 @@
     font-size: 1rem;
 }
 
+.custom-button {
+    background-color: #1da19b !important;
+    border: none;
+    margin-bottom: 10px;
+    width: 50% !important;
+    font-size: 1rem;
+}
+
 register-card > form > button:focus,
 register-card > form > button:active {
     border: none !important;
