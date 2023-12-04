@@ -125,16 +125,26 @@ namespace Todo.Areas.User.Controllers
         public async Task<IActionResult> EditUser(ApplicationUser user)
         {
 
-            if (user == null)
+            if (user.Id == null || user.Id == string.Empty)
             {
                 _logger.LogInformation($"{user.UserName} not in correct in shape");
                 return BadRequest($"{user.UserName} in invalidem Zustand");
             }
             
-            _context.Update(user);
+            var db_user = await _context.users.FirstOrDefaultAsync(e => e.Id == user.Id);
+
+            if(db_user == null)
+            {
+                return NotFound();
+            }
+
+            db_user.ApplicationUserName = user.ApplicationUserName;
+            db_user.Email = user.Email;
+            db_user.PhoneNumber = user.PhoneNumber;
+
             await _context.SaveChangesAsync();
 
-            return View(user);
+            return View(db_user);
         }
 
         [HttpGet]
