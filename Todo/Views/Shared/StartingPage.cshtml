@@ -1,7 +1,7 @@
 ﻿<div class="starting-page-body" id="starting-page-body">
     <nav class="navbar starting-page-navbar">
         <div class="logo-wrapper">
-            <div class="logo"><img src="/Bilder/logo.png"/></div>
+            <div class="logo-main-page"><img src="/Bilder/logo.png"/></div>
         </div>
         <div class="link-wrapper">
             <a class="nav-link " id="register" asp-area="User" asp-controller="UserManage" asp-action="Login">Anmelden <i class="fa-solid fa-user"></i></a>
@@ -9,13 +9,28 @@
     </nav>
 
     <div class="stargin-page-main-element">
-        <div class="main-content">
-            <h1>The Power  <span style="display: block"> of Good Advice</span> </h1>
-            <h5>I'm a paragraph. Click here to add your own text and edit me</h5>
-            <a asp-area="User" asp-controller="UserManage" asp-action="Register" class="get-started-button">Starte noch heute</a>
-        </div>
-        <footer class="footer">
+        
+        <dív class="image-container">
+            <img class="image" data-overlay-dark="4" src="/Bilder/main_background.png" />
+            <div class="overlay1"></div>
+        </dív>
 
-        </footer>
+        <div class="main-content">
+            <div>
+                <h1>Manage and Optimize   <span style="display: block">your Workflow</span> </h1>
+            </div>
+            <div>
+                <h5>A tool to help you always keep your todos in mind</h5>
+            </div>
+            <div class="button-wrapper">
+                <button class="btn">
+                    <a asp-area="User" asp-controller="UserManage" asp-action="Register" class="get-started-button">Starte noch heute</a>
+                </button>
+            </div>
+            
+        </div>
+        @* <footer class="footer">
+
+        </footer> *@
     </div>
 </div>

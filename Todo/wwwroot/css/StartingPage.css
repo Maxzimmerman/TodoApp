@@ -1,4 +1,8 @@
-﻿html {
+﻿*:not(.image) {
+    z-index: 100;
+}
+
+html {
     font-family: "Roboto" !important;
     height: 100vh;
     width: 100%;
@@ -12,15 +16,92 @@
 
 .starting-page-body {
     width: 100%;
-    height: 100vh;
+    height: )0vh;
     color: white;
+}
+
+.image-container {
+    position: fixed;
+}
+
+a {
+    margin-top: 60px;
+    color: white;
+}
+
+button {
+    margin-top: 30px;
+    background-color: #1da19b !important;
+}
+
+.image {
+    position: fixed;
+    right: 10%;
+    top: 30%;
+    height: 29%;
+    width: 80%;
+    z-index: 1;
+    opacity: 0.6;
+}
+
+.overlay1,
+.overlay2,
+.overlay3,
+.overlay4 {
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    opacity: 0.5;
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
 }
 
 .logo-wrapper {
     width: 10%;
 }
 
-.logo > img {
+@media screen and (min-width: 810px) {
+    .image {
+        right: 16%;
+        top: 30%;
+        height: 35%;
+        width: 70%;
+    }
+}
+
+@media screen and (min-width: 1300px) {
+    .image {
+        right: 5%;
+        top: 30%;
+        height: 50%;
+        width: 45%;
+    }
+
+    .main-content > div > h1 {
+        margin-top: 13vh;
+        text-align: left;
+        margin-left: 10%;
+    }
+
+    .main-content > div > h5 {
+        margin-top: 10vh!important;
+    }
+
+    button {
+        margin-top: 30px;
+        background-color: #1da19b !important;
+    }
+
+    .button-wrapper {
+        display: block;
+        float: left;
+        margin-left: 10%;
+    }
+}
+
+.logo-main-page > img {
     width: 40px;
     height: 40px;
     position: relative;
@@ -48,28 +129,42 @@
 
 .stargin-page-main-element {
     text-align: center;
-    height: 100vh;
+    height: 0vh;
 }
 
 .main-content {
-    padding: 150px 200px;
+    
 }
 
 .main-content > h1 {
     margin-bottom: 1vh;
     color: white;
-    font-size: 3rem !important;
+    font-size: 2rem !important;
     float: left;
     text-align: left;
+    position: relative;
+    top: -40px;
+}
+
+.main-content > div > h1 {
+    margin-top: 13vh;
+    text-align: left;
+    margin-left: 10%;
+}
+
+.main-content > div > h5 {
+        margin-top: 50vh;
+        text-align: left;
+        margin-left: 10%;
 }
 
 
 .main-content > img {
-    width: 300px;
-    display: block;
-    margin: auto;
-    margin-bottom: 10vh;
-}
+        width: 300px;
+        display: block;
+        margin: auto;
+        margin-bottom: 10vh;
+    }
 
 .starting-page-body > main > .main-content > .get-started-button {
     background-color: #1da19b;
