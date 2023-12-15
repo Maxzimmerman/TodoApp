@@ -1,11 +1,26 @@
-﻿namespace Todo.Models
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Todo.Models
 {
     public class Category
     {
+        [Key]
         public int Id { get; set; }
+        [Required]
+        [MaxLength(15)]
         public string Name { get; set; }
-        // when the user uses a weekly then the counter will be 7
-        // i'll have to make sure that this todo is after 7 days available
+        [Required]
+        [Range(0, 365)]
         public int Counter { get; set; }
+
+        public Category() { }
+
+        public Category(string name, int counter)
+        {
+            Name = name;
+            Counter = counter;
+        }
     }
 }

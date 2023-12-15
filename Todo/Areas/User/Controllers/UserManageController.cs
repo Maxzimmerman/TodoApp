@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using System.Security.Claims;
 using Todo.DataAccess.data;
+using Todo.DataAccess.Repository.IRepository;
 using Todo.Models;
 using Todo.Models.ViewModels;
 using static System.Net.Mime.MediaTypeNames;
@@ -18,16 +19,19 @@ namespace Todo.Areas.User.Controllers
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly IUnitOfWork _uniUnitOfWork;
 
         public UserManageController(ILogger<UserManageController> logger, 
             ApplicationDbContext context, 
             SignInManager<IdentityUser> signInManager, 
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IUnitOfWork unitOfWork)
         {
             _logger = logger;
             _context = context;
             _signInManager = signInManager;
             _userManager = userManager;
+            _uniUnitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -42,17 +46,10 @@ namespace Todo.Areas.User.Controllers
         {
             if(ModelState.IsValid)
             {
-                var user = new ApplicationUser 
-                { 
-                    UserName = registerViewModel.Email, 
-                    Email = registerViewModel.Email, 
-                    ApplicationUserName = registerViewModel.Name
-                };
-                var result = await _userManager.CreateAsync(user, registerViewModel.Password);
+                var result = _uniUnitOfWork.ApplicationUserRepository.AddAsync(registerViewModel);
 
-                if(result.Succeeded)
+                if(result.IsCompleted)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: true);
                     return RedirectToAction("Index", "Home", new {Area="Customer"});
                 }
             }

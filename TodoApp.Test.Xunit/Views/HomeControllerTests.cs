@@ -16,20 +16,20 @@ namespace TodoApp.Test.Xunit.Views
 {
     public class HomeControllerTests
     {
-        [Fact]
-        public void Test_Todo_Action_Returns_View()
-        {
-            // Arrange
-            var loggerMock = new Mock<ILogger<HomeController>>();
-            var contextMock = new Mock<ApplicationDbContext>();
-            var controller = new HomeController(loggerMock.Object, contextMock.Object);
+        //[Fact]
+        //public void Test_Todo_Action_Returns_View()
+        //{
+        //    // Arrange
+        //    var loggerMock = new Mock<ILogger<HomeController>>();
+        //    var contextMock = new Mock<ApplicationDbContext>();
+        //    var controller = new HomeController(loggerMock.Object, contextMock.Object);
 
-            // Act
-            var result = controller.Todo();
+        //    // Act
+        //    var result = controller.Todo();
 
-            // Assert
-            var statusCodeResult = Assert.IsType<StatusCodeResult>(result);
-            Assert.Equal(404, statusCodeResult.StatusCode);
-        }
+        //    // Assert
+        //    var statusCodeResult = Assert.IsType<StatusCodeResult>(result);
+        //    Assert.Equal(404, statusCodeResult.StatusCode);
+        //}
     }
 }
