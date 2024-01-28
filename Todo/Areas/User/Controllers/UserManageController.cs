@@ -19,19 +19,16 @@ namespace Todo.Areas.User.Controllers
         private readonly ApplicationDbContext _context;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUnitOfWork _uniUnitOfWork;
 
         public UserManageController(ILogger<UserManageController> logger, 
             ApplicationDbContext context, 
             SignInManager<IdentityUser> signInManager, 
-            UserManager<IdentityUser> userManager,
-            IUnitOfWork unitOfWork)
+            UserManager<IdentityUser> userManager)
         {
             _logger = logger;
             _context = context;
             _signInManager = signInManager;
             _userManager = userManager;
-            _uniUnitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -46,11 +43,16 @@ namespace Todo.Areas.User.Controllers
         {
             if(ModelState.IsValid)
             {
-                var result = _uniUnitOfWork.ApplicationUserRepository.AddAsync(registerViewModel);
+                var user = new ApplicationUser { UserName= registerViewModel.Email, Email=registerViewModel.Email, ApplicationUserName = registerViewModel.Name };
+                var result = await _userManager.CreateAsync(user, registerViewModel.Password);
 
-                if(result.IsCompleted)
+                if(result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home", new {Area="Customer"});
+                }
+                else
+                {
+                    return BadRequest(result.Errors);
                 }
             }
             return View(registerViewModel);
@@ -68,18 +70,7 @@ namespace Todo.Areas.User.Controllers
         {
             if(ModelState.IsValid)
             {
-                if(loginViewModel.RememberMe == true)
-                {
-                    
-                }
-
-                var result = await _signInManager.PasswordSignInAsync
-                    (
-                        loginViewModel.Email, 
-                        loginViewModel.Password, 
-                        loginViewModel.RememberMe, 
-                        lockoutOnFailure: false
-                    );
+                var result = await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, loginViewModel.RememberMe, lockoutOnFailure: false);
 
                 if (result.Succeeded)
                 {
@@ -87,7 +78,7 @@ namespace Todo.Areas.User.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, $"Invalid login attempt.");
                     return View();
                 }
             }

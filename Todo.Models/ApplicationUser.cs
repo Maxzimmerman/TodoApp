@@ -15,12 +15,5 @@ namespace Todo.Models
         [Required]
         [MaxLength(100)]
         public string ApplicationUserName { get; set; }
-
-        public ApplicationUser() { }
-
-        public ApplicationUser(string name)
-        {
-            this.ApplicationUserName = name;
-        }
     }
 }

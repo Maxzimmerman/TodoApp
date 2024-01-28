@@ -16,7 +16,7 @@ namespace Todo.DataAccess.Repository.IRepository
         ApplicationUser GetOne(int id);
         async Task<IdentityResult> AddAsync(RegisterViewModel registerViewModel)
         {
-            throw new NotImplementedException();
+            throw new Exception();
         }
         void Remove(ApplicationUser entity);
     }
