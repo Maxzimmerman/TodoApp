@@ -1,12 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.SqlServer.Server;
-using MySqlConnector;
-using Todo.DataAccess.data;
-using Todo.DataAccess.Repository;
-using Todo.DataAccess.Repository.IRepository;
-using TodoUtility;
+using Todo.Data;
+using Todo.Utility;
 
 // Other using statements...
 
@@ -14,15 +10,30 @@ using TodoUtility;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+// Identity
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+
+// Database
     .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration["ConnectionStrings:MySqlConnection"]));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MSSQLConnection")));
+
+// Services
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IEmailSender, EmailSender>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+
 var app = builder.Build();
+
+// Apply Migrations
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    dbContext.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

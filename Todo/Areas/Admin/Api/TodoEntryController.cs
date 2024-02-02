@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using Todo.DataAccess.data;
-using Todo.Models;
+using Todo.Data;
+using Todo.ModelsIn;
 
 namespace Todo.Areas.Admin.Api
 {
@@ -33,7 +33,7 @@ namespace Todo.Areas.Admin.Api
                 var currentUser = (ClaimsIdentity)User.Identity;
                 var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-                List<TodoEntry> entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToListAsync();
+                List<Todo.ModelsIn.TodoEntry> entries = await _context.todos.Where(e => e.ApplicationUserId == currentUserId).ToListAsync();
 
                 if (entries.Count == 0)
                 {

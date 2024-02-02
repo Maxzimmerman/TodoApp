@@ -5,9 +5,9 @@ using Microsoft.Build.Evaluation;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Todo.Areas.Customer.Controllers;
-using Todo.DataAccess.data;
-using Todo.Models;
-using Todo.Models.ViewModels;
+using Todo.Data;
+using Todo.ModelsIn;
+using Todo.ModelsIn.ViewModels;
 
 namespace Todo.Areas.Admin.Contrellers
 {

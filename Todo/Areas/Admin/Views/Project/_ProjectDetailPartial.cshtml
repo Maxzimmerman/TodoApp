@@ -1,4 +1,4 @@
-﻿@model Todo.Models.ViewModels.ProjectDetailPartialViewModel;
+﻿@model Todo.ModelsIn.ViewModels.ProjectDetailPartialViewModel;
 
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<IdentityUser> SignInManager
@@ -93,7 +93,7 @@
                                         <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Admin" asp-controller="Today" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button @item.Priority.Color"></a>@item.Title</h5>
                                     </div>
                                     <form action="/Admin/Today/DeleteButton?id=@item.Id" method="post" style="height: 2px">
-                                        <button type="submit" class="delete-button">Löschen</button>
+                                        <button type="submit" class="delete-button custom-button-custom">Löschen</button>
                                     </form>
                                 }
                                 else
@@ -102,7 +102,7 @@
                                         <h5 class="item-title"><a asp-route-id="@item.Id" asp-area="Admin" asp-controller="Today" asp-action="CheckTodo" class="fa-regular fa-circle-check check-button"></a>@item.Title</h5>
                                     </div>
                                     <form action="/Admin/Today/DeleteButton?id=@item.Id" method="post" style="height: 2px">
-                                        <button type="submit" class="delete-button">Löschen</button>
+                                        <button type="submit" class="delete-button custom-button-custom">Löschen</button>
                                     </form>
                                 }
                             }

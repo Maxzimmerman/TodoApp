@@ -31,7 +31,7 @@ starting-page-nav-link {
 
 button {
     margin-top: 30px;
-    background-color: #1da19b !important;
+    background-color: #1da19b;
 }
 
 .image {
@@ -91,7 +91,7 @@ button {
 
     button {
         margin-top: 30px;
-        background-color: #1da19b !important;
+        background-color: #1da19b;
     }
 
     .button-wrapper {
@@ -293,4 +293,10 @@ button {
     .starting-page-navbar {
         padding: 50px 200px 50px 200px !important;
     }
+}
+
+.custom-button-custom {
+    background-color: none !important;
+    z-index: 0 !important;
+    top: -90px !important;
 }

@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Todo.DataAccess.data;
-using Todo.Models;
+using Todo.Data;
+using Todo.ModelsIn;
 
 namespace Todo.Areas.Admin.Api
 {
@@ -46,7 +46,7 @@ namespace Todo.Areas.Admin.Api
                 return BadRequest("Id can't be 0");
             }
 
-            Category category = await _context.categories.FirstOrDefaultAsync(c => c.Id == id);
+            var category = await _context.categories.FirstOrDefaultAsync(c => c.Id == id);
 
             if (category == null)
             {

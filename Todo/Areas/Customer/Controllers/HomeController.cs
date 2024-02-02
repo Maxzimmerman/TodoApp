@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Dynamic;
 using System.Security.Claims;
-using Todo.DataAccess.data;
-using Todo.Models;
-using Todo.Models.ViewModels;
+using Todo.Data;
+using Todo.ModelsIn;
+using Todo.ModelsIn.ViewModels;
 
 namespace Todo.Areas.Customer.Controllers
 {

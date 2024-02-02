@@ -21,8 +21,4 @@
     <PackageReference Include="MySqlConnector.DependencyInjection" Version="2.3.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Todo.Models\Todo.Models.csproj" />
-  </ItemGroup>
-
 </Project>

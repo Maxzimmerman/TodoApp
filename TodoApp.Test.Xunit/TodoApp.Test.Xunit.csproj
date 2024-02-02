@@ -28,8 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccess\Todo.DataAccess.csproj" />
-    <ProjectReference Include="..\Todo.Models\Todo.Models.csproj" />
     <ProjectReference Include="..\Todo\Todo.csproj" />
   </ItemGroup>
 

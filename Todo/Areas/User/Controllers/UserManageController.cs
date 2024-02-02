@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
 using System.Security.Claims;
-using Todo.DataAccess.data;
-using Todo.DataAccess.Repository.IRepository;
-using Todo.Models;
-using Todo.Models.ViewModels;
+using Todo.Data;
+using Todo.Data.Repository.IRepository;
+using Todo.ModelsIn;
+using Todo.ModelsIn.ViewModels;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 

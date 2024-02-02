@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using Todo.DataAccess.data;
-using Todo.Models.ViewModels;
+using Todo.Data;
+using Todo.ModelsIn.ViewModels;
 
 namespace Todo.Areas.Admin.Contrellers
 {

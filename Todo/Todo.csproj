@@ -34,6 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.8" />
@@ -51,11 +52,6 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Today\" />
     <Folder Include="Areas\Customer\Views\Today\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\DataAccess\Todo.DataAccess.csproj" />
-    <ProjectReference Include="..\TodoUtility\TodoUtility.csproj" />
   </ItemGroup>
 
 </Project>
